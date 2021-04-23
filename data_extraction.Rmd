@@ -1,0 +1,243 @@
+---
+title: "Working title...."
+---
+
+# Load and configure libraries
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+
+library(tidyverse)
+library(lubridate)
+
+# For retrieving data from the dimensions API we use the package "rdimensions", 
+# available at https://github.com/nicholasmfraser/rdimensions. This package is a 
+# work-in-progress and offers basic functionality for interacting with the 
+# Dimensions API, including issue and refreshing of API authentication tokens 
+# and querying the main API endpoint. The package can be installed as follows:
+# install.packages("devtools")
+# devtools::install_github("nicholasmfraser/rdimensions")
+
+library(rdimensions)
+
+# Login and retrieve dimensions token. Authentication credentials are stored in 
+# local .Renviron file
+rdimensions::dimensions_login()
+
+```
+
+# Retrieve and parse Dimensions data
+
+```{r}
+
+# Dimensions subject categories
+dimensions_categories <- read_csv("data/dimensions/dimensions_fields_of_research.csv") %>%
+  pull(category_dimensions)
+
+# GRID identifiers for DEAL institutions
+deal_grid <- read_csv("data/deal/deal_grid_mapping.csv") %>%
+  filter(!is.na(grid)) %>%
+  pull(grid)
+
+# Simple helper for parsing character fields that may be NULL 
+parse_chr <- function(d) {
+  ifelse(is.null(d), NA_character_, as.character(d))
+}
+
+# Parse the id, doi and publication year for an article
+parse_items <- function(item) {
+  data <- tibble(article_id = item$id,
+                 article_doi = parse_chr(item$doi),
+                 article_pubyear = item$year)
+  return(data)
+}
+
+# Parse the subject categories for an article
+parse_categories <- function(item) {
+  if(!is.null(item$category_for)) {
+    category_name <- item$category_for %>%
+      map_chr(~ .$name) %>%
+      keep(~ . %in% dimensions_categories) %>%
+      str_remove("^[0-9 ]+")
+    data <- tibble(article_id = rep(item$id, length(category_name)),
+                   category_name = category_name)
+    return(data)
+  }
+}
+
+# Parse the reference list for an article
+parse_references <- function(item) {
+  if(!is.null(item$referenced_pubs)) {
+    n <- length(item$referenced_pubs)
+    data <- tibble(
+      article_id_citing = rep(item$id, n),
+      article_doi_citing = rep(parse_chr(item$doi), n),
+      article_id_cited = map_chr(item$referenced_pubs, ~ .$id),
+      article_doi_cited = map_chr(item$referenced_pubs, ~ parse_chr(.$doi)))
+    return(data)
+  }
+}
+
+# Parse insitutional information for each author
+parse_institutions <- function(author, author_position) {
+  if(!is.null(author$affiliations)) {
+    n <- length(author$affiliations)
+    data <- tibble(
+      author_position = rep(author_position, n),
+      institution_grid = map_chr(author$affiliations, ~ parse_chr(.$id)),
+      # Use UTF-8 encoding for institution names
+      institution_name = map_chr(author$affiliations, ~ enc2utf8(parse_chr(.$name))),
+      institution_country = map_chr(author$affiliations, ~ parse_chr(.$country_code)))
+    return(data)
+  }
+}
+
+# Parse author lists
+parse_authors <- function(item) {
+  if(!is.null(item$authors)) {
+    n <- length(item$authors)
+    author_position <- c(1:n)
+    institutions <- map2_dfr(item$authors, author_position, parse_institutions)
+    data <- tibble(article_id = item$id,
+                   author_position = author_position) %>% 
+      left_join(., institutions, by = c("author_position")) %>%
+      mutate(institution_is_deal = ifelse(institution_grid %in% deal_grid, T, F))
+    return(data)
+  }
+}
+
+# function for retrieving Dimensions publication data for a single year and
+# institution (GRID). Dimensions allows a maximum of 1000 records to be returned
+# per query, but this sometimes leads to errors where the returned data size is
+# too large. The maximum number of records returned per query is therefore set
+# to 200. For institutions with more than 200 records, we iterate over the 
+# result set and add a new "skip" parameter for each query. 
+get_dimensions_data <- function(year, grid) {
+  
+  # Define the fields we wish to return
+  fields <- c("id",
+              "doi",
+              "year",
+              "authors",
+              "referenced_pubs",
+              "category_for",
+              "open_access_categories_v2")
+  
+  # Set maximum number of results to return per query
+  n_per_query <- 200
+
+  # Build the initial query string
+  query <- str_c("search publications where (research_orgs=\"",
+                 grid, "\" and year=", year, 
+                 " and type=\"article\") return ",
+                 "publications[", str_c(fields, collapse = "+"), "] limit ", n_per_query)
+  
+  # Make initial query and determine number of results
+  data <- dimensions_query(query)
+  n_results <- data$`_stats`$total_count
+  
+  # If no results are returned, do nothing
+  if(n_results > 0) {
+    
+    # Extract relevant publication data
+    publications <- data$publications
+  
+    # If more results are expected than returned in the initial query, iterate
+    # over the full results set
+    if(n_results > n_per_query) {
+  
+      # Calculate the number of iterations required
+      iterations <- floor(n_results / n_per_query)
+      
+      for(i in 1:iterations) {
+        # Add a sleep before each query (don't hit the server too hard)
+        Sys.sleep(1)
+        
+        # Build iteration query string (add "skip" parameter to initial query string)
+        i_query <- str_c(query, " skip ", i*n_per_query)
+        
+        # Do query
+        data <- dimensions_query(i_query)
+        
+        # Append new publication data to existing publication data
+        publications <- c(publications, data$publications)
+      }
+    }
+    
+    # Parse elements to individual data frames. Use parallel processing with
+    # furrr to speed up this step
+    items <- map_dfr(publications, parse_items)
+    categories <- map_dfr(publications, parse_categories)
+    references <- map_dfr(publications, parse_references)
+    authors_institutions <- map_dfr(publications, parse_authors)
+  
+    # Below each individual data frame is written to a .csv file. In some cases, 
+    # data frames are empty (e.g. when no information was parsed during the 
+    # previous steps).
+    
+    # Write items. 
+    if(nrow(items) > 0) {
+      path <- str_c(base_dir, "items/items_", grid, "_", year, ".csv")
+      write_csv(items, path)
+    }
+    
+    # Write categories
+    if(nrow(categories) > 0) {
+      path <- str_c(base_dir, "categories/categories_", grid, "_", year, ".csv")
+      write_csv(categories, path)
+    }
+    
+    # Write references
+    if(nrow(references) > 0) {
+      path <- str_c(base_dir, "references/references_", grid, "_", year, ".csv")
+      write_csv(references, path)
+    }
+    
+    # Write authors and institution data
+    if(nrow(authors_institutions) > 0) {
+      path <- str_c(base_dir, "authors_institutions/authors_institutions_", grid, "_", year, ".csv")
+      write_csv(authors_institutions, path)
+    }
+  }
+}
+
+# Set base directory for writing files
+base_dir <- "data/dimensions/raw/"
+
+# Define years of analysis
+years <- 2013:2013
+
+# Loop over years and GRID identifiers and extract publication information
+for (year in years) {
+  for (grid in deal_grid[30:388]) {
+    if(!file.exists(str_c("data/dimensions/raw/items/items_", grid, "_", year, ".csv"))) {
+      get_dimensions_data(year, grid)
+    }
+  }
+}
+
+```
+
+# Aggregate raw data to single files of unique records
+
+```{r}
+
+input_path <- "data/dimensions/raw/"
+output_path <- "data/dimensions/aggregated/"
+
+aggregate_data <- function(type, col_types) {
+  
+  list.files(str_c(input_path, type), pattern = "*.csv") %>%
+    map_dfr(~ read_csv(str_c(input_path, type, "/", .), col_types = col_types)) %>%
+    distinct() %>%
+    write_csv(str_c(output_path, type, ".csv"))
+
+}
+
+aggregate_data("items", "cci")
+aggregate_data("categories", "cc")
+aggregate_data("authors_institutions", "cicccl")
+aggregate_data("references", "cccc")
+
+```
+
+# Upload to bigquery
