@@ -1,14 +1,54 @@
 ---
 title: "No Deal: Investigating the Influence of Restricted Access to Elsevier Journals on German Researchers’ Publishing and Citing Behaviours"
-abstract: "In 2014, a union of German research organisations established Projekt DEAL, a national-level project to negotiate licensing agreements with large scientific publishers. Negotiations between the DEAL consortium and Elsevier, one of the world's largest scientific publishers, began in 2016, and broke down without a successful agreement in 2018; in this time, around 200 German research institutions cancelled their existing license agreements with Elsevier, leading to Elsevier restricting access to their journal portfolios at those institutions from July 2018 onwards. In this study we assess the effect of Elsevier access restrctions on the publishing and citing behaviour of researchers at the affected institutions. [Add a brief summary of results and conclusions]."
-author: "Nicholas Fraser, Anne Hobert, Najko Jahn, et al."
 output:
   bookdown::pdf_document2:
     toc: false
     number_sections: false
+    keep_tex: true
 linkcolor: black
 urlcolor: blue
 ---
+
+<!-- For adding nicely formatted authorship information to final PDF, see "pretty_authors.tex" -->
+
+## Abstract
+
+In 2014, a union of German research organisations established Projekt DEAL, a national-level project to negotiate licensing agreements with large scientific publishers. Negotiations between the DEAL consortium and Elsevier, one of the world's largest scientific publishers, began in 2016, and broke down without a successful agreement in 2018; in this time, around 200 German research institutions cancelled their existing license agreements with Elsevier, leading to Elsevier restricting access to their journal portfolios at those institutions from July 2018 onwards. In this study we assess the effect of Elsevier access restrctions on the publishing and citing behaviour of researchers at the affected institutions. [**To do:** Add a brief summary of results and conclusions].
+
+## Declarations
+
+#### Author Contributions
+
+<!-- [See: https://casrai.org/credit/] -->
+Conceptualisation:
+Data curation:
+Formal analysis:
+Funding acquisition:
+Investigation:
+Methodology:
+Project administration:
+Resources:
+Software
+Supervision:
+Validation:
+Visualisation:
+Writing - original draft:
+Writing  - review and editing:
+
+#### Competing interests
+
+The authors declare no competing interests.
+
+#### Acknowledgments {.appendix}
+
+This work was supported by the German Federal Ministry of Education and Research within the
+funding stream “Quantitative research on the science sector”, projects OASE (grant numbers 01PU17005A and 01PU17005B) and OAUNI (grant numbers 01PU17023A and 01PU17023B). We are grateful to Dimensions (https://www.dimensions.ai/) for providing free API access through their scientometric research access program (https://www.dimensions.ai/scientometric-research/).
+
+#### Data and code availability
+
+<!-- Only the aggregated datasets and code will be shared (i.e. raw datasets not shared) due to licensing agreements with Dimensions -->
+
+Aggregated datasets presented in this manuscript, as well as all code used for the data extraction, analysis, and manuscript preparation are available on GitHub (https://github.com/nicholasmfraser/Projekt_DEAL) and archived on Zenodo ([**To do:** add Zenodo link here]).
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 
@@ -64,7 +104,9 @@ source("helpers.R")
 
 ```
 
-## Background
+\pagebreak
+
+## Introduction
 
 In 2014 the [Alliance of Science Organisations](https://wissenschaftsfreiheit.de/) (*Allianz der Wissenschaftsorganisationen*; AWO), a union of the majority of German research organisations, established a national-level project named [“Projekt DEAL”](https://www.projekt-deal.de) (herein referred to as “DEAL”), to negotiate licensing agreements for access to electronic journals of large scientific publishers. The key objectives of DEAL are: 
 
@@ -72,22 +114,23 @@ In 2014 the [Alliance of Science Organisations](https://wissenschaftsfreiheit.de
 2. To make all articles published by German authors automatically Open Access (OA) under CC-BY licenses.
 3. To secure reasonable pricing according to a simple, future-oriented model based on publication volumes.
 
-To date, DEAL negotiations have centred on three major publishers: Elsevier, Springer Nature and Wiley. Between 2012 and 2020, these three publishers were collectively responsible for publishing ~`r bq_dataset("items_all_member") %>% mutate(is_big_pub = ifelse(member %in% c(78, 297, 311), T, F)) %>% group_by(is_big_pub) %>% tally(n_items) %>% mutate(prop = round(n*100/sum(n))) %>% filter(is_big_pub == T) %>% pull(prop)`% of scientific articles with at least a single author from a DEAL institutions (Elsevier ~`r bq_dataset("items_all_member") %>% group_by(member) %>% tally(n_items) %>% mutate(prop = round(n*100/sum(n))) %>% filter(member == 78) %>% pull(prop)`%, Springer Nature ~`r bq_dataset("items_all_member") %>% group_by(member) %>% tally(n_items) %>% mutate(prop = round(n*100/sum(n))) %>% filter(member == 297) %>% pull(prop)`%, Wiley ~`r bq_dataset("items_all_member") %>% group_by(member) %>% tally(n_items) %>% mutate(prop = round(n*100/sum(n))) %>% filter(member == 311) %>% pull(prop)`%; data according to [Dimensions](https://www.dimensions.ai/)). Negotiations between DEAL and Elsevier officially began in 2016, with Springer Nature and Wiley negotiations beginning a year later in 2017. In January 2019, DEAL announced the signing of a Publish And Read (PAR) agreement with Wiley, fulfilling the defined negotiating objectives by allowing full access to Wiley’s portfolio of journals for DEAL institutions, and automatic publishing of articles under OA licenses, for an annual fee equal to €2,750 per published article ([Sander et al., 2019](https://doi.org/10.17617/2.3027595)). In January 2020 a similar PAR agreement between DEAL and Springer Nature was signed, including the same per-article fee equal to €2,750 ([Kieselbach, 2020](https://doi.org/10.17617/2.3174351)).
+To date, DEAL negotiations have centred on three major publishers: Elsevier, Springer Nature and Wiley. Between 2012 and 2020, these three publishers were collectively responsible for publishing ~`r bq_dataset("items_all_member") %>% mutate(is_big_pub = ifelse(member %in% c(78, 297, 311), T, F)) %>% group_by(is_big_pub) %>% tally(n_items) %>% mutate(prop = round(n * 100 / sum(n))) %>% filter(is_big_pub == T) %>% pull(prop)`% of scientific articles with at least a single author from a DEAL institutions (Elsevier ~`r bq_dataset("items_all_member") %>% group_by(member) %>% tally(n_items) %>% mutate(prop = round(n*100/sum(n))) %>% filter(member == 78) %>% pull(prop)`%, Springer Nature ~`r bq_dataset("items_all_member") %>% group_by(member) %>% tally(n_items) %>% mutate(prop = round(n * 100 / sum(n))) %>% filter(member == 297) %>% pull(prop)`%, Wiley ~`r bq_dataset("items_all_member") %>% group_by(member) %>% tally(n_items) %>% mutate(prop = round(n * 100 / sum(n))) %>% filter(member == 311) %>% pull(prop)`%; data according to [Dimensions](https://www.dimensions.ai/)). Negotiations between DEAL and Elsevier officially began in 2016, with Springer Nature and Wiley negotiations beginning a year later in 2017. In January 2019, DEAL announced the signing of a Publish And Read (PAR) agreement with Wiley, fulfilling the defined negotiating objectives by allowing full access to Wiley’s portfolio of journals for DEAL institutions, and automatic publishing of articles under OA licenses, for an annual fee equal to €2,750 per published article ([Sander et al., 2019](https://doi.org/10.17617/2.3027595)). In January 2020 a similar PAR agreement between DEAL and Springer Nature was signed, including the same per-article fee equal to €2,750 ([Kieselbach, 2020](https://doi.org/10.17617/2.3174351)).
 
 Whilst negotiations with Wiley and Springer Nature have now concluded in publishing agreements, negotiations with Elsevier remain unresolved. At the end of 2016, ~70 German institutions ([archived list](https://web.archive.org/web/20191212094238/https://www.projekt-deal.de/vertragskuendigungen_elsevier/)) chose not to renew their contracts with Elsevier, leading to Elsevier restricting access to new journal issues at those institutions (and also restricting access to back-catalogues at some institutions) from the beginning of 2017 ([Vogel, 2017a](https://doi.org/10.1126/science.355.6320.17)), although access was restored 6 weeks later ([Vogel, 2017b](https://doi.org/10.1126/science.aal0753)). At the end of 2017, a further ~110 German institutions ([archived list](https://web.archive.org/web/20191212094842/https://www.projekt-deal.de/vertragskundigungen-elsevier-2017/)) decided not to renew their contracts with Elsevier, and at the beginning of July 2018, the [German Rectors' Conference](https://www.hrk.de/) (*Hochschulrektorenkonferenz*; HRK), who are leading negotiations on behalf of AWO, [announced](https://web.archive.org/web/20191212113744/https://www.hrk.de/presse/pressemitteilungen/pressemitteilung/meldung/verhandlungen-von-deal-und-elsevier-elsevier-forderungen-sind-fuer-die-wissenschaft-inakzeptabel-440/) the breakdown and cancellation of all ongoing negotiations with Elsevier. In mid-July 2018, authors at institutions which had cancelled their contracts with Elsevier had their access to new journal issues completely cut-off ([Else, 2018](https://doi.org/10.1038/d41586-018-05754-1)). A further ~25 institutions, including the Max Plank Society and Fraunhofer Society ([archived list](https://web.archive.org/web/20191114074949/https://www.projekt-deal.de/vertragskundigungen-elsevier-2018/)) did not renew their contracts with Elsevier at the end of 2018.
 
-## Motivation and Research Questions
-
-As a provider of a large proportion of research published and cited by German researchers, restricted access to Elsevier's article collections may have measurable effects on the publication and citation patterns of researchers at DEAL institutions. Attempts to quantify such effects have already been made through recent survey approaches: [A survey commissioned by Elsevier](http://www.mynewsdesk.com/de/elsevier/documents/study-impact-of-access-cancellation-in-germany-89795) found that 61% of German researchers agreed or strongly agreed that losing access made their research activities less efficient, whilst 54% agreed or strongly agreed that losing access delayed the speed that they produce their research output. A separate survey of 384 researchers at the Faculty of Medicine of the University of Münster showed an overall similar sentiment, with 66% of researchers reporting that they now require more time to acquire literature and 46% of researchers reporting that losing access was a competitive disadvantage, yet only 29% of researchers reported that they would no longer write or review articles for Elsevier journals ([Obst, 2019](https://doi.org/10.3205/mbi000441)). 
+As a provider of a large proportion of research published and cited by German researchers, restricted access to Elsevier's article collections may have measurable effects on the publication and citation patterns of researchers at DEAL institutions. Attempts to quantify such effects have already been made through recent survey approaches: [A survey commissioned by Elsevier](https://www.mynewsdesk.com/de/elsevier/documents/study-impact-of-access-cancellation-in-germany-89795)([link to archived document](https://web.archive.org/web/20210427160017/https://resources.mynewsdesk.com/image/upload/fl_attachment/sgmm6zhwdmam4ys7evvf)) found that 61% of German researchers agreed or strongly agreed that losing access made their research activities less efficient, whilst 54% agreed or strongly agreed that losing access delayed the speed that they produce their research output. A separate survey of 384 researchers at the Faculty of Medicine of the University of Münster showed an overall similar sentiment, with 66% of researchers reporting that they now require more time to acquire literature and 46% of researchers reporting that losing access was a competitive disadvantage, yet only 29% of researchers reported that they would no longer write or review articles for Elsevier journals ([archived webpage](https://web.archive.org/web/20210429122105/https://www.uni-muenster.de/ZBMed/aktuelles/27850)). Following the implementation of access restrictions, a number of German researchers also resigned from their positions on editorial boards of Elsevier journals ([Vogel, 2017c](https://doi.org/10.1126/science.aar2142); [archived list of resignations](https://web.archive.org/web/20210427081142/https://www.projekt-deal.de/aktuelles-zu-elsevier/)).
 
 The situation in Germany is not unique and breakdowns in negotiations between library consortia and Elsevier have been reported elsewhere. In Sweden, a number of universities, research institutes and government agencies were cut off from Elsevier between mid-2018 and the end of 2019 due to a breakdown in negotiations between Elsevier and the [Bibsam Consortium](https://www.kb.se/samverkan-och-utveckling/oppen-tillgang-och-bibsamkonsortiet.html) (the national-level license negotiating body for Sweden). A [PAR agreement](https://www.kb.se/download/18.a9bd5bf1707b0801cd15e/1582893792629/Bibsam-Elsevier-2020-2022-tobepublished-titlelistexcluded.pdf) was eventually signed between Bibsam and Elsevier at the end of 2019, to take effect from 1st January 2020. A large-scale survey of 4,221 Swedish researchers carried out by the Bibsam Consortium during the time period that Elsevier journals were inaccessible found that 51% of respondents were negatively affected in their desire to publish with Elsevier, and 54% had their work negatively impacted ([Olson et al., 2020](http://doi.org/10.1629/uksg.507)). The University of California (UC) system also recently signed a [Memorandum of Understanding](https://ucsf.app.box.com/s/gb2zj4dmk3h11p4munjvt9gsvtxr84qw) with Elsevier following the suspension of negotiations, and shutoff to Elsevier access, in 2019.
 
-Despite these survey approaches, to our knowledge no ground truth on the effect of restricted access to Elsevier journals from a bibliometric perspective has yet been established. In this study we therefore aim to conduct a bibliometric investigation of the following research questions:
+[**Note:** not sure if the following paragraph really fits here, can also be removed or moved to the discussion]
+In parallel to these library-led negotiations, other researcher-led protests against the business practices of Elsevier have occurred. [The Cost of Knowledge](http://thecostofknowledge.com/) is a campaign launched by mathematician Timothy Gowers in 2012, asking researchers to sign a statement that they would refrain from publishing, refereeing or doing editorial work for Elsevier. To date, more than 18,000 researchers have publicly signed the statement. However, an analysis of the signatories in 2016 found that 38% of those who committed to not publish in Elsevier journals actually published papers in Elsevier journals following their commitment ([Heyman et al., 2016](https://doi.org/10.3389/frma.2016.00007)). Other protests have been made in the form of editorial board resignations; in 2015 the entire editorial board of [Lingua](https://www.journals.elsevier.com/lingua), an Elsevier journal, resigned and formed a new journal named [Glossa](https://www.glossa-journal.org/) with adifferent publisher; a similar situation unfolded in 2019 when the editorial board of the [Journal of Informetrics](https://www.journals.elsevier.com/journal-of-informetrics) resigned and formed a new journal named [Quantitative Science Studies](https://direct.mit.edu/qss). However, in both cases, the existing Elsevier journals continued to operate and publish new journal issues with newly-established editorial boards.
+
+In this study, we aim to investigate how restricted access to Elsevier journals at DEAL institutions in 2018 had a direct effect on affected researchers publishing and citing behaviours; despite suggestions from surveys that researchers were negatively affected in their desire to publish in Elsevier journals, to our knowledge no empirical evidence suggesting that this has occurred has been established. Specifically, we aim to answer the following research questions:
 
 1. Did restricted access to Elsevier journals at DEAL institutions result in a change in researchers' publishing behaviour?
 2. Did restricted access to Elsevier journals at DEAL institutions result in a change in researchers' citing behaviour?
 
-For both of these research questions, we also consider variability with respect to research disciplines, collaboration patterns, and article OA status.
+For both of these research questions, we also consider variability with respect to the timing of contract cancellations, research disciplines, collaboration patterns, and article OA status.
 
 ## Methods
 
@@ -175,6 +218,8 @@ plot_d <- bq_dataset("items_all_year_authorship") %>%
   labs(x = "Publication year", y = "Articles published", fill = "") +
   facet_wrap(. ~ authorship, nrow = 2)
 
+# Plots are arranged with the 'patchwork' library
+# See https://github.com/thomasp85/patchwork
 layout <- "
 ABD
 ACD
@@ -182,30 +227,43 @@ ACD
 
 plot_a + plot_b + plot_c + plot_d +
   plot_layout(design = layout, widths = c(0.2, 0.3, 0.5)) +
-  plot_annotation(tag_levels = "A")
+  plot_annotation(tag_levels = "A") +
+  ggsave(filename = "figures/main/items-overview.png",
+         height = 5,
+         width = 12)
   
 ```
 
-For determing subject classifications, we used the "Fields of Research" (FOR) scheme available in Dimensions, which is itself based on the Australian and New Zealand Standard Research Classification (ANZSRC) system (further details [here](https://dimensions.freshdesk.com/support/solutions/articles/23000018826-what-is-the-background-behind-the-fields-of-research-for-classification-system-)). The classification scheme consists of 22 divisions at the upper level. Unlike classification systems in other bibliometric databases which classify articles on a journal level (e.g. Web of Science, Scopus), Dimensions firstly classifies articles on a single document level using a text-based classification approach. Where information in insufficient, Dimensions falls back to a journal-level classification. Some initial discussion of the strengths and weaknesses of the Dimensions approach has been conducted by Bornmann ([2018](https://doi.org/10.1007/s11192-018-2855-y)) and Herzog and Kierkegaard Lunn ([2018](https://doi.org/10.1007/s11192-018-2854-z)). Bornmann ([2018](https://doi.org/10.1007/s11192-018-2855-y)) noted a number of inaccuracies in the classification of his own publication record in Dimensions. However, improvements to the classification system have since been implemented and Dimensions [reported an increase in the precision and recall of the method in August 2019](https://www.dimensions.ai/release-notes/). 
+For determing subject classifications, we used the "Fields of Research" (FOR) scheme available in Dimensions, which is itself based on the Australian and New Zealand Standard Research Classification (ANZSRC) system (further details [here](https://dimensions.freshdesk.com/support/solutions/articles/23000018826-what-is-the-background-behind-the-fields-of-research-for-classification-system-)). The classification scheme consists of 22 divisions at the upper level. Unlike classification systems in other bibliometric databases which classify articles on a journal level (e.g. Web of Science, Scopus), Dimensions firstly classifies articles on a single document level using a text-based classification approach. Where information in insufficient, Dimensions falls back to a journal-level classification. Some initial discussion of the strengths and weaknesses of the Dimensions approach has been conducted by [Bornmann (2018)](https://doi.org/10.1007/s11192-018-2855-y), and [Herzog and Kierkegaard Lunn (2018)](https://doi.org/10.1007/s11192-018-2854-z)). [Bornmann (2018)](https://doi.org/10.1007/s11192-018-2855-y) noted a number of inaccuracies in the classification of his own publication record in Dimensions. However, improvements to the classification system have since been implemented and Dimensions [reported an increase in the precision and recall of the method in August 2019](https://www.dimensions.ai/release-notes/). 
 
-Article records from Dimensions were matched to records in Crossref (for classification of Elsevier versus Non-Elsevier content, using the Crossref member ID of Elsevier, [78](https://www.crossref.org/members/prep/78)) and Unpaywall (for determination of article OA status). Matching was conducted through exact matching of DOIs: 99.7% and 99.8% of articles in our dataset from Dimensions were matched to articles in Crossref and Unpaywall via DOIs, respectively. Crossref data is based on an openly available Crossref database snapshot ([Crossref, 2021](https://academictorrents.com/details/e4287cb7619999709f6e9db5c359dda17e93d515)) that contains all Crossref records registered until 7th January 2021. Relevant metadata fields were parsed applying the rcrossref parsers (Chamberlain et al., 2021), following the same approach documented in [Jahn et al., 2021](https://arxiv.org/abs/2102.04789). To reduce computation time and storage demands [**Check this is ok with Najko**], the Crossref dataset was subsequently limited to records registered after 1st January 2008. Unpaywall data is based on an openly available database snapshot (details available [here](https://unpaywall.org/products/snapshot)) from February 2021. Processing of the Unpaywall dataset followed the same procedure as that documented in [Hobert et al., 2021](https://edoc.hu-berlin.de/handle/18452/23336).
+Article records from Dimensions were matched to records in Crossref (for classification of Elsevier versus Non-Elsevier content, using the Crossref member ID of Elsevier, [78](https://www.crossref.org/members/prep/78)) and Unpaywall (for determination of article OA status). Matching was conducted through exact matching of DOIs: 99.7% and 99.8% of articles in our dataset from Dimensions were matched to articles in Crossref and Unpaywall via DOIs, respectively. Crossref data is based on an openly available Crossref database snapshot ([Crossref, 2021](https://academictorrents.com/details/e4287cb7619999709f6e9db5c359dda17e93d515)) that contains all Crossref records registered until 7th January 2021. Relevant metadata fields were parsed applying the rcrossref parsers (Chamberlain et al., 2021), following the same approach documented in [Jahn et al., (2021)](https://arxiv.org/abs/2102.04789). To reduce computation time and storage demands [**To do:** Check this section is ok with Najko], the Crossref dataset was subsequently limited to records registered after 1st January 2008. Unpaywall data is based on an openly available database snapshot (details available [here](https://unpaywall.org/products/snapshot)) from February 2021. Processing of the Unpaywall dataset followed the same procedure as that documented in [Hobert et al., (2021)](https://edoc.hu-berlin.de/handle/18452/23336).
 
 #### Data Processing, Storage and Analysis
 
-To allow fast data processing and analysis, all large datasets described above (i.e. those from Dimensions, Crossref and Unpaywall) were imported to Google BigQuery (https://cloud.google.com/bigquery), a cloud data warehouse which allows querying of large datasets with an SQL vocabularly. All analysis of data was subsequently carried out in [R](http://www.R-project.org/), using the [DBI](https://CRAN.R-project.org/package=DBI) and [bigrquery](https://CRAN.R-project.org/package=bigrquery)  packages to interface R directly with Google BigQuery. [**To Do:** add citations for R packages used]
+To allow fast data processing and analysis, all large datasets described above (i.e. those from Dimensions, Crossref and Unpaywall) were imported to [Google BigQuery](https://cloud.google.com/bigquery), a cloud data warehouse which allows querying of large datasets with an SQL vocabularly. All analysis of data was subsequently carried out in R ([R Core Team, 2020](http://www.R-project.org/)), using the DBI ([R Special Interest Group on Databases et al., 2021](https://CRAN.R-project.org/package=DBI)) and bigrquery ([Wickham and Bryan, 2020](https://CRAN.R-project.org/package=bigrquery))  packages to interface R directly with Google BigQuery.
 
 ## Results
 
 ### Publishing behaviour of DEAL researchers
 
-In this section we assess how restricted access to Elsevier articles has influenced publishing patterns of DEAL researchers. Whilst access restrictions have reduced the ability for DEAL researchers to read and download Elsevier articles, there exists no further barriers for DEAL researchers to *publish* in Elsevier journals beyond those that previously existed, e.g. meeting peer-review criteria, affordability of journal-specific fees, etc. However, we hypothesise that access restrictions may lead to negative sentiment amongst researchers which may influence their decision when choosing a suitable publication venue for their work; such negative desire to publish with Elsevier was reported by 51% of respondents of a survey conducted by the Bibsam Consortium when Elsevier restricted access to their journals in Sweden ([Olson et al., 2020](http://doi.org/10.1629/uksg.507)).
+In this section we assess how restricted access to Elsevier journals has influenced publishing patterns of DEAL researchers. Whilst access restrictions have reduced the ability for DEAL researchers to read and download Elsevier articles, there exists no further barriers for DEAL researchers to *publish* in Elsevier journals beyond those that previously existed, e.g. meeting submission and peer-review criteria, affordability of journal-specific fees, etc. However, we hypothesise that access restrictions may lead to negative sentiment amongst researchers which would influence their decision when choosing a suitable publication venue for their work; such negative desire to publish with Elsevier was reported by 51% of respondents of a survey conducted by the Bibsam Consortium when Elsevier restricted access to their journals in Sweden ([Olson et al., 2020](http://doi.org/10.1629/uksg.507)).
 
-We assess changes in publishing behaviour of DEAL researchers through two related metrics: (1) the total number of articles published by DEAL researchers in Elsevier versus non-Elsevier journals each year, and (2) the annual change in the absolute proportion of articles published by DEAL researchers in Elsevier journals (i.e. the change in Elsevier's market share of DEAL publications)^[As an example, if DEAL researchers published 1000 articles in Year One, of which 200 were in Elsevier journals, and 1500 articles in Year Two, of which 240 were in Elsevier journals, then the change in proportion from Year One to Year Two is calculated as (240/1500) - (200/1000), equal to -0.04 and interpreted as a market share loss of 4%.]. With respect to both of these metrics, we consider variation with respect to the year of contract expiration between the DEAL institution and Elsevier, research disciplines, collaboration patterns and OA status of the published articles. We focus on the period between 2012 and 2020, allowing us to capture the long-term trends in the years prior to access restrictions, and the effect of access restrictions in 2017/2018 on publishing patterns in subsequent years.
+We assess changes in publishing behaviour of DEAL researchers primarily through two related metrics: (1) the total number of articles published by DEAL researchers in Elsevier versus non-Elsevier journals each year, and (2) the annual change in the absolute proportion of articles published by DEAL researchers in Elsevier journals (i.e. the change in Elsevier's market share of DEAL publications)^[As an example, if DEAL researchers published 1000 articles in Year One, of which 200 were in Elsevier journals, and 1500 articles in Year Two, of which 240 were in Elsevier journals, then the change in proportion from Year One to Year Two is calculated as (240/1500) - (200/1000), equal to -0.04 and interpreted as a market share loss of 4%.]. With respect to both of these metrics, we consider variation with respect to the year of contract expiration between the DEAL institution and Elsevier, research disciplines, collaboration patterns and OA status of the published articles. We focus on the period between 2012 and 2020, allowing us to capture the long-term trends in the years prior to access restrictions, and the effect of access restrictions in 2018 on publishing patterns in two subsequent years.
 
 ```{r items-publisher-year, fig.cap = "Publishing behaviour of DEAL researchers, 2012-2020. (A) Total number of articles published by DEAL researchers in Elsevier and non-Elsevier journals. (B) Year-on-year (YOY) change in Elsevier's market share of articles published by DEAL researchers. (C) Proportion of articles published by individual DEAL institutions in Elsevier journals. Boxplot horizontal lines denote lower quartile, median, upper quartile, with whiskers extending to 1.5*IQR. Points denote individual institutions, with added horizontal jitter for visibility. (D) Number of Elsevier versus Non-Elsevier articles published for each individual DEAL institution (totals aggregated for years 2012-2020). Point size is scaled by the total number of articles published by an institution. Institutions that published >10,000 articles in total are labelled.", fig.height = 5, fig.width = 16}
 
-plot_a <- bq_dataset("items_analysis_publisher_year") %>%
+items_publisher_year <- bq_dataset("items_analysis_publisher_year") %>%
   factorise_publisher() %>% # Mutate 'publisher' column to factor type. See 'helpers.R'
+  group_by(article_pubyear) %>%
+  mutate(prop_items = n_items * 100 / sum(n_items)) %>%
+  ungroup() %>%
+  group_by(publisher) %>%
+  arrange(article_pubyear) %>%
+  mutate(prop_items_yoy = prop_items - lag(prop_items, 1)) %>%
+  replace_na(list(prop_items_yoy = 0)) %>%
+  ungroup()
+
+plot_a <- items_publisher_year %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = n_items, fill = publisher)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -216,14 +274,8 @@ plot_a <- bq_dataset("items_analysis_publisher_year") %>%
         axis.title.x = element_blank(),
         plot.margin = margin(b = 0))
 
-plot_b <- bq_dataset("items_analysis_publisher_year") %>%
-  group_by(article_pubyear) %>%
-  mutate(prop_items = n_items * 100 / sum(n_items)) %>%
-  ungroup() %>%
+plot_b <- items_publisher_year %>%
   filter(publisher == "Elsevier") %>%
-  arrange(article_pubyear) %>%
-  mutate(prop_items_yoy = prop_items - lag(prop_items, 1)) %>%
-  replace_na(list(prop_items_yoy = 0)) %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = prop_items_yoy, fill = prop_items_yoy > 0)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -273,7 +325,7 @@ plot_d <- bq_dataset("items_analysis_publisher_year_institution") %>%
     aes(x = Elsevier, y = `Non-Elsevier`, label = institution_name),
     force = 10,
     box.padding = 0.5,
-    size = 2.25,
+    size = 3,
     max.iter = 1000000,
     max.overlaps = Inf,
     min.segment.length = 0.25,
@@ -284,8 +336,6 @@ plot_d <- bq_dataset("items_analysis_publisher_year_institution") %>%
        y = "Non-Elsevier articles",
        size = "Total articles")
 
-# Plots are arranged with the 'patchwork' library
-# See https://github.com/thomasp85/patchwork
 layout <- "
 ACD
 BCD
@@ -293,22 +343,33 @@ BCD
 
 plot_a + plot_b + plot_c + plot_d +
   plot_layout(design = layout, heights = c(0.75, 0.25), widths = c(0.25, 0.25, 0.5)) +
-  plot_annotation(tag_levels = "A")
+  plot_annotation(tag_levels = "A") +
+    ggsave(filename = "figures/main/items-publisher-year.png",
+         height = 5,
+         width = 16)
  
 ```
 
-Figure \@ref(fig:items-publisher-year)A shows the change in the number of articles published by DEAL researchers between 2012 and 2020 (limited to articles with DEAL first and last authors). The total number of articles published per year increased during this period, from `r bq_dataset("items_analysis_publisher_year") %>% filter(article_pubyear == 2012) %>% tally(n_items) %>% pull(n)` articles in 2012 to `r bq_dataset("items_analysis_publisher_year") %>% filter(article_pubyear == 2020) %>% tally(n_items) %>% pull(n)` articles in 2020. Comparatively, the number of
-articles published in Elsevier journals increased from `r bq_dataset("items_analysis_publisher_year") %>% filter(publisher == "Elsevier" & article_pubyear == 2012) %>% pull(n_items)` articles in 2012 to `r bq_dataset("items_analysis_publisher_year") %>% filter(publisher == "Elsevier" & article_pubyear == 2016) %>% pull(n_items)` articles in 2016, and subsequently decreased to `r bq_dataset("items_analysis_publisher_year") %>% filter(publisher == "Elsevier" & article_pubyear == 2020) %>% pull(n_items)` articles in 2020. In terms of Elsevier's market share of DEAL articles (Figure  \@ref(fig:items-publisher-year)B), the years 2013-2015 show a trend of relatively small year-on-year (YOY) market share gains (<0.5% per year), with Elsevier's market share reaching a peak of `r bq_dataset("items_analysis_publisher_year") %>% filter(article_pubyear == 2015) %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(publisher == "Elsevier") %>% pull(prop_items) %>% round(1)`% in 2015. Subsequent years were characterised by a trend of larger market share losses, resulting in a final market share of `r bq_dataset("items_analysis_publisher_year") %>% filter(article_pubyear == 2020) %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(publisher == "Elsevier") %>% pull(prop_items) %>% round(1)`% in 2020. Whilst the general trend appears to occur independently of the timing of Elsevier access restrictions in mid-2018, the largest YOY loss occurred in 2020 (>1.5% loss of market share), covering the period 18-30 months following the access restrictions. It is important to note that these results reflect the numbers and proportions of articles *published* in journals, but do not necessarily reflect article *submission* dynamics: articles take many months to proceed through peer-review and publication processes (and these processes are generally faster in STM fields versus social sciences/arts/humanities/economics fields; [Björk and Solomon, 2013](https://doi.org/10.1016/j.joi.2013.09.001)), and acceptance/rejection rates may not have remained static or proportional over time.
+Figure \@ref(fig:items-publisher-year)A shows the change in the number of articles published by DEAL researchers between 2012 and 2020 (limited to articles with DEAL first and last authors). The total number of articles published per year increased during this period, from `r items_publisher_year %>% filter(article_pubyear == 2012) %>% tally(n_items) %>% pull(n)` articles in 2012 to `r items_publisher_year %>% filter(article_pubyear == 2020) %>% tally(n_items) %>% pull(n)` articles in 2020. In comparison, the number of
+articles published in Elsevier journals increased from `r items_publisher_year %>% filter(publisher == "Elsevier" & article_pubyear == 2012) %>% pull(n_items)` articles in 2012 to `r items_publisher_year %>% filter(publisher == "Elsevier" & article_pubyear == 2016) %>% pull(n_items)` articles in 2016, and subsequently decreased to `r items_publisher_year %>% filter(publisher == "Elsevier" & article_pubyear == 2020) %>% pull(n_items)` articles in 2020. In terms of Elsevier's market share of DEAL articles (Figure  \@ref(fig:items-publisher-year)B), the years 2013-2015 show a trend of relatively small year-on-year (YOY) market share gains (<0.5% per year), with Elsevier's market share reaching a peak of `r items_publisher_year %>% filter(article_pubyear == 2015, publisher == "Elsevier") %>% pull(prop_items) %>% round(1)`% in 2015. Subsequent years were characterised by a trend of larger market share losses, resulting in a final market share of `r items_publisher_year %>% filter(article_pubyear == 2020, publisher == "Elsevier") %>% pull(prop_items) %>% round(1)`% in 2020. Whilst the general trend appears to occur independently of the timing of Elsevier access restrictions in mid-2018, the largest YOY loss occurred in 2020 (-`r items_publisher_year %>% filter(article_pubyear == 2020, publisher == "Elsevier") %>% pull(prop_items_yoy) %>% round(1)`%), covering the period 18-30 months following the access restrictions. It is important to note that these results reflect the numbers and proportions of articles *published* in journals, but do not necessarily reflect article *submission* dynamics: articles take many months to proceed through peer-review and publication processes (and these processes are generally faster in STM fields versus social sciences/arts/humanities/economics fields; [Björk and Solomon, 2013](https://doi.org/10.1016/j.joi.2013.09.001)), and acceptance/rejection rates may not have remained static or proportional over time.
 
-Figure \@ref(fig:items-publisher-year)C shows changes in the proportion of articles produced by each individual DEAL institution published in Elsevier journals. Patterns broadly reflect those shown in Figures \@ref(fig:items-publisher-year)A and \@ref(fig:items-publisher-year)B, with the propostion of Elsevier articles remaining relatively static from 2012-2016 and subsequently declining. Interestingly, a small number of DEAL institutions appear to publish 100% of their articles in Elsevier journals - however, upon inspection we find that these are all institutions with extremely low publication volumes (<10 articles in a given year). Figure \@ref(fig:items-publisher-year)D shows the total number of Elsevier versus non-Elsevier articles published by DEAL institutions, aggregated over the entire time period of 2012-2020. [**To do:** expand on this section.]
+Figure \@ref(fig:items-publisher-year)C shows changes in the proportion of articles from each individual DEAL institution that are published in Elsevier journals. Patterns broadly reflect those shown in Figures \@ref(fig:items-publisher-year)A and \@ref(fig:items-publisher-year)B, with the proportion of articles in Elsevier journals remaining relatively static from 2012-2016, and subsequently declining. Interestingly, a small number of DEAL institutions appear to publish 100% of their articles in Elsevier journals - upon inspection we find that these reflect institutions with extremely low publication volumes (<10 articles in a given year). Figure \@ref(fig:items-publisher-year)D shows the total of number of Elsevier versus non-Elsevier articles published by DEAL institutions aggregated over the entire time period  2012-2020. Results show general consistency in the proportion of articles published in Elsevier journals between large and small institutions; however, institutions of similar sizes also show sizeable variation.  For example, Charité - University Medicine Berlin and RWTH Aachen University both published on the order of ~16,000 articles between 2012 and 2020, yet only ~24% of articles published by Charité were published in Elsevier journals compared to ~44% by RWTH. Such large differences may reflect different research focuses of individual institutions, e.g. Charité has a strong biomedical focus, whilst RWTH is a technical university with a historically strong focus in Natural Sciences, Technology and Engineering. 
 
 #### Did publishing patterns differ at institutions whose contracts with Elsevier expired in different years?
 
-Our dataset of DEAL institutions consists of three groups of institutions whose contracts with Elsevier expired at different time points: one group at the end of 2016, one at the end of 2017 and one at the end of 2018. In Figure \@ref(fig:items-publisher-year-cancellation) we explore different in publishing patterns in these different groups, with the hypothesis that those whose contracts expired earlier will show different effects to those whose contracts expired more recently. Our results, however, do not clearly support this hypothesis: all three groups show similar dynamics with an overall gain in Elsevier's market share between 2012 and 2015, and an overall loss between 2016 and 2020, although the magnitude and exact pattern differs between each group. A reason for the relatively homogenous behaviour may be that although the contracts expired at different timepoints, the time at which access to Elsevier was restricted was relatively similar across all institutions; those whose contracts expired at the end of 2016 and 2017 lost access in July-2018 (not including a brief 6-week period at the beginning of 2017), whilst those whose contracts expired at the end of 2018 lost access at that same time.
-
 ```{r items-publisher-year-cancellation, fig.cap = "Changes in publishing behaviour of DEAL researchers, 2012-2020, dependent on year of contract expiration with Elsevier. (A) Total number of articles published by DEAL researchers in Elsevier and non-Elsevier journals. (B) Year-over-year (YOY) change in Elsevier's market share of articles published by DEAL researchers.", fig.height = 5, fig.width = 10}
 
-plot_a <- bq_dataset("items_analysis_publisher_year_cancellation") %>%
+items_publisher_year_cancellation <- bq_dataset("items_analysis_publisher_year_cancellation") %>%
+  group_by(article_pubyear, cancellation_year) %>%
+  mutate(prop_items = n_items * 100 / sum(n_items)) %>%
+  ungroup() %>%
+  group_by(publisher, cancellation_year) %>%
+  arrange(article_pubyear) %>%
+  mutate(prop_items_yoy = prop_items - lag(prop_items, 1)) %>%
+  replace_na(list(prop_items_yoy = 0)) %>%
+  ungroup()
+
+plot_a <- items_publisher_year_cancellation %>%
   factorise_publisher() %>%
   factorise_cancellation_year() %>%
   ggplot() +
@@ -322,17 +383,9 @@ plot_a <- bq_dataset("items_analysis_publisher_year_cancellation") %>%
         axis.title.x = element_blank(), 
         plot.margin = margin(b = 0))
 
-plot_b <- bq_dataset("items_analysis_publisher_year_cancellation") %>%
-  factorise_cancellation_year() %>%
-  group_by(article_pubyear, cancellation_year) %>%
-  mutate(prop_items = n_items * 100 / sum(n_items)) %>%
-  ungroup() %>%
+plot_b <- items_publisher_year_cancellation %>%
   filter(publisher == "Elsevier") %>%
-  group_by(cancellation_year) %>%
-  arrange(article_pubyear) %>%
-  mutate(prop_items_yoy = prop_items - lag(prop_items, 1)) %>%
-  replace_na(list(prop_items_yoy = 0)) %>%
-  ungroup() %>%
+  factorise_cancellation_year() %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = prop_items_yoy, fill = prop_items_yoy > 0)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -344,26 +397,37 @@ plot_b <- bq_dataset("items_analysis_publisher_year_cancellation") %>%
         legend.position = "none",
         plot.margin = margin(t = 0))
 
-wrap_plots(plot_a, plot_b, ncol = 1, heights = c(1, 0.5)) +
-  plot_annotation(tag_levels = "A")
+wrap_plots(plot_a, plot_b, ncol = 1, heights = c(0.75, 0.25)) +
+  plot_annotation(tag_levels = "A")  +
+  ggsave(filename = "figures/main/items-publisher-year-cancellation.png",
+         height = 5,
+         width = 10)
  
 ```
 
+Our dataset contains three groups of DEAL institutions whose contracts with Elsevier expired at different time points: one group at the end of 2016, one at the end of 2017 and one at the end of 2018. In Figure \@ref(fig:items-publisher-year-cancellation) we explore differences in publishing patterns between these different groups, to examine whether those whose contracts expired earlier showed differing effects than those whose contracts expired more recently. All three groups grew in total publication volume between 2012 and 2020; the largest group was those who contracts expired in 2017, and the smallest those whose contracts expired in 2018. With respect to the share of articles published in Elsevier journals, all three groups display similar dynamics with an overall gain in Elsevier's market share between 2012 and 2015, and an overall loss between 2016 and 2020, although the exact magnitude and patterns of YOY gains and losses differs between each group. Between 2015 and 2017 (i.e. two years prior to the access restrictions in 2018), Elsevier's market share changed by `r items_publisher_year_cancellation %>% filter(article_pubyear %in% c(2015, 2017), cancellation_year == 2016, publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2017) %>% pull(prop_change) %>% round(1)`%, `r items_publisher_year_cancellation %>% filter(article_pubyear %in% c(2015, 2017), cancellation_year == 2017, publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2017) %>% pull(prop_change) %>% round(1)`% and `r items_publisher_year_cancellation %>% filter(article_pubyear %in% c(2015, 2017), cancellation_year == 2018, publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2017) %>% pull(prop_change) %>% round(1)`% for the group whose contracts expired in 2016, 2017 and 2018, respectively; the rate of market share losses increased for all three groups between 2018 and 2020 (i.e. two years following the access restrictions in 2018) to `r items_publisher_year_cancellation %>% filter(article_pubyear %in% c(2018, 2020), cancellation_year == 2016, publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%, `r items_publisher_year_cancellation %>% filter(article_pubyear %in% c(2018, 2020), cancellation_year == 2017, publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`% and `r items_publisher_year_cancellation %>% filter(article_pubyear %in% c(2018, 2020), cancellation_year == 2018, publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%. A reason for the relatively homogenous behaviour may be that although the contracts expired at different timepoints, the time at which access to Elsevier was restricted was relatively similar across all DEAL institutions; those whose contracts expired at the end of 2016 and 2017 lost access in July-2018 (not including a brief 6-week period at the beginning of 2017), whilst those whose contracts expired at the end of 2018 lost access just six months later, from the beginning of 2019 onwards.
+
 #### How did publishing behaviour vary with respect to research disciplines?
 
-A complicating factor in our dataset is that we have included articles covering multiple research disciplines. A recent analysis of the effect of the PAR agreements made between DEAL and Springer Nature, and DEAL and Wiley ([Haucap et al., 2021](https://www.dice.hhu.de/fileadmin/redaktion/Fakultaeten/Wirtschaftswissenschaftliche_Fakultaet/DICE/Discussion_Paper/360_Haucap_Moshgbar_Schmal.pdf)), chose to focus on a single discipline, Chemistry, with the justification that:
+A complicating factor in our dataset is that we have included articles covering multiple research disciplines; we have already shown in Figure \@ref(fig:items-publisher-year)D that variation in publishing patterns exists on the institutional level, which may be a consequence of the institutions' research focuses. A recent analysis of the effect of the PAR agreements made between DEAL and Springer Nature, and DEAL and Wiley ([Haucap et al., 2021](https://www.dice.hhu.de/fileadmin/redaktion/Fakultaeten/Wirtschaftswissenschaftliche_Fakultaet/DICE/Discussion_Paper/360_Haucap_Moshgbar_Schmal.pdf)), chose to focus on a single discipline, Chemistry, with the justification that:
 
 > *"Manuscript turnaround times differ substantially between different fields of science and are rather long in some disciplines such as economics (see, e.g, Ellison, 2002). Hence, the vast majority of articles published in economics journals in 2019 and 2020 will have been submitted before the DEAL agreements were announced. Therefore, our analysis focuses on the field of chemistry which has much faster turnaround times so that we can expect the DEAL agreements to already have at least some impact."* 
 
-Our analysis covers a longer time period than that of Haucap et al. ([2021](https://www.dice.hhu.de/fileadmin/redaktion/Fakultaeten/Wirtschaftswissenschaftliche_Fakultaet/DICE/Discussion_Paper/360_Haucap_Moshgbar_Schmal.pdf)), and we assess effects covering the entire time period in which negotiations with Elsevier began in 2016, the time at which access was restricted in mid-2018, and 30-months thereafter until the end of 2020. We therefore feel justified in including a broader range of disciplines. Nonetheless, we have also analysed changes at the level of individual disciplines (i.e. Dimensions Fields of Research) (Figure \@ref(fig:items-publisher-year-category)). For visualisation purposes we limited results here to the top-10 disciplines by publishing volume, which tend to focus primarily on STM disciplines; full results for all 22 disciplines can be found in the supplementary material [**To do**: Add supplementary figure].
-
-Overall, the patterns display a higher degree of fluctuation than our analysis of all disciplines together (likely due to smaller sample sizes), and a general tendency towards a reduction in market share for Elsevier over time. However, no discipline-specific patterns that can be clearly attributed to the restriction of access to Elsevier journals are evident.
+Our analysis covers a longer time period than that of [Haucap et al. (2021)](https://www.dice.hhu.de/fileadmin/redaktion/Fakultaeten/Wirtschaftswissenschaftliche_Fakultaet/DICE/Discussion_Paper/360_Haucap_Moshgbar_Schmal.pdf), and we assess effects covering the entire time period in which negotiations with Elsevier began in 2016, the time at which access was restricted in mid-2018, and 30-months thereafter until the end of 2020. We therefore feel justified in including a broader range of disciplines in our approach with longer publishing timelines than Chemistry. Nonetheless, we have also analysed changes at the level of individual disciplines (i.e. Dimensions Fields of Research) (Figure \@ref(fig:items-publisher-year-category)). For visualisation purposes we limited results here to the top-10 disciplines by publishing volume, which tend to focus primarily on STM disciplines; full results for all 22 disciplines can be found in the supplementary material at [**To do:** Add link to supplementary materials].
 
 ```{r items-publisher-year-category, fig.cap = "Changes in publishing behaviour of DEAL researchers, 2012-2020, dependent on research discipline (top-10 by publishing volume are shown). (A) Total number of articles published by DEAL researchers in Elsevier and non-Elsevier journals. (B) Year-over-year (YOY) change in Elsevier's market share of articles published by DEAL researchers.", fig.height = 5, fig.width = 20}
 
-items_publisher_year_category <- bq_dataset("items_analysis_publisher_year_category")
+items_publisher_year_category <- bq_dataset("items_analysis_publisher_year_category") %>%
+  group_by(article_pubyear, category_name) %>%
+  mutate(prop_items = n_items * 100 / sum(n_items)) %>%
+  ungroup() %>%
+  group_by(publisher, category_name) %>%
+  arrange(article_pubyear) %>%
+  mutate(prop_items_yoy = prop_items - lag(prop_items, 1)) %>%
+  replace_na(list(prop_items_yoy = 0)) %>%
+  ungroup()
 
-top_categories <- items_publisher_year_category %>%
+top_categories <- bq_dataset("items_analysis_publisher_year_category") %>%
   group_by(category_name) %>%
   summarise(n_items = sum(n_items)) %>%
   ungroup() %>%
@@ -388,17 +452,9 @@ plot_a <- items_publisher_year_category %>%
              labeller = label_wrap_gen(width = 20, multi_line = TRUE))
 
 plot_b <- items_publisher_year_category %>%
-  filter(category_name %in% top_categories) %>%
+  filter(publisher == "Elsevier", 
+         category_name %in% top_categories) %>%
   mutate(category_name = factor(category_name, levels = top_categories)) %>%
-  group_by(article_pubyear, category_name) %>%
-  mutate(prop_items = n_items * 100 / sum(n_items)) %>%
-  ungroup() %>%
-  filter(publisher == "Elsevier") %>%
-  group_by(category_name) %>%
-  arrange(article_pubyear) %>%
-  mutate(prop_items_yoy = prop_items - lag(prop_items, 1)) %>%
-  replace_na(list(prop_items_yoy = 0)) %>%
-  ungroup() %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = prop_items_yoy, fill = prop_items_yoy > 0)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -410,23 +466,125 @@ plot_b <- items_publisher_year_category %>%
         legend.position = "none",
         plot.margin = margin(t = 0))
 
-# Patchwork
-wrap_plots(plot_a, plot_b, ncol = 1, heights = c(1, 0.5)) +
-  plot_annotation(tag_levels = "A")
+wrap_plots(plot_a, plot_b, ncol = 1, heights = c(0.75, 0.25)) +
+  plot_annotation(tag_levels = "A") +
+  ggsave(filename = "figures/main/items-publisher-year-category.png",
+         height = 5,
+         width = 20)
 
 ```
 
+<!-- Supplementary Figure -->
+
+```{r items-publisher-year-category-supplement, fig.show='hide'}
+
+top_categories <- items_publisher_year_category %>%
+  group_by(category_name) %>%
+  summarise(n_items = sum(n_items)) %>%
+  ungroup() %>%
+  top_n(11, n_items) %>%
+  arrange(-n_items) %>%
+  pull(category_name)
+
+bottom_categories <- items_publisher_year_category %>%
+  group_by(category_name) %>%
+  summarise(n_items = sum(n_items)) %>%
+  ungroup() %>%
+  top_n(11, -n_items) %>%
+  arrange(-n_items) %>%
+  pull(category_name)
+
+plot_a <- items_publisher_year_category %>%
+  factorise_publisher() %>%
+  filter(category_name %in% top_categories) %>%
+  mutate(category_name = factor(category_name, levels = top_categories)) %>%
+  ggplot() +
+  geom_col(aes(x = article_pubyear, y = n_items, fill = publisher)) +
+  scale_x_continuous(breaks = 2012:2020) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 15000)) +
+  scale_fill_manual(values = c("#B3B3B3", "#56B4E9")) +
+  labs(x = "Publication Year", y = "Articles published", fill = "") +
+  theme(axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        plot.margin = margin(b = 0)) +
+  facet_wrap(. ~ category_name, nrow = 1, 
+             labeller = label_wrap_gen(width = 20, multi_line = TRUE))
+
+plot_b <- items_publisher_year_category %>%
+  filter(publisher == "Elsevier", 
+         category_name %in% top_categories) %>%
+  mutate(category_name = factor(category_name, levels = top_categories)) %>%
+  ggplot() +
+  geom_col(aes(x = article_pubyear, y = prop_items_yoy, fill = prop_items_yoy > 0)) +
+  scale_x_continuous(breaks = 2012:2020) +
+  scale_y_continuous(limits = c(-15, 10)) +
+  scale_fill_manual(values = c("#E8AA56", "#2A729C")) +
+  labs(x = "Publication Year", y = "YOY market share change (%)") +
+  theme(strip.text = element_blank()) +
+  facet_wrap(. ~ category_name, nrow = 1) +
+  theme(strip.text = element_blank(),
+        legend.position = "none",
+        plot.margin = margin(t = 0))
+
+plot_c <- items_publisher_year_category %>%
+  factorise_publisher() %>%
+  filter(category_name %in% bottom_categories) %>%
+  mutate(category_name = factor(category_name, levels = bottom_categories)) %>%
+  ggplot() +
+  geom_col(aes(x = article_pubyear, y = n_items, fill = publisher)) +
+  scale_x_continuous(breaks = 2012:2020) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 15000)) +
+  scale_fill_manual(values = c("#B3B3B3", "#56B4E9")) +
+  labs(x = "Publication Year", y = "Articles published", fill = "") +
+  theme(axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        plot.margin = margin(b = 0, t = 30)) +
+  facet_wrap(. ~ category_name, nrow = 1, 
+             labeller = label_wrap_gen(width = 20, multi_line = TRUE))
+
+plot_d <- items_publisher_year_category %>%
+  filter(publisher == "Elsevier", 
+         category_name %in% bottom_categories) %>%
+  mutate(category_name = factor(category_name, levels = bottom_categories)) %>%
+  ggplot() +
+  geom_col(aes(x = article_pubyear, y = prop_items_yoy, fill = prop_items_yoy > 0)) +
+  scale_x_continuous(breaks = 2012:2020) +
+  scale_y_continuous(limits = c(-15, 10)) +
+  scale_fill_manual(values = c("#E8AA56", "#2A729C")) +
+  labs(x = "Publication Year", y = "YOY market share change (%)") +
+  theme(strip.text = element_blank()) +
+  facet_wrap(. ~ category_name, nrow = 1) +
+  theme(strip.text = element_blank(),
+        legend.position = "none",
+        plot.margin = margin(t = 0))
+
+wrap_plots(plot_a, plot_b, plot_c, plot_d, ncol = 1, heights = c(0.75, 0.25, 0.75, 0.25)) +
+  plot_annotation(tag_levels = "A") +
+  ggsave(filename = "figures/supplement/items-publisher-year-category-supplement.png",
+         height = 10,
+         width = 20)
+
+```
+
+Overall, patterns of publishing behaviour for individual research disciplines display a higher degree of fluctuation than our overall analysis with all disciplines aggregated (likely due to smaller sample sizes). Most disciplines show overall growth in the total number of articles published over the timeframe of our analysis, although publication volumes in some disciplines appear to have decreased or reached a plateau in recent years (e.g. Chemical Sciences, Physical Sciences). The results also reveal variation in the tendency of authors to publish in Elsevier journals between disciplines: aggregated over the entire period between 2012 and 2020, the discipline with the highest proportion of articles published  in Elsevier journals is Economics (`r items_publisher_year_category %>% filter(category_name == "Economics") %>% group_by(publisher) %>% summarise(n_items = sum(n_items)) %>% ungroup() %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(publisher == "Elsevier") %>% pull(prop_items) %>% round(1)`%), and the lowest proportion is in Philosophy and Religious Studies (`r items_publisher_year_category %>% filter(category_name == "Philosophy and Religious Studies") %>% group_by(publisher) %>% summarise(n_items = sum(n_items)) %>% ungroup() %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(publisher == "Elsevier") %>% pull(prop_items) %>% round(1)`%). In 18 of the 22 disciplines, Elsevier lost overall market share between 2012 and 2020; the largest losses are reported in Earth Sciences (-`r items_publisher_year_category %>% filter(article_pubyear %in% c(2012, 2020), category_name == "Earth Sciences", publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%), Language, Communication and Culture (-`r items_publisher_year_category %>% filter(article_pubyear %in% c(2012, 2020), category_name == "Language, Communication and Culture", publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%), History and Archaeology (-`r items_publisher_year_category %>% filter(article_pubyear %in% c(2012, 2020), category_name == "History and Archaeology", publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%), and Agricultural and Veterinary Sciences (-`r items_publisher_year_category %>% filter(article_pubyear %in% c(2012, 2020), category_name == "Agricultural and Veterinary Sciences", publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%); conversely, four individual disciplines showed market share gains over the same time period (Engineering, +`r items_publisher_year_category %>% filter(article_pubyear %in% c(2012, 2020), category_name == "Engineering", publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%; Economics, +`r items_publisher_year_category %>% filter(article_pubyear %in% c(2012, 2020), category_name == "Economics", publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%; Commerce, Management, Tourism and Services, +`r items_publisher_year_category %>% filter(article_pubyear %in% c(2012, 2020), category_name == "Commerce, Management, Tourism and Services", publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%; Technology, +`r items_publisher_year_category %>% filter(article_pubyear %in% c(2012, 2020), category_name == "Technology", publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%). However, the patterns of YOY growth/losses in Elsevier's market share for individual disciplines varies significantly and we do not observe any consistent trends that can be clearly attributed to the access restrictions in 2018; only 10 of the 22 disciplines showed greater market share losses in the two years following the  access restrictions compared to the two years prior to access restrictions.
+
 #### How did publishing behaviour vary with respect to collaboration patterns?
 
-Another potential confounder of our basic results in earlier sections relates to that of collaboration behaviour. An article written solely by researchers at DEAL institutions may have a different publication strategy compared to one written in an internationally-collaborative project, where international colleagues may be less knowledgeable of Elsevier access restrictions, or less disturbed in their daily research activities. Figure \@ref(fig:items-publisher-year-collaboration) shows changes in publishing behaviour with respect to collaboration status. We classify artices into 3 distinct collaboration classes: (1) "DEAL collaboration", referring to articles where all authors of the article are based exclusively at DEAL institutions, (2) "National collaboration", referring to articles where some authors are based at DEAL institutions and others at non-DEAL institutions within Germany, and (3) "International collaboration", referring to articles where some authors are based at DEAL institutions and others at institutions outside of Germany. Here we observe some interesting patterns: with respect to DEAL-only collaborations, the total number of articles published has grown relatively slowly between 2012 and 2020, yet the number of articles published in Elsevier journals fell from `r bq_dataset("items_analysis_publisher_year_collaboration") %>% filter(article_pubyear == 2016 & publisher == "Elsevier" & collaboration_status == "deal-collaboration") %>% pull(n_items)` articles in 2016 to `r bq_dataset("items_analysis_publisher_year_collaboration") %>% filter(article_pubyear == 2020 & publisher == "Elsevier" & collaboration_status == "deal-collaboration") %>% pull(n_items)` articles in 2020. By comparison, the total number of national and international collaborative articles has proportionally grown more rapidly between 2012 and 2020, but the number of articles published in Elsevier journals has remained relatively constant. In terms of market share... [**To do:** expand this section]
-
-```{r items-publisher-year-collaboration, fig.cap = "Changes in publishing behaviour of DEAL researchers, 2012-2020, dependent on collaboration status.'DEAL collaboration' refers to articles where all authors of the article are based exclusively at DEAL institutions, 'National collaboration' refers to articles where some authors are based at DEAL institutions and others at non-DEAL institutions within Germany, and 'International collaboration' refers to articles where some authors are based at DEAL institutions and others at institutions outside of Germany. (A) Total number of articles published by DEAL researchers in Elsevier and non-Elsevier journals. (B) Year-over-year (YOY) change in Elsevier's market share of articles published by DEAL researchers.", fig.height = 5, fig.width = 10}
+```{r items-publisher-year-collaboration, fig.cap = "Changes in publishing behaviour of DEAL researchers, 2012-2020, dependent on collaboration status. 'DEAL collaboration' refers to articles where all authors of the article are based exclusively at DEAL institutions, 'National collaboration' refers to articles where some authors are based at DEAL institutions and others at non-DEAL institutions within Germany, and 'International collaboration' refers to articles where some authors are based at DEAL institutions and others at institutions outside of Germany. (A) Total number of articles published by DEAL researchers in Elsevier and non-Elsevier journals. (B) Year-over-year (YOY) change in Elsevier's market share of articles published by DEAL researchers.", fig.height = 5, fig.width = 10}
 
 items_publisher_year_collaboration <- bq_dataset("items_analysis_publisher_year_collaboration") %>%
-  factorise_publisher() %>%
-  factorise_collaboration_status()
+  group_by(article_pubyear, collaboration_status) %>%
+  mutate(prop_items = n_items * 100 / sum(n_items)) %>%
+  ungroup() %>%
+  group_by(publisher, collaboration_status) %>%
+  arrange(article_pubyear) %>%
+  mutate(prop_items_yoy = prop_items - lag(prop_items, 1)) %>%
+  replace_na(list(prop_items_yoy = 0)) %>%
+  ungroup()
 
 plot_a <- items_publisher_year_collaboration %>%
+  factorise_publisher() %>%
+  factorise_collaboration_status() %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = n_items, fill = publisher)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -439,15 +597,8 @@ plot_a <- items_publisher_year_collaboration %>%
         plot.margin = margin(b = 0))
 
 plot_b <- items_publisher_year_collaboration %>%
-  group_by(article_pubyear, collaboration_status) %>%
-  mutate(prop_items = n_items * 100 / sum(n_items)) %>%
-  ungroup() %>%
   filter(publisher == "Elsevier") %>%
-  group_by(collaboration_status) %>%
-  arrange(article_pubyear) %>%
-  mutate(prop_items_yoy = prop_items - lag(prop_items, 1)) %>%
-  replace_na(list(prop_items_yoy = 0)) %>%
-  ungroup() %>%
+  factorise_collaboration_status() %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = prop_items_yoy, fill = prop_items_yoy > 0)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -459,26 +610,40 @@ plot_b <- items_publisher_year_collaboration %>%
         legend.position = "none",
         plot.margin = margin(t = 0))
 
-wrap_plots(plot_a, plot_b, ncol = 1, heights = c(1, 0.5)) +
-  plot_annotation(tag_levels = "A")
+wrap_plots(plot_a, plot_b, ncol = 1, heights = c(0.75, 0.25)) +
+  plot_annotation(tag_levels = "A") +
+  ggsave(filename = "figures/main/items-publisher-year-collaboration.png",
+         height = 5,
+         width = 10)
 
 ```
 
-#### How did publishing behaviour vary with respect to open access status?
 
-Between 2010 and 2018 the proportion of articles authored by German researchers that were made OA increased dramatically, from 27% in 2010 to 52% in 2018 ([Hobert et al., 2020](http://doi.org/10.5281/zenodo.3892951)). We also aimed to determine whether the restriction of access to Elsevier journals had an effect on OA publishing behaviour of DEAL researchers in Elsevier journals, with the hypothesis that they would be more likely to publish their articles under OA licenses to ensure that their colleagues are able to access them. Articles were classified into OA categories following the same schema used by Unpaywall (more information on the classification schema is available [here](https://support.unpaywall.org/support/solutions/articles/44001777288-what-do-the-types-of-oa-status-green-gold-hybrid-and-bronze-mean-#:~:text=Unpaywall%20assigns%20an%20OA%20Status,in%20discussions%20of%20open%20access.)). An important point for the analysis of OA shares is that our dataset measures OA availability at the time of measurement (in our case, February 2021), and so OA shares do not necessarily reflect the OA status of an article at the time of its publication.
+Another potential confounder of our overall results in earlier sections relates to that of collaboration behaviour. An article written solely by researchers at DEAL institutions may have a different publication strategy compared to one written in an internationally-collaborative project, where international colleagues may be less knowledgeable of Elsevier access restrictions, or less disturbed in their daily research activities. Figure \@ref(fig:items-publisher-year-collaboration) shows changes in publishing behaviour with respect to collaboration status. We classified articles into 3 distinct collaboration classes: (1) "DEAL collaboration", referring to articles where all authors of the article are based exclusively at DEAL institutions, (2) "National collaboration", referring to articles where some authors are based at DEAL institutions and others at non-DEAL institutions within Germany, and (3) "International collaboration", referring to articles where some authors are based at DEAL institutions and others at institutions outside of Germany. Note that for all of these classes, the first and last authors always have an affiliation at a DEAL institution.
 
-Results in Figure \@ref(fig:items-publisher-year-oa) broadly agree with the findings of [Hobert et al. (2020)](http://doi.org/10.5281/zenodo.3892951), showing an overall increase in the volume of OA articles published by DEAL researchers between 2012 and 2020, and a decrease in the volume of closed articles. In particular, we observe dramatic growth of hybrid OA from 2018 (`r bq_dataset("items_analysis_publisher_year_oa") %>% filter(article_pubyear == 2018 & oa_status == "hybrid") %>% tally(n_items) %>% pull(n)` articles) to 2020 (`r bq_dataset("items_analysis_publisher_year_oa") %>% filter(article_pubyear == 2020 & oa_status == "hybrid") %>% tally(n_items) %>% pull(n)` articles), which may be driven, at least in part, by new publishing agreements made with publishers including Springer Nature and Wiley ([Haucap et al., 2021](https://www.dice.hhu.de/fileadmin/redaktion/Fakultaeten/Wirtschaftswissenschaftliche_Fakultaet/DICE/Discussion_Paper/360_Haucap_Moshgbar_Schmal.pdf)). 
+We observe some different publishing patterns between the three groups: with respect to DEAL-only collaborations, the total number of published articles grew from `r items_publisher_year_collaboration %>% filter(article_pubyear == 2012 & collaboration_status == "deal-collaboration") %>% tally(n_items) %>% pull(n)` in 2012 to `r items_publisher_year_collaboration %>% filter(article_pubyear == 2016 & collaboration_status == "deal-collaboration") %>% tally(n_items) %>% pull(n)` in 2016, but subsequently plateaud or even slightly declined, with `r items_publisher_year_collaboration %>% filter(article_pubyear == 2020 & collaboration_status == "deal-collaboration") %>% tally(n_items) %>% pull(n)` articles published in 2020. In comparison, the number of articles published as national collaborations and international collaborations grew substantially from 2012 to 2020 (from `r items_publisher_year_collaboration %>% filter(article_pubyear == 2012 & collaboration_status == "national-collaboration") %>% tally(n_items) %>% pull(n)` to `r items_publisher_year_collaboration %>% filter(article_pubyear == 2020 & collaboration_status == "national-collaboration") %>% tally(n_items) %>% pull(n)` for national collaborations, and `r items_publisher_year_collaboration %>% filter(article_pubyear == 2012 & collaboration_status == "international-collaboration") %>% tally(n_items) %>% pull(n)` to `r items_publisher_year_collaboration %>% filter(article_pubyear == 2020 & collaboration_status == "international-collaboration") %>% tally(n_items) %>% pull(n)` for international collaborations). The findings suggest that over time, DEAL researchers are transitioning towards a more collaborative research environment, particularly with respect to increasing collaborations with international partners. 
 
-With respect to OA publishing behaviour of DEAL researchers in Elsevier journals, we observe a decrease in the number of closed-access articles published from 2015 (`r bq_dataset("items_analysis_publisher_year_oa") %>% filter(article_pubyear == 2015 & oa_status == "closed" & publisher == "Elsevier") %>% pull(n_items)` articles) to 2020 (`r bq_dataset("items_analysis_publisher_year_oa") %>% filter(article_pubyear == 2020 & oa_status == "closed" & publisher == "Elsevier") %>% pull(n_items)` articles), and increases in the number of Gold (`r bq_dataset("items_analysis_publisher_year_oa") %>% filter(article_pubyear == 2015 & oa_status == "gold" & publisher == "Elsevier") %>% pull(n_items)` articles in 2015 to `r bq_dataset("items_analysis_publisher_year_oa") %>% filter(article_pubyear == 2020 & oa_status == "gold" & publisher == "Elsevier") %>% pull(n_items)` articles in 2020) and Hybrid OA (`r bq_dataset("items_analysis_publisher_year_oa") %>% filter(article_pubyear == 2015 & oa_status == "hybrid" & publisher == "Elsevier") %>% pull(n_items)` articles in 2015 to `r bq_dataset("items_analysis_publisher_year_oa") %>% filter(article_pubyear == 2020 & oa_status == "hybrid" & publisher == "Elsevier") %>% pull(n_items)` articles in 2020) publications over the same time period. In terms of market share, the most prominent feature is that of YOY losses for Elsevier in the Hybrid OA market share of >5% in 2019 and 2020; these losses, however, appear to be driven more by the surge of Hybrid OA publishing in other venues rather than any reduction in the volume of Hybrid OA published by Elsevier.
+In terms of Elsevier's market share, all three groups display overall losses between 2012 and 2020 (from an overall market share of `r items_publisher_year_collaboration %>% filter(article_pubyear == 2012, publisher == "Elsevier", collaboration_status == "deal-collaboration") %>% pull(prop_items) %>% round(1)`%, `r items_publisher_year_collaboration %>% filter(article_pubyear == 2012, publisher == "Elsevier", collaboration_status == "national-collaboration") %>% pull(prop_items) %>% round(1)`%, and `r items_publisher_year_collaboration %>% filter(article_pubyear == 2012, publisher == "Elsevier", collaboration_status == "international-collaboration") %>% pull(prop_items) %>% round(1)`% in 2012, to `r items_publisher_year_collaboration %>% filter(article_pubyear == 2020, publisher == "Elsevier", collaboration_status == "deal-collaboration") %>% pull(prop_items) %>% round(1)`%, `r items_publisher_year_collaboration %>% filter(article_pubyear == 2020, publisher == "Elsevier", collaboration_status == "national-collaboration") %>% pull(prop_items) %>% round(1)`%, and `r items_publisher_year_collaboration %>% filter(article_pubyear == 2020, publisher == "Elsevier", collaboration_status == "international-collaboration") %>% pull(prop_items) %>% round(1)`% in 2020 for DEAL collaborations, national collaborations and international collaborations, respectively), yet the patterns and timing differ somewhat between different collaboration groups. The share of articles published as DEAL collaborations decreased relatively steadily from 2016 to 2019, and then much more sharply in 2020 (YOY market share loss of `r items_publisher_year_collaboration %>% filter(article_pubyear == 2020, publisher == "Elsevier", collaboration_status == "deal-collaboration") %>% pull(prop_items_yoy) %>% round(1)`%). In comparison, the market share of articles published as national collaborations only began to decrease in 2017, and the overall market share decrease for articles published as international collaborations between 2016 and 2020 was punctuated by a YOY increase of `r items_publisher_year_collaboration %>% filter(article_pubyear == 2018, publisher == "Elsevier", collaboration_status == "international-collaboration") %>% pull(prop_items_yoy) %>% round(1)`% in 2018.
+
+#### How did publishing behaviour vary with respect to OA status?
+
+Between 2010 and 2018 the proportion of articles authored by German researchers that were made OA increased dramatically, from 27% in 2010 to 52% in 2018 ([Hobert et al., 2020](http://doi.org/10.5281/zenodo.3892951)). We also aimed to determine whether the restriction of access to Elsevier journals had an effect on OA publishing behaviour of DEAL researchers in Elsevier journals, with the hypothesis that increased awareness of access issues, and motivation to ensure accessibility for colleagues, would motivate DEAL researchers to publish articles under OA licenses. Articles were classified into OA categories following the same schema used by Unpaywall (more information on the classification schema is available [here](https://support.unpaywall.org/support/solutions/articles/44001777288-what-do-the-types-of-oa-status-green-gold-hybrid-and-bronze-mean-#:~:text=Unpaywall%20assigns%20an%20OA%20Status,in%20discussions%20of%20open%20access.)): broadly, "Gold" refers to articles published in fully OA journals, "Hybrid" to articles published under a OA license in an otherwise subscription-based journal, "Green" to articles that have been made available in an OA repository, and "Bronze" to articles that are freely accessible on the publisher's website but are not published under an OA license. All articles that are not freely accessible are classified as "Closed". An important point for the analysis of OA shares is that our dataset measures OA availability at the time of measurement (in our case, February 2021), and so OA shares do not necessarily reflect the OA status of an article at the time of its publication (e.g. an article could transition from Closed to Green several years after publication, if a version is deposited to an OA repository after an embargo period).
 
 ```{r items-publisher-year-oa, fig.cap = "Changes in publishing behaviour of DEAL researchers, 2012-2020, dependent on OA status. (A) Total number of articles published by DEAL researchers in Elsevier and non-Elsevier journals. (B) Year-over-year (YOY) change in Elsevier's market share of articles published by DEAL researchers.", fig.height = 5, fig.width = 12}
 
 items_publisher_year_oa <- bq_dataset("items_analysis_publisher_year_oa") %>%
-  factorise_publisher() %>%
-  factorise_oa_status()
+  group_by(article_pubyear, oa_status) %>%
+  mutate(prop_items = n_items * 100 / sum(n_items)) %>%
+  ungroup() %>%
+  group_by(publisher, oa_status) %>%
+  arrange(article_pubyear) %>%
+  mutate(prop_items_yoy = prop_items - lag(prop_items, 1)) %>%
+  replace_na(list(prop_items_yoy = 0)) %>%
+  ungroup()
 
 plot_a <- items_publisher_year_oa %>%
+  factorise_publisher() %>%
+  factorise_oa_status() %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = n_items, fill = publisher)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -491,15 +656,8 @@ plot_a <- items_publisher_year_oa %>%
         plot.margin = margin(b = 0))
 
 plot_b <- items_publisher_year_oa %>%
-  group_by(article_pubyear, oa_status) %>%
-  mutate(prop_items = n_items * 100 / sum(n_items)) %>%
-  ungroup() %>%
   filter(publisher == "Elsevier") %>%
-  group_by(oa_status) %>%
-  arrange(article_pubyear) %>%
-  mutate(prop_items_yoy = prop_items - lag(prop_items, 1)) %>%
-  replace_na(list(prop_items_yoy = 0)) %>%
-  ungroup() %>%
+  factorise_oa_status() %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = prop_items_yoy, fill = prop_items_yoy > 0)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -511,18 +669,26 @@ plot_b <- items_publisher_year_oa %>%
         legend.position = "none",
         plot.margin = margin(t = 0))
 
-wrap_plots(plot_a, plot_b, ncol = 1, heights = c(1, 0.5)) +
-  plot_annotation(tag_levels = "A")
+wrap_plots(plot_a, plot_b, ncol = 1, heights = c(0.75, 0.25)) +
+  plot_annotation(tag_levels = "A") +
+  ggsave(filename = "figures/main/items-publisher-year-oa.png",
+         height = 5,
+         width = 12)
 
 ```
 
+
+OA publishing patterns shown in Figure \@ref(fig:items-publisher-year-oa) broadly agree with the findings of [Hobert et al. (2020)](http://doi.org/10.5281/zenodo.3892951): the total proportion of articles published under any OA license has grown from `r 100 - items_publisher_year_oa %>% filter(article_pubyear == 2012) %>% group_by(oa_status) %>% summarise(n_items = sum(n_items)) %>% ungroup() %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(oa_status == "closed") %>% pull(prop_items) %>% round(1)`% in 2012 to `r 100 - items_publisher_year_oa %>% filter(article_pubyear == 2020) %>% group_by(oa_status) %>% summarise(n_items = sum(n_items)) %>% ungroup() %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(oa_status == "closed") %>% pull(prop_items) %>% round(1)`% in 2020. This strong growth of OA is driven largely the growth of Gold OA from 2012 (`r items_publisher_year_oa %>% filter(article_pubyear == 2012 & oa_status == "gold") %>% tally(n_items) %>% pull(n)` articles) to 2020 (`r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "gold") %>% tally(n_items) %>% pull(n)` articles), and of hybrid OA in particular from 2018 (`r items_publisher_year_oa %>% filter(article_pubyear == 2018 & oa_status == "hybrid") %>% tally(n_items) %>% pull(n)` articles) to 2020 (`r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "hybrid") %>% tally(n_items) %>% pull(n)` articles), which may be driven, at least in part, by new PAR agreements made with publishers including Springer Nature and Wiley ([Haucap et al., 2021](https://www.dice.hhu.de/fileadmin/redaktion/Fakultaeten/Wirtschaftswissenschaftliche_Fakultaet/DICE/Discussion_Paper/360_Haucap_Moshgbar_Schmal.pdf)). 
+
+With respect to publishing patterns in Elsevier journals, the growth of OA has been relatively moderate compared to the overall picture in Germany: from 2012 to 2020 the total proportion DEAL articles published in Elsevier journals that were made OA increased only from `r 100 - items_publisher_year_oa %>% filter(article_pubyear == 2012, publisher == "Elsevier") %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(oa_status == "closed") %>% pull(prop_items) %>% round(1)`% to `r 100 - items_publisher_year_oa %>% filter(article_pubyear == 2020, publisher == "Elsevier") %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(oa_status == "closed") %>% pull(prop_items) %>% round(1)`%. Regarding individual OA categories, we observe the largest changes occurring from around 2014 onwards in Elsevier journals: the number of Gold articles increased from `r items_publisher_year_oa %>% filter(article_pubyear == 2014 & oa_status == "gold" & publisher == "Elsevier") %>% pull(n_items)` articles in 2014 to `r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "gold" & publisher == "Elsevier") %>% pull(n_items)` articles in 2020, and the number of Hybrid  articles increased from `r items_publisher_year_oa %>% filter(article_pubyear == 2014 & oa_status == "hybrid" & publisher == "Elsevier") %>% pull(n_items)` articles in 2014 to `r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "hybrid" & publisher == "Elsevier") %>% pull(n_items)` articles in 2020. In terms of market share, the most prominent feature is that of YOY losses for Elsevier in the Hybrid OA market share of >5% in consecutive years in 2019 and 2020, however, this appear to be driven more by the surge of Hybrid OA publishing in other venues rather than a reduction in the volume of Hybrid OA published by Elsevier (which is also reflected in the large gain of market share (`r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "closed" & publisher == "Elsevier") %>% pull(prop_items_yoy) %>% round(1)`%) for Elsevier of Closed articles in 2020). Another interesting feature is the growth of Green OA in Elsevier journals in 2020 (+`r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "green" & publisher == "Elsevier") %>% pull(prop_items_yoy) %>% round(1)`% market share), suggesting an increasing proportion of researchers publishing in Elsevier journals are depositing their work to OA repositories in comparison to across all publishers as a whole.
+
 ### Citing behaviour of DEAL researchers
 
-A number of studies have found a citation advantage of open-access publications over their closed-access counterparts (c.f. [Piwowar et al., 2018](https://doi.org/10.7717/peerj.4375)), with the implication that having access to articles makes them easier to read, download and ultimately more likely to be cited. If this were true, we would expect that restricting access to a set of articles would have the opposite effect, i.e. reduce their ability to be cited. We therefore aimed to investigate the effect of Elsevier access restrictions on DEAL researchers citing behaviour, using a set of `r bq_dataset("references_analysis") %>% pull(n_refs)` references (DOI-DOI links) from articles authored by DEAL researchers (limited to articles where the first and last author was at a DEAL institution, and articles that contained more than a single reference).
+A number of studies have found a citation advantage of open-access publications over their closed-access counterparts (c.f. [Piwowar et al., 2018](https://doi.org/10.7717/peerj.4375)), with the implication that having access to articles makes them easier to read, download and ultimately more likely to be cited. If this were true, we would expect that restricting access to a set of articles would have the opposite effect, i.e. reduce their ability to be cited. We therefore aimed to investigate the effect of Elsevier access restrictions on DEAL researchers citing behaviour, using a set of `r bq_dataset("references_analysis") %>% pull(n_refs)` references (DOI-DOI links) from articles authored by DEAL researchers (limited to articles where the first and last author was at a DEAL institution, and articles that contained more than a single reference: see previous "Methods" section for details).
 
-A complicating factor in the analysis of citing behaviour is that there exists time variation in both the year of publication of an article, and in the year of the articles they cite, i.e. articles may cite other articles published in any prior year. An overview of citing dynamics for our dataset of DEAL articles is displayed in Figure \@ref(fig:references-publisher-year-cityear), where we show the mean number of references per article made to Elsevier or non-Elsevier articles, as a function of citation year (citation year refers to the difference in years between the publication date of the citing article and the publication date of the cited article). Although we look at the problem in an inverse way to the majority of citation studies (i.e. we analyse outgoing rather than incoming citations), our results display similarly typical dynamics (see, e.g. [Parolo et al., 2015](https://doi.org/10.1016/j.joi.2015.07.006)): articles cite relatively few articles published in the same year (presumably, as citing articles must first be written and proceed through the lengthy peer-review process), the number of cited articles peaks in citation years 2-3, and subsequently slowly declines over the following years. 
+A complicating factor in the analysis of citing behaviour is that there exists time variation in both the year of publication of an article, and in the publication year of the articles they cite, i.e. articles may cite other articles published in any prior year. An overview of citing dynamics for our dataset of DEAL articles is displayed in Figure \@ref(fig:references-publisher-year-cityear), where we show the mean number of references per article made to Elsevier or non-Elsevier articles, as a function of citation year (citation year refers to the difference in years between the publication date of the citing article and the publication date of the cited article). Although we look at the problem in an inverse way to the majority of citation studies (i.e. we analyse outgoing rather than incoming citations), our results display similarly typical citation dynamics (see, e.g. [Parolo et al. (2015)](https://doi.org/10.1016/j.joi.2015.07.006)): articles cite relatively few articles published in the same year (presumably, as citing articles must first be written and proceed through the lengthy peer-review process), the number of cited articles peaks in citation years 2-3, and subsequently slowly declines over the following years. 
 
-```{r references-publisher-year-cityear, fig.align = 'center', fig.cap = "Referencing dynamics for articles published by DEAL researchers. Lines show the evolution of the mean number of references made to Elsevier or non-Elsevier articles, as a function of citation year. Thick line represents the overall mean, thin lines represent articles from individual publication years (labelled).", fig.height = 4, fig.width = 6, out.width = "40%"}
+```{r references-publisher-year-cityear, fig.align = 'center', fig.cap = "Referencing dynamics for articles published by DEAL researchers. Lines show the evolution of the mean number of references made to Elsevier or non-Elsevier articles, as a function of citation year. Thick line represents the overall mean, thin lines represent articles from individual publication years.", fig.height = 4, fig.width = 6, out.width = "40%"}
 
 mean_references_cityear <- bq_dataset("references_analysis_publisher_year_cityear") %>%
   filter(citation_year <= 5) %>%
@@ -552,30 +718,43 @@ bq_dataset("references_analysis_publisher_year_cityear") %>%
   geom_line(data = mean_references_cityear,
             aes(x = citation_year, y = mean_refs, color = publisher, group = publisher),
             alpha = 1, size = 1.25) +
+  scale_y_continuous(limits = c(0, NA)) +
   scale_color_manual("", values = c("#B3B3B3", "#56B4E9")) +
   scale_fill_manual("", values = c("#B3B3B3", "#56B4E9")) +
   scale_y_continuous(labels = scales::comma) +
-  labs(x = "Citation Year", y = "Mean references per article")
+  labs(x = "Citation Year", y = "Mean references per article") +
+  ggsave(filename = "figures/main/references-publisher-year-cityear.png",
+         height = 4,
+         width = 6)
 
 ```
 
-For the purposes of the following analyses, we make the assumption that citing behaviour in response to Elsevier access restrictions is most likely to change for recent citations, which we define as citations with a citation age less than or equal to 2 years. This assumption is based on the fact that access restrictions affected new journal issues at all DEAL institutions, whilst only a subset of DEAL institutions also lost access to their back-catalogue of articles ([Vogel, 2017a](https://doi.org/10.1126/science.355.6320.17)). We may therefore reasonably expect that authors who have had access restricted to Elsevier journals post-2018 either still have access to the older back-catalogues, or may have saved older articles to local storage media (e.g. in reference management software) during the time when access was still available. For assessing changes in citing behaviour, we define three related metrics of measurement in similar way to our analysis of publishing behaviour: (1) the proportion of articles published by DEAL researchers that cited *any* article in an Elsevier journal, (2) the total number of references made to articles in Elsevier versus non-Elsevier journals from articles published by DEAL researchers, and (3) the annual change in the absolute proportion of references made to articles in Elsevier journals from articles published by DEAL researchers (which can be thought of as equivalent to Elsevier's "market share" of references).
-
-Overall results for articles with publication years between 2012 and 2020 are shown in Figure \@ref(fig:references-publisher-year), as well as citing behaviour for individual institutions. All results are based on citations with a maximum citation age of two years. \@ref(fig:references-publisher-year)A shows the proportion of articles published in a given year, that cite at least a single Elsevier article. Overall, the proportion of articles citing an Elsevier article has remained relatively constant, with values fluctuating between approximately 57% and 58%. \@ref(fig:references-publisher-year)B shows the total number of references made to Elsevier versus non-Elsevier articles in the same time period. The total number of references has grown from `r bq_dataset("references_analysis_publisher_year") %>% group_by(article_pubyear) %>% tally(n_refs) %>% filter(article_pubyear == 2012) %>% pull(n)` in 2012 to `r bq_dataset("references_analysis_publisher_year") %>% group_by(article_pubyear) %>% tally(n_refs) %>% filter(article_pubyear == 2020) %>% pull(n)` in 2020, athough we note a plateau on the order of ~330,000 references between 2016 and 2019. [**To do:** Expand this section]
+For the purposes of the following analyses, we make the assumption that citing behaviour in response to Elsevier access restrictions is most likely to change for recent citations, which we define as citations with a citation age less than or equal to 2 years. This assumption is based on the fact that access restrictions affected new journal issues at all DEAL institutions, whilst only a subset of DEAL institutions also lost access to their back-catalogue of articles ([Vogel, 2017a](https://doi.org/10.1126/science.355.6320.17)). We may therefore reasonably expect that authors who have had access restricted to Elsevier journals post-2018 either still have access to the older back-catalogues, or may have saved older articles to local storage media (e.g. in reference management software) during the time when access was still available. For assessing changes in citing behaviour, we define three related metrics of measurement in similar way to our analysis of publishing behaviour: (1) the proportion of articles published by DEAL researchers that cited *any* article in an Elsevier journal, (2) the total number of references made to articles in Elsevier versus non-Elsevier journals from articles published by DEAL researchers, and (3) the annual change in the absolute proportion of references made to articles in Elsevier journals from articles published by DEAL researchers (which, for the purposes of this analysis, we will term as Elsevier's "market share" of references).
 
 ```{r references-publisher-year, fig.cap = "Citing behaviour of DEAL researchers, 2012-2020. All data is based on references from articles published by DEAL researchers to articles with a citation age of 2 years or less. (A) Proportion of articles published by DEAL researchers that cite at least one single Elsevier article. (B) Total number of references in articles published DEAL researchers to articles published in Elsevier versus non-Elsevier journals. (C) Year-on-year (YOY) change in Elsevier's market share of references in articles published by DEAL researchers. (D) Proportion of references in articles published by individual DEAL institutions to articles in Elsevier journals. Boxplot horizontal lines denote lower quartile, median, upper quartile, with whiskers extending to 1.5*IQR. Points denote individual institutions, with added horizontal jitter for visibility. (E) Number of references to articles in Elsevier versus Non-Elsevier journals for articles published by individual DEAL institutions (totals aggregated for years 2012-2020). Point size is scaled by the total number of references from an institution. Institutions referencing >100,000 articles are labelled.", fig.height = 5, fig.width = 16}
 
-plot_a <- bq_dataset("references_analysis_publisher_year") %>%
-  factorise_publisher() %>%
-  filter(publisher == "Elsevier") %>%
+references_publisher_year <- bq_dataset("references_analysis_publisher_year") %>%
+  group_by(article_pubyear) %>%
+  mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>%
+  ungroup() %>%
+  group_by(publisher) %>%
+  arrange(article_pubyear) %>%
+  mutate(prop_refs_yoy = prop_refs - lag(prop_refs, 1)) %>%
+  replace_na(list(prop_refs_yoy = 0)) %>%
+  ungroup() %>%
   inner_join(bq_dataset("items_analysis_publisher_year") %>% 
                group_by(article_pubyear) %>%
                summarise(n_items = sum(n_items)) %>%
                ungroup(),
              by = "article_pubyear") %>%
-  mutate(prop_items = n_items.x * 100 / n_items.y) %>%
+  rename(n_items_with_refs = n_items.x,
+         n_items_published = n_items.y) %>%
+  mutate(prop_items_with_refs = n_items_with_refs * 100 / n_items_published)
+
+plot_a <- references_publisher_year %>%
+  filter(publisher == "Elsevier") %>%
   ggplot() +
-  geom_col(aes(x = article_pubyear, y = prop_items),
+  geom_col(aes(x = article_pubyear, y = prop_items_with_refs),
            fill = "#56B4E9") +
   scale_x_continuous(breaks = 2012:2020) +
   scale_y_continuous(limits = c(0,100)) +
@@ -584,7 +763,7 @@ plot_a <- bq_dataset("references_analysis_publisher_year") %>%
         axis.title.x = element_blank(),
         plot.margin = margin(b = 0))
 
-plot_b <- bq_dataset("references_analysis_publisher_year") %>%
+plot_b <- references_publisher_year %>%
   factorise_publisher() %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = n_refs, fill = publisher)) +
@@ -596,14 +775,8 @@ plot_b <- bq_dataset("references_analysis_publisher_year") %>%
         axis.title.x = element_blank(),
         plot.margin = margin(b = 0))
 
-plot_c <- bq_dataset("references_analysis_publisher_year") %>%
-  group_by(article_pubyear) %>%
-  mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>%
-  ungroup() %>%
+plot_c <- references_publisher_year %>%
   filter(publisher == "Elsevier") %>%
-  arrange(article_pubyear) %>%
-  mutate(prop_refs_yoy = prop_refs - lag(prop_refs, 1)) %>%
-  replace_na(list(prop_refs_yoy = 0)) %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = prop_refs_yoy, fill = prop_refs_yoy > 0)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -644,7 +817,7 @@ plot_e <- bq_dataset("references_analysis_publisher_year_institution") %>%
     aes(x = Elsevier, y = `Non-Elsevier`, label = institution_name),
     force = 10,
     box.padding = 0.5,
-    size = 2.25,
+    size = 3,
     max.iter = 1000000,
     max.overlaps = Inf,
     min.segment.length = 0.25,
@@ -663,27 +836,44 @@ CDE
 
 plot_a + plot_b + plot_c + plot_d + plot_e +
   plot_layout(design = layout, heights = c(0.4, 0.4, 0.2), widths = c(0.25, 0.25, 0.5)) +
-  plot_annotation(tag_levels = "A")
+  plot_annotation(tag_levels = "A") +
+  ggsave(filename = "figures/main/references-publisher-year.png",
+         height = 5,
+         width = 16)
 
 ```
 
-#### Did citing patterns differ at institutions whose contracts with Elsevier expired in different years?
+Overall results of citing behaviour of DEAL researchers' between 2012 and 2020 are shown in Figure \@ref(fig:references-publisher-year), as well as citing behaviour for individual institutions. All results are based on a maximum citation age of two years. Figure \@ref(fig:references-publisher-year)A shows the proportion of articles published in a given year, that cite at least a single Elsevier article. Overall, the proportion of articles that have cited an Elsevier article has remained relatively constant over time, fluctuating around a mean of `r references_publisher_year %>% filter(publisher == "Elsevier") %>% summarise(mean = mean(prop_items_with_refs)) %>% pull(mean) %>% round(1)`%. Figure \@ref(fig:references-publisher-year)B shows that the total number of references largely echoes trends of the number of articles published in the same year (Figure \@ref(fig:items-publisher-year)A); however, whilst the total number of Elsevier articles published by DEAL researchers decreased from 2016 to 2020 (Figure \@ref(fig:items-publisher-year)A), the number of references made to Elsevier articles continued to rise, from `r references_publisher_year %>% filter(publisher == "Elsevier", article_pubyear == 2016) %>% pull(n_refs)` references in 2016 to `r references_publisher_year %>% filter(publisher == "Elsevier", article_pubyear == 2020) %>% pull(n_refs)` references in 2020. The result of this, is that over the entire time period of our analysis, Elsevier's market share of references from DEAL researchers increased from `r references_publisher_year %>% filter(article_pubyear == 2012, publisher == "Elsevier") %>% pull(prop_refs) %>% round(1)`% in 2012 to `r references_publisher_year %>% filter(article_pubyear == 2020, publisher == "Elsevier") %>% pull(prop_refs) %>% round(1)`% in 2020, with a prominent gain in market share in 2018 (+`r references_publisher_year %>% filter(article_pubyear == 2018, publisher == "Elsevier") %>% pull(prop_refs_yoy) %>% round(1)`%) and the largest market share loss occurring in 2020 (-`r references_publisher_year %>% filter(article_pubyear == 2020, publisher == "Elsevier") %>% pull(prop_refs_yoy) %>% round(1)`%). The loss of market shares in 2019 and 2020 appear to be consistent with an expectation that reduced access to Elsevier articles post-2018 would have reduced the ability of researchers to cite those articles; however, in comparison to market share losses in publishing volume over the same time period (-`r items_publisher_year %>% filter(article_pubyear %in% c(2018, 2020), publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_items - lag(prop_items)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%), the loss of market share of references (-`r references_publisher_year %>% filter(article_pubyear %in% c(2018, 2020), publisher == "Elsevier") %>% arrange(article_pubyear) %>% mutate(prop_change = prop_refs - lag(prop_refs)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%) is relatively moderate.
 
-See Figure \@ref(fig:references-publisher-year-cancellation)
+Figures \@ref(fig:items-publisher-year)D and \@ref(fig:items-publisher-year)E display citing behaviour at the level of individual institutions. Overall, the proportion of references made to articles in Elsevier journals reflect the same patterns as in Figures \@ref(fig:items-publisher-year)B and \@ref(fig:items-publisher-year)C - the proportion of references gradually increased from 2012 to 2018, and small decreases were noted in 2019 and 2020. Aggregated over the entire 2012-2020 time period, we find little evidence of any size-related effects: large research insitutions generally cite articles in Elsevier journals in similar proportions to small research institutions (\@ref(fig:items-publisher-year)E), although some variation between individual institutions exists.
+
+#### Did citing patterns differ at institutions whose contracts with Elsevier expired in different years?
 
 ```{r references-publisher-year-cancellation, fig.cap = "Citing behaviour of DEAL researchers, 2012-2020, dependent on year of contract expiration with Elsevier. All data is based on references from articles published by DEAL researchers to articles with a citation age of 2 years or less. (A) Proportion of articles published by DEAL researchers that cite at least one single Elsevier article. (B) Total number of references in articles published DEAL researchers to articles published in Elsevier versus non-Elsevier journals. (C) Year-on-year (YOY) change in Elsevier's market share of references in articles published by DEAL researchers.", fig.height = 5, fig.width = 10}
 
-plot_a <- bq_dataset("references_analysis_publisher_year_cancellation") %>%
-  factorise_publisher() %>%
-  filter(publisher == "Elsevier") %>%
+references_publisher_year_cancellation <- bq_dataset("references_analysis_publisher_year_cancellation") %>%
+  group_by(article_pubyear, cancellation_year) %>%
+  mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>%
+  ungroup() %>%
+  group_by(publisher, cancellation_year) %>%
+  arrange(article_pubyear) %>%
+  mutate(prop_refs_yoy = prop_refs - lag(prop_refs, 1)) %>%
+  replace_na(list(prop_refs_yoy = 0)) %>%
+  ungroup() %>%
   inner_join(bq_dataset("items_analysis_publisher_year_cancellation") %>% 
                group_by(article_pubyear, cancellation_year) %>%
                summarise(n_items = sum(n_items)) %>%
                ungroup(),
              by = c("article_pubyear", "cancellation_year")) %>%
-  mutate(prop_items = n_items.x * 100 / n_items.y) %>%
+  rename(n_items_with_refs = n_items.x,
+         n_items_published = n_items.y) %>%
+  mutate(prop_items_with_refs = n_items_with_refs * 100 / n_items_published)
+
+plot_a <- references_publisher_year_cancellation %>%
+  filter(publisher == "Elsevier") %>%
+  factorise_cancellation_year() %>%
   ggplot() +
-  geom_col(aes(x = article_pubyear, y = prop_items),
+  geom_col(aes(x = article_pubyear, y = prop_items_with_refs),
            fill = "#56B4E9") +
   scale_x_continuous(breaks = 2012:2020) +
   scale_y_continuous(limits = c(0,100)) +
@@ -693,8 +883,9 @@ plot_a <- bq_dataset("references_analysis_publisher_year_cancellation") %>%
         plot.margin = margin(b = 0)) +
   facet_wrap(. ~ cancellation_year, nrow = 1)
 
-plot_b <- bq_dataset("references_analysis_publisher_year_cancellation") %>%
+plot_b <- references_publisher_year_cancellation %>%
   factorise_publisher() %>%
+  factorise_cancellation_year() %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = n_refs, fill = publisher)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -707,16 +898,9 @@ plot_b <- bq_dataset("references_analysis_publisher_year_cancellation") %>%
         plot.margin = margin(b = 0, t = 0)) +
   facet_wrap(. ~ cancellation_year, nrow = 1)
 
-plot_c <- bq_dataset("references_analysis_publisher_year_cancellation") %>%
-  group_by(article_pubyear, cancellation_year) %>%
-  mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>%
-  ungroup() %>%
+plot_c <- references_publisher_year_cancellation %>%
   filter(publisher == "Elsevier") %>%
-  group_by(cancellation_year) %>%
-  arrange(article_pubyear) %>%
-  mutate(prop_refs_yoy = prop_refs - lag(prop_refs, 1)) %>%
-  replace_na(list(prop_refs_yoy = 0)) %>%
-  ungroup() %>%
+  factorise_cancellation_year() %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = prop_refs_yoy, fill = prop_refs_yoy > 0)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -728,19 +912,41 @@ plot_c <- bq_dataset("references_analysis_publisher_year_cancellation") %>%
         plot.margin = margin(t = 0)) +
   facet_wrap(. ~ cancellation_year, nrow = 1)
 
-wrap_plots(plot_a, plot_b, plot_c, heights = c(0.4, 0.4, 0.2))
+wrap_plots(plot_a, plot_b, plot_c, heights = c(0.4, 0.4, 0.2)) +
+  plot_annotation(tag_levels = "A") +
+  ggsave(filename = "figures/main/references-publisher-year-cancellation.png",
+         height = 5,
+         width = 10)
 
 ```
 
-#### How did publishing behaviour vary with respect to research disciplines?
+As with our analysis of publishing patterns (see Figure \@ref(fig:items-publisher-year-cancellation)), we also analysed citing behaviour of DEAL researchers dependent on the contract expiration date of their institution with Elsevier (see Figure \@ref(fig:references-publisher-year-cancellation)). Results show relatively homogenous behaviour between the different groups and reflect the overall results from Figure \@ref(fig:items-publisher-year). One prominent feature, however, is a YOY market share loss of `r references_publisher_year_cancellation %>% filter(article_pubyear == 2020, publisher == "Elsevier", cancellation_year == 2018) %>% pull(prop_refs_yoy) %>% round(1)`% in 2020 for the group whose contracts with Elsevier expired in 2018; in comparison, the groups whose contracts expired in 2016 and 2017 show only relatively small losses for the same year (`r references_publisher_year_cancellation %>% filter(article_pubyear == 2020, publisher == "Elsevier", cancellation_year == 2016) %>% pull(prop_refs_yoy) %>% round(1)`% and `r references_publisher_year_cancellation %>% filter(article_pubyear == 2020, publisher == "Elsevier", cancellation_year == 2017) %>% pull(prop_refs_yoy) %>% round(1)`%, respectively).
 
-See Figure \@ref(fig:references-publisher-year-category)
+#### How did citing behaviour vary with respect to research disciplines?
+
+We analysed how citing behaviour also varied with respect to individual research disciplines (Dimensions Fields of Research). Results for the top-10 research disciplines by publication volume are shown in Figure \@ref(fig:references-publisher-year-category), and full results for all 22 research disciplines are shown in Supplementary Figure [**To do:** insert link to supplementary figure].
 
 ```{r references-publisher-year-category, fig.cap = "Citing behaviour of DEAL researchers, 2012-2020, dependent on research discipline (top-10 disciplines by publication volume are shown). All data is based on references from articles published by DEAL researchers to articles with a citation age of 2 years or less. (A) Proportion of articles published by DEAL researchers that cite at least one single Elsevier article. (B) Total number of references in articles published DEAL researchers to articles published in Elsevier versus non-Elsevier journals. (C) Year-on-year (YOY) change in Elsevier's market share of references in articles published by DEAL researchers.", fig.height = 5, fig.width = 20}
 
-# First get the top-10 categories by publication volume (same approach as in
-# analysis of publishing behaviour)
-top_categories <- items_publisher_year_category %>%
+references_publisher_year_category <- bq_dataset("references_analysis_publisher_year_category") %>%
+  group_by(article_pubyear, category_name) %>%
+  mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>%
+  ungroup() %>%
+  group_by(publisher, category_name) %>%
+  arrange(article_pubyear) %>%
+  mutate(prop_refs_yoy = prop_refs - lag(prop_refs, 1)) %>%
+  replace_na(list(prop_refs_yoy = 0)) %>%
+  ungroup() %>%
+  inner_join(bq_dataset("items_analysis_publisher_year_category") %>% 
+               group_by(article_pubyear, category_name) %>%
+               summarise(n_items = sum(n_items)) %>%
+               ungroup(),
+             by = c("article_pubyear", "category_name")) %>%
+  rename(n_items_with_refs = n_items.x,
+         n_items_published = n_items.y) %>%
+  mutate(prop_items_with_refs = n_items_with_refs * 100 / n_items_published)
+
+top_categories <- bq_dataset("items_analysis_publisher_year_category") %>%
   group_by(category_name) %>%
   summarise(n_items = sum(n_items)) %>%
   ungroup() %>%
@@ -748,19 +954,12 @@ top_categories <- items_publisher_year_category %>%
   arrange(-n_items) %>%
   pull(category_name)
 
-plot_a <- bq_dataset("references_analysis_publisher_year_category") %>%
-  factorise_publisher() %>%
-  filter(category_name %in% top_categories) %>%
+plot_a <- references_publisher_year_category %>%
+  filter(category_name %in% top_categories,
+         publisher == "Elsevier") %>%
   mutate(category_name = factor(category_name, levels = top_categories)) %>%
-  filter(publisher == "Elsevier") %>%
-  inner_join(bq_dataset("items_analysis_publisher_year_category") %>% 
-               group_by(article_pubyear, category_name) %>%
-               summarise(n_items = sum(n_items)) %>%
-               ungroup(),
-             by = c("article_pubyear", "category_name")) %>%
-  mutate(prop_items = n_items.x * 100 / n_items.y) %>%
   ggplot() +
-  geom_col(aes(x = article_pubyear, y = prop_items),
+  geom_col(aes(x = article_pubyear, y = prop_items_with_refs),
            fill = "#56B4E9") +
   scale_x_continuous(breaks = 2012:2020) +
   scale_y_continuous(limits = c(0,100)) +
@@ -768,9 +967,10 @@ plot_a <- bq_dataset("references_analysis_publisher_year_category") %>%
   theme(axis.text.x = element_blank(),
         axis.title.x = element_blank(),
         plot.margin = margin(b = 0)) +
-  facet_wrap(. ~ category_name, nrow = 1)
+  facet_wrap(. ~ category_name, nrow = 1,
+             labeller = label_wrap_gen(width = 20, multi_line = TRUE))
 
-plot_b <- bq_dataset("references_analysis_publisher_year_category") %>%
+plot_b <- references_publisher_year_category %>%
   factorise_publisher() %>%
   filter(category_name %in% top_categories) %>%
   mutate(category_name = factor(category_name, levels = top_categories)) %>%
@@ -786,18 +986,10 @@ plot_b <- bq_dataset("references_analysis_publisher_year_category") %>%
         plot.margin = margin(b = 0, t = 0)) +
   facet_wrap(. ~ category_name, nrow = 1)
 
-plot_c <- bq_dataset("references_analysis_publisher_year_category") %>%
-  filter(category_name %in% top_categories) %>%
+plot_c <- references_publisher_year_category %>%
+  filter(category_name %in% top_categories,
+         publisher == "Elsevier") %>%
   mutate(category_name = factor(category_name, levels = top_categories)) %>%
-  group_by(article_pubyear, category_name) %>%
-  mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>%
-  ungroup() %>%
-  filter(publisher == "Elsevier") %>%
-  group_by(category_name) %>%
-  arrange(article_pubyear) %>%
-  mutate(prop_refs_yoy = prop_refs - lag(prop_refs, 1)) %>%
-  replace_na(list(prop_refs_yoy = 0)) %>%
-  ungroup() %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = prop_refs_yoy, fill = prop_refs_yoy > 0)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -809,13 +1001,146 @@ plot_c <- bq_dataset("references_analysis_publisher_year_category") %>%
         plot.margin = margin(t = 0)) +
   facet_wrap(. ~ category_name, nrow = 1)
 
-wrap_plots(plot_a, plot_b, plot_c, heights = c(0.4, 0.4, 0.2))
+wrap_plots(plot_a, plot_b, plot_c, heights = c(0.4, 0.4, 0.2)) +
+  plot_annotation(tag_levels = "A") +
+  ggsave(filename = "figures/main/references-publisher-year-category.png",
+         height = 5,
+         width = 20)
 
 ```
 
+<!-- Supplementary Figure Here -->
+
+```{r references-publisher-year-category-supplement, fig.show='hide'}
+
+# First get the top-10 categories by publication volume (same approach as in
+# analysis of publishing behaviour)
+top_categories <- bq_dataset("items_analysis_publisher_year_category") %>%
+  group_by(category_name) %>%
+  summarise(n_items = sum(n_items)) %>%
+  ungroup() %>%
+  top_n(11, n_items) %>%
+  arrange(-n_items) %>%
+  pull(category_name)
+
+bottom_categories <- bq_dataset("items_analysis_publisher_year_category") %>%
+  group_by(category_name) %>%
+  summarise(n_items = sum(n_items)) %>%
+  ungroup() %>%
+  top_n(11, -n_items) %>%
+  arrange(-n_items) %>%
+  pull(category_name)
+
+plot_a <- references_publisher_year_category %>%
+  filter(category_name %in% top_categories,
+         publisher == "Elsevier") %>%
+  mutate(category_name = factor(category_name, levels = top_categories)) %>%
+  ggplot() +
+  geom_col(aes(x = article_pubyear, y = prop_items_with_refs),
+           fill = "#56B4E9") +
+  scale_x_continuous(breaks = 2012:2020) +
+  scale_y_continuous(limits = c(0,100)) +
+  labs(y = str_wrap("Proportion of articles citing an Elsevier article (%)", 25)) +
+  theme(axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        plot.margin = margin(b = 0)) +
+  facet_wrap(. ~ category_name, nrow = 1,
+             labeller = label_wrap_gen(width = 20, multi_line = TRUE))
+
+plot_b <- references_publisher_year_category %>%
+  factorise_publisher() %>%
+  filter(category_name %in% top_categories) %>%
+  mutate(category_name = factor(category_name, levels = top_categories)) %>%
+  ggplot() +
+  geom_col(aes(x = article_pubyear, y = n_refs, fill = publisher)) +
+  scale_x_continuous(breaks = 2012:2020) +
+  scale_y_continuous(labels = scales::comma) +
+  scale_fill_manual(values = c("#B3B3B3", "#56B4E9")) +
+  labs(y = "References", fill ="") +
+  theme(strip.text = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        plot.margin = margin(b = 0, t = 0)) +
+  facet_wrap(. ~ category_name, nrow = 1)
+
+plot_c <- references_publisher_year_category %>%
+  filter(category_name %in% top_categories,
+         publisher == "Elsevier") %>%
+  mutate(category_name = factor(category_name, levels = top_categories)) %>%
+  ggplot() +
+  geom_col(aes(x = article_pubyear, y = prop_refs_yoy, fill = prop_refs_yoy > 0)) +
+  scale_x_continuous(breaks = 2012:2020) +
+  scale_fill_manual(values = c("#E8AA56", "#2A729C")) +
+  labs(x = "Publication Year", 
+       y = str_wrap("YOY market share change (%)", 20)) +
+  theme(strip.text = element_blank(),
+        legend.position = "none",
+        plot.margin = margin(t = 0)) +
+  facet_wrap(. ~ category_name, nrow = 1)
+
+plot_d <- references_publisher_year_category %>%
+  filter(category_name %in% bottom_categories,
+         publisher == "Elsevier") %>%
+  mutate(category_name = factor(category_name, levels = bottom_categories)) %>%
+  ggplot() +
+  geom_col(aes(x = article_pubyear, y = prop_items_with_refs),
+           fill = "#56B4E9") +
+  scale_x_continuous(breaks = 2012:2020) +
+  scale_y_continuous(limits = c(0,100)) +
+  labs(y = str_wrap("Proportion of articles citing an Elsevier article (%)", 25)) +
+  theme(axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        plot.margin = margin(b = 0)) +
+  facet_wrap(. ~ category_name, nrow = 1,
+             labeller = label_wrap_gen(width = 20, multi_line = TRUE))
+
+plot_e <- references_publisher_year_category %>%
+  factorise_publisher() %>%
+  filter(category_name %in% bottom_categories) %>%
+  mutate(category_name = factor(category_name, levels = bottom_categories)) %>%
+  ggplot() +
+  geom_col(aes(x = article_pubyear, y = n_refs, fill = publisher)) +
+  scale_x_continuous(breaks = 2012:2020) +
+  scale_y_continuous(labels = scales::comma) +
+  scale_fill_manual(values = c("#B3B3B3", "#56B4E9")) +
+  labs(y = "References", fill ="") +
+  theme(strip.text = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        plot.margin = margin(b = 0, t = 0)) +
+  facet_wrap(. ~ category_name, nrow = 1)
+
+plot_f <- references_publisher_year_category %>%
+  filter(category_name %in% bottom_categories,
+         publisher == "Elsevier") %>%
+  mutate(category_name = factor(category_name, levels = bottom_categories)) %>%
+  ggplot() +
+  geom_col(aes(x = article_pubyear, y = prop_refs_yoy, fill = prop_refs_yoy > 0)) +
+  scale_x_continuous(breaks = 2012:2020) +
+  scale_fill_manual(values = c("#E8AA56", "#2A729C")) +
+  labs(x = "Publication Year", 
+       y = str_wrap("YOY market share change (%)", 20)) +
+  theme(strip.text = element_blank(),
+        legend.position = "none",
+        plot.margin = margin(t = 0)) +
+  facet_wrap(. ~ category_name, nrow = 1)
+
+wrap_plots(plot_a, plot_b, plot_c, plot_d, plot_e, plot_f,
+           heights = c(0.4, 0.4, 0.2, 0.4, 0.4, 0.2)) +
+  plot_annotation(tag_levels = "A") +
+  ggsave(filename = "figures/supplement/references-publisher-year-category-supplement.png",
+         height = 10,
+         width = 20)
+
+```
+
+We observe a high degree of variation between disciplines in their propensity to cite articles in Elsevier journals: aggregated across all publication years, the research disciplines with the highest proportion of references to articles in Elsevier journals were Built Environment and Design (`r references_publisher_year_category %>% filter(category_name == "Built Environment and Design") %>% group_by(publisher) %>% summarise(n_refs = sum(n_refs)) %>% ungroup() %>% mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>% filter(publisher == "Elsevier") %>% pull(prop_refs) %>% round(1)`%) and Economics (`r references_publisher_year_category %>% filter(category_name == "Economics") %>% group_by(publisher) %>% summarise(n_refs = sum(n_refs)) %>% ungroup() %>% mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>% filter(publisher == "Elsevier") %>% pull(prop_refs) %>% round(1)`%), whilst the disciplines that made the lowest proportion of references to articles in Elsevier journals were Physical Sciences (`r references_publisher_year_category %>% filter(category_name == "Physical Sciences") %>% group_by(publisher) %>% summarise(n_refs = sum(n_refs)) %>% ungroup() %>% mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>% filter(publisher == "Elsevier") %>% pull(prop_refs) %>% round(1)`%) and Philosophy and Religious Studies (`r references_publisher_year_category %>% filter(category_name == "Philosophy and Religious Studies") %>% group_by(publisher) %>% summarise(n_refs = sum(n_refs)) %>% ungroup() %>% mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>% filter(publisher == "Elsevier") %>% pull(prop_refs) %>% round(1)`%). We also analysed the proportion of articles that cited at least one Elsevier journal for each individual discipline (Figure \@ref(fig:references-publisher-year-category)A; Supplementary Figure [**To do:** insert link to supplementary figure]), findings the highest proportion in Environmental Sciences (`r references_publisher_year_category %>% filter(category_name == "Environmental Sciences", publisher == "Elsevier") %>% summarise(n_items_with_refs = sum(n_items_with_refs), n_items_published = sum(n_items_published)) %>% mutate(prop_items_with_refs = n_items_with_refs *100 / n_items_published) %>% pull(prop_items_with_refs) %>% round(1)`%, aggregated across all publication years), and lowest proportion in Philosophy and Religious Studies (`r references_publisher_year_category %>% filter(category_name == "Philosophy and Religious Studies", publisher == "Elsevier") %>% summarise(n_items_with_refs = sum(n_items_with_refs), n_items_published = sum(n_items_published)) %>% mutate(prop_items_with_refs = n_items_with_refs *100 / n_items_published) %>% pull(prop_items_with_refs) %>% round(1)`%). However, these results need to be carefully interpreted as the number of references per article (i.e. the reference density) also varies between research disciplines ([Sánchez-Gil et al., 2018](https://doi.org/10.1016/j.joi.2017.11.003)). Thus, articles in disciplines where the average number of references per article is higher are likelier to reference at least a single Elsevier article, all other factors being equal.
+
+Given the high variability shown in YOY market shares for individual disciplines (Figure \@ref(fig:references-publisher-year-category)C), it is difficult to interpret clear long-term trends that can be attributed directly to the Elsevier access restrictions in 2018. However, we do find that from 2018 to 2020, the share of references made to articles in Elsevier journals decreased in 17 of the 22 disciplines (with the largest loss of `r references_publisher_year_category %>% filter(category_name == "Built Environment and Design", publisher == "Elsevier", article_pubyear %in% c(2018, 2020)) %>% arrange(article_pubyear) %>% mutate(prop_change = prop_refs - lag(prop_refs)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`% in Built Environment and Design) - in only 5 disciplines did the share of references to articles in Elsevier journals increase during this time (Philosophy and Religious Studies, +`r references_publisher_year_category %>% filter(category_name == "Philosophy and Religious Studies", publisher == "Elsevier", article_pubyear %in% c(2018, 2020)) %>% arrange(article_pubyear) %>% mutate(prop_change = prop_refs - lag(prop_refs)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%; Studies in Creative Arts and Writing, +`r references_publisher_year_category %>% filter(category_name == "Studies in Creative Arts and Writing", publisher == "Elsevier", article_pubyear %in% c(2018, 2020)) %>% arrange(article_pubyear) %>% mutate(prop_change = prop_refs - lag(prop_refs)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%; Agricultural and Veterinary Sciences, +`r references_publisher_year_category %>% filter(category_name == "Agricultural and Veterinary Sciences", publisher == "Elsevier", article_pubyear %in% c(2018, 2020)) %>% arrange(article_pubyear) %>% mutate(prop_change = prop_refs - lag(prop_refs)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%; Studies in Human Society, +`r references_publisher_year_category %>% filter(category_name == "Studies in Human Society", publisher == "Elsevier", article_pubyear %in% c(2018, 2020)) %>% arrange(article_pubyear) %>% mutate(prop_change = prop_refs - lag(prop_refs)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%; Commerce, Management, Tourism and Services, +`r references_publisher_year_category %>% filter(category_name == "Commerce, Management, Tourism and Services", publisher == "Elsevier", article_pubyear %in% c(2018, 2020)) %>% arrange(article_pubyear) %>% mutate(prop_change = prop_refs - lag(prop_refs)) %>% filter(article_pubyear == 2020) %>% pull(prop_change) %>% round(1)`%).
+
 #### How did citing behaviour vary with respect to collaboration patterns?
 
-See Figure \@ref(fig:references-publisher-year-collaboration)
+An analysis of citing behaviour of researchers at DEAL institutions, with respect to the three previously defined collaboration classes ("DEAL only", "National collaboration" and "International collaboration") is shown in Figure \@ref(fig:references-publisher-year-collaboration). [**To do:** Expand this section]
 
 ```{r references-publisher-year-collaboration, fig.cap = "Citing behaviour of DEAL researchers, 2012-2020, dependent on collaboration status. 'DEAL collaboration' refers to articles where all authors of the article are based exclusively at DEAL institutions, 'National collaboration' refers to articles where some authors are based at DEAL institutions and others at non-DEAL institutions within Germany, and 'International collaboration' refers to articles where some authors are based at DEAL institutions and others at institutions outside of Germany. All data is based on references from articles published by DEAL researchers to articles with a citation age of 2 years or less. (A) Proportion of articles published by DEAL researchers that cite at least one single Elsevier article. (B) Total number of references in articles published DEAL researchers to articles published in Elsevier versus non-Elsevier journals. (C) Year-on-year (YOY) change in Elsevier's market share of references in articles published by DEAL researchers.", fig.height = 5, fig.width = 10}
 
@@ -876,28 +1201,41 @@ plot_c <- bq_dataset("references_analysis_publisher_year_collaboration") %>%
         plot.margin = margin(t = 0)) +
   facet_wrap(. ~ collaboration_status, nrow = 1)
 
-wrap_plots(plot_a, plot_b, plot_c, heights = c(0.4, 0.4, 0.2))
+wrap_plots(plot_a, plot_b, plot_c, heights = c(0.4, 0.4, 0.2)) +
+  plot_annotation(tag_levels = "A") +
+  ggsave(filename = "figures/main/references-publisher-year-collaboration.png",
+         height = 5,
+         width = 10)
 
 ```
 
-#### How did citing behaviour vary with respect to open access status?
-
-See Figure See Figure \@ref(fig:references-publisher-year-oa). Note: OA status here refers to the OA status of the **cited** article, not the **citing** article. Still need to think about this...
+#### How did citing behaviour vary with respect to OA status?
 
 ```{r references-publisher-year-oa, fig.cap = "Citing behaviour of DEAL researchers, 2012-2020, dependent on OA status of the cited article. All data is based on references from articles published by DEAL researchers to articles with a citation age of 2 years or less. (A) Proportion of articles published by DEAL researchers that cite at least one single Elsevier article. (B) Total number of references in articles published DEAL researchers to articles published in Elsevier versus non-Elsevier journals. (C) Year-on-year (YOY) change in Elsevier's market share of references in articles published by DEAL researchers.", fig.height = 5, fig.width = 10}
 
-plot_a <- bq_dataset("references_analysis_publisher_year_oa") %>%
-  factorise_publisher() %>%
-  factorise_oa_status() %>%
-  filter(publisher == "Elsevier") %>%
+references_publisher_year_oa <- bq_dataset("references_analysis_publisher_year_oa") %>%
+  group_by(article_pubyear, oa_status) %>%
+  mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>%
+  ungroup() %>%
+  group_by(publisher, oa_status) %>%
+  arrange(article_pubyear) %>%
+  mutate(prop_refs_yoy = prop_refs - lag(prop_refs, 1)) %>%
+  replace_na(list(prop_refs_yoy = 0)) %>%
+  ungroup() %>%
   inner_join(bq_dataset("items_analysis_publisher_year") %>% 
                group_by(article_pubyear) %>%
                summarise(n_items = sum(n_items)) %>%
                ungroup(),
              by = c("article_pubyear")) %>%
-  mutate(prop_items = n_items.x * 100 / n_items.y) %>%
+  rename(n_items_with_refs = n_items.x,
+         n_items_published = n_items.y) %>%
+  mutate(prop_items_with_refs = n_items_with_refs * 100 / n_items_published)
+
+plot_a <- references_publisher_year_oa %>%
+  filter(publisher == "Elsevier") %>%
+  factorise_oa_status() %>%
   ggplot() +
-  geom_col(aes(x = article_pubyear, y = prop_items),
+  geom_col(aes(x = article_pubyear, y = prop_items_with_refs),
            fill = "#56B4E9") +
   scale_x_continuous(breaks = 2012:2020) +
   scale_y_continuous(limits = c(0,100)) +
@@ -907,7 +1245,7 @@ plot_a <- bq_dataset("references_analysis_publisher_year_oa") %>%
         plot.margin = margin(b = 0)) +
   facet_wrap(. ~ oa_status, nrow = 1)
 
-plot_b <- bq_dataset("references_analysis_publisher_year_oa") %>%
+plot_b <- references_publisher_year_oa %>%
   factorise_publisher() %>%
   factorise_oa_status() %>%
   ggplot() +
@@ -922,17 +1260,9 @@ plot_b <- bq_dataset("references_analysis_publisher_year_oa") %>%
         plot.margin = margin(b = 0, t = 0)) +
   facet_wrap(. ~ oa_status, nrow = 1)
 
-plot_c <- bq_dataset("references_analysis_publisher_year_oa") %>%
-  factorise_oa_status() %>%
-  group_by(article_pubyear, oa_status) %>%
-  mutate(prop_refs = n_refs * 100 / sum(n_refs)) %>%
-  ungroup() %>%
+plot_c <- references_publisher_year_oa %>%
   filter(publisher == "Elsevier") %>%
-  group_by(oa_status) %>%
-  arrange(article_pubyear) %>%
-  mutate(prop_refs_yoy = prop_refs - lag(prop_refs, 1)) %>%
-  replace_na(list(prop_refs_yoy = 0)) %>%
-  ungroup() %>%
+  factorise_oa_status() %>%
   ggplot() +
   geom_col(aes(x = article_pubyear, y = prop_refs_yoy, fill = prop_refs_yoy > 0)) +
   scale_x_continuous(breaks = 2012:2020) +
@@ -944,31 +1274,47 @@ plot_c <- bq_dataset("references_analysis_publisher_year_oa") %>%
         plot.margin = margin(t = 0)) +
   facet_wrap(. ~ oa_status, nrow = 1)
 
-wrap_plots(plot_a, plot_b, plot_c, heights = c(0.4, 0.4, 0.2))
+wrap_plots(plot_a, plot_b, plot_c, heights = c(0.4, 0.4, 0.2)) +
+  plot_annotation(tag_levels = "A") +
+  ggsave(filename = "figures/main/references-publisher-year-oa.png",
+         height = 5,
+         width = 10)
 
 ```
 
+In a previous section we analysed the publishing behaviour of researchers at DEAL institutions with respect to the OA status of the articles that they published. Here, we also consider the citing behaviour of researchers at DEAL institutions, with the difference that OA status refers to that of the *cited* article rather than the *published* article; that is to say, we aim to determine whether researchers preferentially cite OA (or certain types of OA) articles over closed articles, and how these patterns have changed over time with respect to articles published in Elsevier journals. Elsevier access restrictions may have hindered the ability of researchers to access (and therefore cite) articles, however, articles published under OA licenses would have remained accessible. In this case, a reasonable expectation would be that the proportion of citations to OA articles would have been greater (relative to the total number of citations to all OA articles) after 2018 compared to those of closed articles. Main results are shown in Figure \@ref(fig:references-publisher-year-oa).
+
+In Figure \@ref(fig:references-publisher-year-oa)A, we show the proportion of articles that cite an Elsevier article, as a function of OA type of the cited article; as an example, we observe that `r references_publisher_year_oa %>% filter(article_pubyear == 2012, publisher == "Elsevier", oa_status == "closed") %>% pull(prop_items_with_refs) %>% round(1)`% of all articles published by DEAL researchers in 2012 also cited at least a single Closed article in an Elsevier journal. Over time, the proportion of articles that cited a Closed article in an Elsevier journal decreased, with a final proportion of `r references_publisher_year_oa %>% filter(article_pubyear == 2020, publisher == "Elsevier", oa_status == "closed") %>% pull(prop_items_with_refs) %>% round(1)`% in 2020. Comparatively, the proportion of articles that cited a Gold or Hybrid article in an Elsevier journal increased over the same time period (Gold from `r references_publisher_year_oa %>% filter(article_pubyear == 2012, publisher == "Elsevier", oa_status == "gold") %>% pull(prop_items_with_refs) %>% round(1)`% to `r references_publisher_year_oa %>% filter(article_pubyear == 2020, publisher == "Elsevier", oa_status == "gold") %>% pull(prop_items_with_refs) %>% round(1)`%, Hybrid from `r references_publisher_year_oa %>% filter(article_pubyear == 2012, publisher == "Elsevier", oa_status == "hybrid") %>% pull(prop_items_with_refs) %>% round(1)`% to `r references_publisher_year_oa %>% filter(article_pubyear == 2020, publisher == "Elsevier", oa_status == "hybrid") %>% pull(prop_items_with_refs) %>% round(1)`%). 
+
+Figure \@ref(fig:references-publisher-year-oa)B shows the number of references made to different types of OA between 2012 and 2020, and the proportion of which were made to articles in Elsevier journals. In general, the number of references made to Closed articles has remained relatively static over time, whilst the number of references made to Gold and Hybrid OA has rapidly increased. These results may be reflective of general background OA trends over time, where the number of Gold and Hybrid OA articles has rapidly grown (e.g. \@ref(fig:items-publisher-year-oa)B shows the growth of Gold and Hybrid OA published by authors at DEAL institutions), and thus it is difficult to attribute such trends to true changes in the citing preference of DEAL researchers (i.e. that researchers may consciously cite more OA articles than Closed articles). [**To do**: Expand discussion of OA market share. In general, not much has changed.]
+
 ## Discussion and Conclusions
 
-* General summary of results
+In this study, we have assessed changes in publishing and citing behaviour of researchers at DEAL institutions in Germany, with the aim to investigate the effect of access restrictions to Elsevier journals in 2018.
 
-* Compare results with those expected from surveys
+In terms of publishing behaviour, we found that Elsevier's market share of articles published by DEAL researchers has fallen by from a peak of 25.3% in 2015 to 20.6% in 2020 (corresponding to an absolute decrease of ~1,000 articles per year published in Elsevier journals). Although the beginning of this period of market share losses does not directly correspond to the timing of access restrictions in 2018, we noted conspicuously large YOY market share losses (in excess of 1% per year) in 2019 and 2020. We analysed these changes with respect to the timing of contract cancellations for individual DEAL institutions, research disciplines, collaboration patterns and article OA status. In general, our results are robust and consistent across these units of analysis, although a high degree of variation in publishing behaviour was observed between different research disciplines. A particularly interesting feature relates to that of Hybrid OA publishing, where Elsevier has lost significant proportions of the Hybrid OA market in recent years, likely driven by the successful conclusion of PAR agreements with other publishers (e.g. Springer Nature and Wiley; [Haucap et al., 2021](https://www.dice.hhu.de/fileadmin/redaktion/Fakultaeten/Wirtschaftswissenschaftliche_Fakultaet/DICE/Discussion_Paper/360_Haucap_Moshgbar_Schmal.pdf)). Continued monitoring of the situation over the following years will provide more evidence as to the long-term effect on the motivation of DEAL researchers to publish in Elsevier journals in light of continued access restrictions (or alternatively, the removal of access restrictions if future negotiations result in a successful publising agreemet between DEAL and Elsevier) and the development of new publishing options at other publishers.
 
-* How have researchers mitigated the effect of Elsevier restrictions?
-  * SciHub - proportion of downloads for Elsevier articles from Germany increased rapidly at end of 2017 shortly before access was cut off (Figure \@ref(fig:scihub); data from [Strecker, 2018](http://doi.org/10.5281/zenodo.1286284))
-  * ILLs - would be future work to survey/interview librarians about effects - some information available in Bibsam surveys - no increase in ILL requests after 9 months. See also https://arxiv.org/ftp/arxiv/papers/2009/2009.04287.pdf
-  * Co-authors
-  * Other "dark" methods #icanhazpdf
-  * Some citations made to papers that academics do not read in full
+[**To do:** Compare publishing results with those expected from surveys]
+
+In terms of citing behaviour, we found that researchers have cited proportionally less Elsevier articles after 2018 than prior to 2018, but the effect is small in comparison to that observed for publishing behaviour: overall, Elsevier's share of references (limited to "newer" references with a maximum 2-year citation age) only fell from 24.9% in 2018 to 23.9% in 2020. Such effects do not seem to imply a signficantly reduced ability of researchers to cite Elsevier articles after access restrictions came into place in 2018. As with publishing behaviour, we investigated these effects with respect to respect to the timing of contract cancellations for individual DEAL institutions, research disciplines, collaboration patterns and article OA status. [**To do:** Expand this section]
   
-```{r scihub, fig.cap = "Proportion of daily Sci-Hub downloads from Germany in 2017 for Elsevier articles. Data from [Strecker, (2018)](http://doi.org/10.5281/zenodo.1286284).", , fig.height = 5, fig.width = 8}
+A question that arises from our results, is that if researchers do not have access to Elsevier articles, why are they still able to cite them in such large volumes? A logical link would be that if authors are unable to access an article, they should not be able to read it and therefore not be able to cite it. The answer to this question may be related to two mechanisms: firstly in how authors gain access to articles, and secondly how authors cite articles in practice.
+
+With respect to the first mechanism, authors possess a number of strategies to access articles beyond institutional subscriptions. Sharing articles directly within informal networks of colleagues (e.g. via email) remains a permitted practice (see, for example, Elsevier's guidance page on "[Sharing and promoting your article](https://www.elsevier.com/authors/submit-your-paper/sharing-and-promoting-your-article)". Interlibrary loans (ILL), whereby a library may borrow an article from the collection of another library, are another option through which researchers may request artices from their institutional libraries. However, a previous analysis on the effect of "Big Deal" cancellations has found that changes in the volume of ILL requests following such cancellations were usually small ([Simard et al., 2020](https://arxiv.org/abs/2009.04287)). Interestingly, in a survey conducted by the Bibsam consortium in Sweden in response to a similar situation with Elsevier, 23% of respondents answered that they received access to articles through their library when denied access, yet data on article delivery services reported no increases in ILL requests for nine months following their contract cancellation ([Olson et al., 2020](http://doi.org/10.1629/uksg.507)). 
+
+Other methods that researchers may use to access articles involve so-called "Black" or "Pirate" OA, where articles are made available on the web with disregard to any existing copyright. Two such venues have gained wide-scale popularity in recent years: [Sci-Hub](https://sci-hub.se/) and [ResearchGate](https://www.researchgate.net/). In the aforementioned Bibsam survey, 26% of respondents answered that when they cannot access an article, they sought access on ResearchGate, and 14% on Sci-Hub ([Olson et al., 2020](http://doi.org/10.1629/uksg.507)). A similar survey of researchers at the Faculty of Medicine of the University of Münster found that 46% of researchers sought articles on ResearchGate when access was unavailable at their university ([archived webpage](https://web.archive.org/web/20210429130228/https://www.uni-muenster.de/ZBMed/aktuelles/27987)). A previous study has found that more than 50% of articles on ResearchGate are in infringement of copyright and publishers' policies ([Jamali, 2017](https://doi.org/10.1007/s11192-017-2291-4)), which led to major publishers including Elsevier to take legal action against ResearchGate in 2018 ([Else, 2018](https://doi.org/10.1038/d41586-018-06945-6)). Sci-Hub, founded by Alexandra Elbakyan in 2011, is another "Black" OA source with large-scale coverage: an analysis in 2018 found that it provides access to nearly all available scholarly literature ([Himmelstein et al, 2018](https://doi.org/10.7554/eLife.32822)). In Figure \@ref(fig:scihub-germany) we analysed the rates of daily Sci-Hub downloads from Germany in 2017, using freely available and geo-coded access logs that were released by Sci-Hub (data for Germany was previously aggregated by [Strecker, (2018)](http://doi.org/10.5281/zenodo.1286284)). The figure shows the proportion of all downloads that were made for Elsevier articles each day. To our knowledge, no more recent data is available beyond the end of 2017, thus we cannot measure changes in download rates following Elsevier access restrictions in 2018; however, our data do cover the brief 6-week period that Elsevier restricted access at the beginning of 2017, during which we observe no increase in the proportion of downloads made to Elsevier articles compared to articles from other venues. Interestingly, the proportion of downloads for Elsevier articles increased dramatically by ~10% in December 2017 compared to previous months, though it is not clear what drove these increased download rates.
+
+<!-- Use a text reference for figure captions containing links, see https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#text-references -->
+(ref:scihub-germany-caption) Proportion of daily Sci-Hub downloads from Germany in 2017 for Elsevier articles. Data from [Strecker, (2018)](http://doi.org/10.5281/zenodo.1286284).
+
+```{r scihub-germany, fig.cap = "(ref:scihub-germany-caption)", fig.align = 'center', fig.height = 5, fig.width = 10, out.width = "60%"}
 
 scihub_data <- list.files("data/scihub", pattern = "*.tab") %>%
   map_dfr(~ read_tsv(str_c("data/scihub/", .), 
                      col_names = c("timestamp", "doi", "geolocation"))) %>%
   select(timestamp, doi) %>%
   mutate(date = as.Date(timestamp),
-         publisher = case_when(
+       publisher = case_when(
            str_starts(doi, "10.1016") ~ "Elsevier",
            T ~ "Non-Elsevier"
          ))
@@ -984,34 +1330,38 @@ scihub_data %>%
   filter(publisher == "Elsevier") %>%
   ggplot() +
   geom_point(aes(x = date, y = prop_downloads), 
-             color = "#B3B3B3", fill = "#B3B3B3", alpha = 0.5, shape = 21) +
-  labs(x = "Date", y = str_wrap("Proportion of daily Sci-Hub downloads for Elsevier articles (%)", 30))
+             color = "#B3B3B3", fill = "#B3B3B3", alpha = 0.8, shape = 21) +
+  scale_x_date(date_breaks = "1 month") +
+  scale_y_continuous(limits = c(0, NA)) +
+  labs(x = "Date", y = str_wrap("Proportion of daily Sci-Hub downloads for Elsevier articles (%)", 30)) +
+  ggsave(filename = "figures/main/scihub-germany.png",
+         height = 5,
+         width = 10)
   
 ```
 
-* Recommendations for future negotiations
+With respect to researchers citation practices, and how these may influence the continually high citation rates of "inaccessible" Elsevier articles, a more contentious hypothesis is that scientists do not necessarily read the full-text articles before citing them (i.e. they read only the abstracts, or do not read them at all) , making the issue of access obsolete. Previous studies on the frequency and patterns of misprints in reference lists have concluded that 70-90% of references are simply copied from other articles' reference lists ([Simkin and Roychowdhury, 2005](https://doi.org/10.1007/s11192-005-0028-2)), with estimates that only ~20% of all authors that cite a paper have actually read it ([Simkin and Roychowdhury, 2007](https://doi.org/10.1002/asi.20653)). We cannot determine whether this is the case for researchers in Germany, but this may present an interesting avenue for future studies that also look at differences in citation rates between OA and non-OA articles.
 
-#### Limitations
+[**To do:** Add a final paragraph outlining any recommendations for future negotiations with Elsevier.]
 
-Our study has a number of limitations, which may be built upon in future studies:
+#### Limitations and Future Directions
 
-* Data sources
-* Publication timelines
-* Short time period
+Our study has several limitations, which may be discussed and improved upon in future studies. 
 
-#### Future directions
+Firstly, we rely heavily on article, author and institutional data from a single bibliometric database, Dimensions. Future studies may test the robustness of our results by comparing them against results obtained through other bibliometric data sources, for example through [Web of Science](https://www.webofknowledge.com/), [Scopus](https://www.scopus.com), or [Microsoft Academic](https://academic.microsoft.com). 
 
-* Verify results with surveys and knowledge from librarians
-* Measure changes over a longer time period
+A second important limitation of this study is that we consider changes in publishing and citing behaviour over time with respect to publishing timelines, rather than submission timelines. Articles spend a significant proportion of time following submission in peer-review and publication cycles, and these timelines vary strongly by discipline; disciplines such as Business or Economics take 18 months on average between submission and publication ([Björk and Solomon, 2013](https://doi.org/10.1016/j.joi.2013.09.001)). Given that our analysis period covers at maximum a period of 30-months (i.e. to the end of December 2020) following the introduction of Elsevier access restrictions in July 2018, we are likely only capturing the early effects on researchers' behaviour. Future studies should therefore monitor these effects over longer periods; future negotiations and any potential publishing agreements made with Elsevier may also complicate such analysis further.
 
-## Other things to check
-
-* Consistency of wording - e.g. "references" versus "citations".
+Finally, in this study we have taken a descriptive, quantitative approach to understanding changes in researchers publishing and citing behaviour over time. We rely solely on large-scale bibliometric data, and have not attempted to qualify these findings through other more qualitative methods (e.g. surveys, interviews with researchers, librarians and other stakeholders) that would be needed to understand the exact underlying mechanisms driving these changes. We encourage such follow-up studies, particularly those that explore researchers' knowledge of Elsevier access restrictions, its effect on their day-to-day research activities, and their associated motivations for publishing (or not publishing) in Elsevier journals in future.
 
 ## References
 
-* Auto-generate from .bib file
+[**To do:** Auto-generate bibliography from .bib file]
 
-## Acknowledgments {.appendix}
+<!-- 
 
-[**To do**: Add acknowledgements (OASE/OAUNI funding, Dimensions access)]
+## Other things to check:
+
+* Consistency of wording - e.g. "references/references" versus "citations/citing".
+
+-->

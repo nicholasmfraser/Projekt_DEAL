@@ -1,378 +1,396 @@
 article_pubyear,publisher,category_name,n_items
-2015,Elsevier,Chemical Sciences,1344
-2019,Elsevier,Economics,362
-2019,Non-Elsevier,Physical Sciences,3451
-2019,Non-Elsevier,Engineering,5658
-2020,Non-Elsevier,Physical Sciences,3878
-2013,Elsevier,"Commerce, Management, Tourism and Services",157
+2012,Non-Elsevier,"Language, Communication and Culture",159
 2014,Elsevier,Engineering,2796
-2013,Elsevier,Medical and Health Sciences,2562
-2014,Elsevier,Medical and Health Sciences,2598
-2014,Elsevier,Mathematical Sciences,613
-2018,Non-Elsevier,Technology,706
-2019,Non-Elsevier,Mathematical Sciences,1919
-2019,Non-Elsevier,Chemical Sciences,5008
-2019,Non-Elsevier,Technology,647
-2020,Non-Elsevier,Engineering,6221
-2020,Non-Elsevier,Mathematical Sciences,1902
-2020,Non-Elsevier,Chemical Sciences,5615
-2017,Non-Elsevier,Medical and Health Sciences,9670
-2016,Non-Elsevier,Medical and Health Sciences,9164
-2014,Non-Elsevier,Biological Sciences,4897
-2016,Non-Elsevier,Biological Sciences,5200
-2012,Non-Elsevier,Psychology and Cognitive Sciences,1438
-2018,Non-Elsevier,Earth Sciences,1253
-2013,Non-Elsevier,Earth Sciences,973
-2013,Non-Elsevier,Environmental Sciences,448
-2018,Non-Elsevier,Medical and Health Sciences,9332
-2019,Non-Elsevier,Medical and Health Sciences,9832
-2012,Non-Elsevier,Engineering,4337
-2012,Non-Elsevier,History and Archaeology,87
-2014,Elsevier,Chemical Sciences,1273
-2015,Elsevier,Engineering,3137
-2016,Elsevier,Engineering,3182
-2016,Elsevier,Chemical Sciences,1311
-2017,Elsevier,Engineering,3385
-2017,Elsevier,Chemical Sciences,1324
-2018,Elsevier,Chemical Sciences,1106
-2019,Elsevier,Chemical Sciences,989
-2019,Elsevier,Engineering,3160
-2020,Elsevier,Chemical Sciences,887
-2017,Elsevier,Medical and Health Sciences,2687
-2012,Elsevier,Medical and Health Sciences,2455
-2018,Elsevier,Biological Sciences,1428
-2015,Non-Elsevier,Biological Sciences,5033
-2017,Non-Elsevier,Biological Sciences,5225
-2019,Non-Elsevier,Biological Sciences,5352
-2018,Elsevier,Economics,344
-2012,Elsevier,Earth Sciences,455
-2020,Elsevier,Earth Sciences,421
-2014,Elsevier,"Language, Communication and Culture",39
-2015,Elsevier,"Language, Communication and Culture",40
-2016,Elsevier,"Language, Communication and Culture",39
-2015,Elsevier,Biological Sciences,1582
-2017,Elsevier,Biological Sciences,1508
-2020,Elsevier,Education,68
-2020,Elsevier,Environmental Sciences,362
-2012,Elsevier,Engineering,2071
-2012,Elsevier,Physical Sciences,681
+2014,Elsevier,Information and Computing Sciences,523
 2013,Elsevier,Engineering,2468
-2014,Elsevier,Physical Sciences,724
-2015,Elsevier,Physical Sciences,715
-2017,Elsevier,Physical Sciences,626
-2018,Elsevier,Engineering,3183
-2018,Elsevier,Medical and Health Sciences,2659
-2020,Elsevier,Biological Sciences,1328
-2020,Elsevier,Medical and Health Sciences,2596
-2020,Elsevier,Psychology and Cognitive Sciences,711
-2019,Elsevier,Psychology and Cognitive Sciences,723
-2013,Elsevier,Psychology and Cognitive Sciences,625
-2017,Elsevier,Economics,330
-2018,Elsevier,"Commerce, Management, Tourism and Services",205
-2018,Elsevier,Built Environment and Design,108
-2018,Elsevier,Studies in Human Society,161
-2019,Elsevier,Studies in Human Society,156
-2020,Elsevier,Economics,355
-2020,Elsevier,"Commerce, Management, Tourism and Services",283
-2020,Elsevier,Engineering,3168
-2018,Elsevier,Mathematical Sciences,570
-2012,Elsevier,Economics,249
-2014,Elsevier,Built Environment and Design,50
-2016,Elsevier,Economics,294
-2019,Elsevier,Medical and Health Sciences,2437
-2015,Elsevier,Economics,279
 2013,Elsevier,Economics,274
-2014,Elsevier,Psychology and Cognitive Sciences,712
-2015,Elsevier,Medical and Health Sciences,2701
-2015,Elsevier,"Commerce, Management, Tourism and Services",197
-2019,Elsevier,Built Environment and Design,92
-2014,Elsevier,Economics,299
-2016,Elsevier,"Commerce, Management, Tourism and Services",231
-2017,Elsevier,"Commerce, Management, Tourism and Services",170
-2018,Non-Elsevier,Engineering,5545
-2018,Non-Elsevier,Mathematical Sciences,1902
-2018,Non-Elsevier,Physical Sciences,3585
-2018,Non-Elsevier,Economics,477
-2015,Elsevier,Earth Sciences,549
-2017,Elsevier,Earth Sciences,480
-2017,Elsevier,Built Environment and Design,100
-2014,Non-Elsevier,Medical and Health Sciences,8837
-2014,Non-Elsevier,Psychology and Cognitive Sciences,1811
-2016,Non-Elsevier,Psychology and Cognitive Sciences,1916
-2014,Non-Elsevier,Studies in Human Society,517
-2013,Non-Elsevier,"Commerce, Management, Tourism and Services",437
-2013,Non-Elsevier,Medical and Health Sciences,8397
+2014,Elsevier,Biological Sciences,1603
+2012,Non-Elsevier,Information and Computing Sciences,1075
+2012,Non-Elsevier,Physical Sciences,3767
 2013,Non-Elsevier,Engineering,4433
-2014,Non-Elsevier,Technology,778
-2014,Non-Elsevier,Engineering,4816
-2016,Non-Elsevier,Technology,801
-2016,Non-Elsevier,Engineering,5671
-2015,Non-Elsevier,Medical and Health Sciences,9071
-2012,Non-Elsevier,Medical and Health Sciences,8352
-2015,Non-Elsevier,Physical Sciences,3936
-2012,Non-Elsevier,Economics,378
-2014,Non-Elsevier,Mathematical Sciences,1615
-2013,Non-Elsevier,Mathematical Sciences,1515
-2015,Non-Elsevier,Mathematical Sciences,1628
-2015,Non-Elsevier,"Commerce, Management, Tourism and Services",439
-2015,Non-Elsevier,Economics,376
-2012,Non-Elsevier,Mathematical Sciences,1498
-2015,Non-Elsevier,Engineering,5418
-2016,Non-Elsevier,Earth Sciences,1177
-2012,Non-Elsevier,Physical Sciences,3768
-2013,Non-Elsevier,Physical Sciences,3748
-2014,Non-Elsevier,Physical Sciences,3717
-2016,Non-Elsevier,Physical Sciences,3924
-2013,Non-Elsevier,Economics,377
-2013,Non-Elsevier,Biological Sciences,4720
-2015,Non-Elsevier,Studies in Human Society,580
-2015,Non-Elsevier,Law and Legal Studies,67
-2015,Non-Elsevier,Psychology and Cognitive Sciences,1774
-2017,Non-Elsevier,Philosophy and Religious Studies,343
-2018,Non-Elsevier,"Commerce, Management, Tourism and Services",654
+2014,Non-Elsevier,Engineering,4817
+2015,Non-Elsevier,Engineering,5416
+2017,Non-Elsevier,Engineering,5724
+2018,Non-Elsevier,Engineering,5545
+2013,Non-Elsevier,Medical and Health Sciences,8395
+2018,Non-Elsevier,Biological Sciences,5163
+2019,Non-Elsevier,Biological Sciences,5358
+2016,Non-Elsevier,Medical and Health Sciences,9161
+2015,Non-Elsevier,Earth Sciences,1048
+2015,Non-Elsevier,Chemical Sciences,5674
+2012,Non-Elsevier,Psychology and Cognitive Sciences,1438
+2020,Non-Elsevier,Engineering,6220
 2020,Non-Elsevier,"Commerce, Management, Tourism and Services",695
-2020,Non-Elsevier,Economics,483
-2019,Non-Elsevier,Philosophy and Religious Studies,374
-2020,Non-Elsevier,Medical and Health Sciences,11046
-2013,Non-Elsevier,History and Archaeology,122
-2018,Non-Elsevier,Psychology and Cognitive Sciences,2241
-2020,Non-Elsevier,Psychology and Cognitive Sciences,2441
-2017,Non-Elsevier,"Commerce, Management, Tourism and Services",589
-2019,Non-Elsevier,Studies in Human Society,1026
-2018,Non-Elsevier,Biological Sciences,5164
-2020,Non-Elsevier,"Language, Communication and Culture",529
-2016,Non-Elsevier,Studies in Human Society,751
-2012,Non-Elsevier,Studies in Human Society,425
-2020,Non-Elsevier,Studies in Human Society,1196
-2019,Non-Elsevier,Education,449
-2012,Non-Elsevier,Technology,704
-2020,Non-Elsevier,Biological Sciences,5932
-2014,Elsevier,Biological Sciences,1605
-2016,Elsevier,Physical Sciences,685
-2020,Elsevier,Physical Sciences,480
-2018,Elsevier,Psychology and Cognitive Sciences,701
-2016,Elsevier,Medical and Health Sciences,2870
-2017,Non-Elsevier,Economics,482
-2017,Non-Elsevier,Engineering,5726
-2016,Elsevier,Biological Sciences,1526
-2013,Non-Elsevier,Technology,688
-2015,Non-Elsevier,Technology,893
-2013,Non-Elsevier,Chemical Sciences,4691
-2016,Non-Elsevier,Chemical Sciences,6119
-2019,Non-Elsevier,"Commerce, Management, Tourism and Services",659
-2019,Non-Elsevier,Economics,505
-2020,Non-Elsevier,Earth Sciences,1437
-2017,Non-Elsevier,Studies in Human Society,914
-2017,Non-Elsevier,Physical Sciences,3688
-2017,Non-Elsevier,Chemical Sciences,6019
-2018,Non-Elsevier,Chemical Sciences,4786
-2017,Non-Elsevier,Psychology and Cognitive Sciences,2151
-2018,Non-Elsevier,Law and Legal Studies,91
+2012,Non-Elsevier,Engineering,4337
+2015,Non-Elsevier,Physical Sciences,3935
+2016,Non-Elsevier,Physical Sciences,3921
+2016,Non-Elsevier,Engineering,5666
+2019,Non-Elsevier,Physical Sciences,3453
+2019,Non-Elsevier,Engineering,5659
+2017,Non-Elsevier,Information and Computing Sciences,1487
+2019,Non-Elsevier,Information and Computing Sciences,1744
+2017,Non-Elsevier,Technology,794
 2012,Non-Elsevier,Earth Sciences,771
-2015,Non-Elsevier,Earth Sciences,1049
-2020,Non-Elsevier,Agricultural and Veterinary Sciences,587
-2016,Non-Elsevier,Education,278
-2016,Non-Elsevier,Mathematical Sciences,1668
-2016,Non-Elsevier,Agricultural and Veterinary Sciences,458
-2016,Non-Elsevier,Environmental Sciences,558
-2020,Non-Elsevier,Technology,772
-2012,Non-Elsevier,Biological Sciences,4407
-2012,Non-Elsevier,Chemical Sciences,4682
-2016,Non-Elsevier,"Commerce, Management, Tourism and Services",496
-2012,Non-Elsevier,Environmental Sciences,379
-2019,Non-Elsevier,Earth Sciences,1258
-2017,Non-Elsevier,Earth Sciences,1098
-2019,Non-Elsevier,"Language, Communication and Culture",477
-2013,Non-Elsevier,Psychology and Cognitive Sciences,1714
-2013,Non-Elsevier,"Language, Communication and Culture",201
-2018,Non-Elsevier,Studies in Human Society,970
-2018,Non-Elsevier,Built Environment and Design,182
-2018,Non-Elsevier,"Language, Communication and Culture",472
-2020,Non-Elsevier,Studies in Creative Arts and Writing,81
-2015,Non-Elsevier,Agricultural and Veterinary Sciences,400
-2014,Elsevier,Agricultural and Veterinary Sciences,212
-2014,Elsevier,"Commerce, Management, Tourism and Services",191
-2014,Non-Elsevier,Chemical Sciences,5254
-2015,Non-Elsevier,Chemical Sciences,5673
-2019,Non-Elsevier,Agricultural and Veterinary Sciences,476
-2015,Non-Elsevier,"Language, Communication and Culture",304
+2013,Non-Elsevier,Earth Sciences,973
 2014,Non-Elsevier,Earth Sciences,985
-2017,Non-Elsevier,Technology,795
-2017,Non-Elsevier,Environmental Sciences,601
-2019,Elsevier,"Commerce, Management, Tourism and Services",244
-2012,Elsevier,Psychology and Cognitive Sciences,635
-2015,Elsevier,Psychology and Cognitive Sciences,726
-2016,Elsevier,Psychology and Cognitive Sciences,740
-2013,Elsevier,Physical Sciences,741
-2020,Elsevier,Mathematical Sciences,580
-2012,Elsevier,History and Archaeology,36
-2017,Elsevier,Psychology and Cognitive Sciences,725
-2012,Elsevier,Agricultural and Veterinary Sciences,211
-2013,Elsevier,Agricultural and Veterinary Sciences,216
+2016,Non-Elsevier,Earth Sciences,1177
+2018,Non-Elsevier,Earth Sciences,1253
+2019,Non-Elsevier,Earth Sciences,1258
+2020,Non-Elsevier,Earth Sciences,1434
+2015,Non-Elsevier,Psychology and Cognitive Sciences,1774
+2015,Non-Elsevier,Information and Computing Sciences,1201
+2014,Non-Elsevier,Information and Computing Sciences,1140
+2018,Non-Elsevier,Information and Computing Sciences,1523
+2016,Non-Elsevier,Economics,450
+2017,Non-Elsevier,Economics,482
+2018,Non-Elsevier,Economics,477
+2018,Non-Elsevier,Studies in Human Society,971
+2018,Non-Elsevier,"Commerce, Management, Tourism and Services",653
+2017,Non-Elsevier,"Commerce, Management, Tourism and Services",589
+2018,Non-Elsevier,Mathematical Sciences,1902
+2020,Non-Elsevier,Economics,481
+2017,Non-Elsevier,Medical and Health Sciences,9661
+2019,Non-Elsevier,Medical and Health Sciences,9821
+2017,Non-Elsevier,Studies in Human Society,914
+2020,Non-Elsevier,Studies in Human Society,1193
+2019,Non-Elsevier,History and Archaeology,225
+2018,Non-Elsevier,Medical and Health Sciences,9331
+2012,Non-Elsevier,Medical and Health Sciences,8351
+2013,Non-Elsevier,Biological Sciences,4720
+2014,Non-Elsevier,Biological Sciences,4900
+2014,Non-Elsevier,Medical and Health Sciences,8835
+2015,Non-Elsevier,Biological Sciences,5035
+2016,Non-Elsevier,Biological Sciences,5202
+2020,Non-Elsevier,Psychology and Cognitive Sciences,2434
+2015,Non-Elsevier,Medical and Health Sciences,9068
+2017,Non-Elsevier,Biological Sciences,5229
+2020,Non-Elsevier,Biological Sciences,5923
+2016,Non-Elsevier,Chemical Sciences,6122
+2017,Non-Elsevier,Chemical Sciences,6020
+2012,Non-Elsevier,Chemical Sciences,4682
+2013,Non-Elsevier,Chemical Sciences,4691
+2014,Non-Elsevier,Chemical Sciences,5257
+2013,Non-Elsevier,Physical Sciences,3748
+2014,Non-Elsevier,Physical Sciences,3714
 2018,Non-Elsevier,Philosophy and Religious Studies,380
-2014,Non-Elsevier,Environmental Sciences,465
-2014,Non-Elsevier,Economics,341
-2018,Non-Elsevier,Environmental Sciences,590
-2019,Non-Elsevier,Environmental Sciences,655
-2014,Non-Elsevier,Law and Legal Studies,56
+2014,Non-Elsevier,Education,202
+2015,Non-Elsevier,Education,216
+2013,Non-Elsevier,Mathematical Sciences,1515
+2014,Non-Elsevier,Mathematical Sciences,1615
+2013,Non-Elsevier,Psychology and Cognitive Sciences,1714
+2018,Non-Elsevier,Chemical Sciences,4786
+2019,Non-Elsevier,Chemical Sciences,5010
+2018,Non-Elsevier,Physical Sciences,3584
+2020,Non-Elsevier,Medical and Health Sciences,11031
+2018,Elsevier,Medical and Health Sciences,2659
+2018,Elsevier,Agricultural and Veterinary Sciences,205
+2019,Elsevier,Medical and Health Sciences,2437
+2012,Elsevier,Physical Sciences,681
+2014,Elsevier,Physical Sciences,723
+2015,Elsevier,Engineering,3137
+2015,Elsevier,Physical Sciences,715
+2016,Elsevier,Engineering,3180
+2018,Elsevier,Engineering,3182
+2019,Elsevier,Engineering,3161
+2020,Elsevier,Engineering,3121
+2013,Elsevier,Mathematical Sciences,536
+2015,Elsevier,Mathematical Sciences,628
+2015,Elsevier,Information and Computing Sciences,569
+2016,Elsevier,Mathematical Sciences,637
+2017,Elsevier,Mathematical Sciences,640
+2020,Elsevier,Medical and Health Sciences,2593
+2020,Elsevier,Psychology and Cognitive Sciences,711
+2019,Elsevier,Psychology and Cognitive Sciences,722
+2017,Elsevier,Engineering,3384
+2017,Elsevier,Information and Computing Sciences,564
+2020,Elsevier,Physical Sciences,480
+2019,Elsevier,Economics,362
+2014,Elsevier,Mathematical Sciences,613
+2020,Elsevier,Mathematical Sciences,575
+2018,Elsevier,Mathematical Sciences,571
+2019,Elsevier,Physical Sciences,502
+2019,Elsevier,Mathematical Sciences,595
+2012,Elsevier,Engineering,2071
+2015,Elsevier,Biological Sciences,1582
+2016,Elsevier,Biological Sciences,1526
+2017,Elsevier,Biological Sciences,1505
+2019,Elsevier,Biological Sciences,1323
+2020,Elsevier,Biological Sciences,1327
+2012,Elsevier,Medical and Health Sciences,2455
+2018,Elsevier,Chemical Sciences,1104
+2020,Elsevier,Chemical Sciences,885
+2018,Elsevier,"Commerce, Management, Tourism and Services",204
+2020,Elsevier,"Commerce, Management, Tourism and Services",280
+2020,Elsevier,Environmental Sciences,362
+2020,Elsevier,Studies in Human Society,213
+2013,Elsevier,Medical and Health Sciences,2562
+2015,Elsevier,Medical and Health Sciences,2701
+2012,Non-Elsevier,Economics,378
+2016,Non-Elsevier,Information and Computing Sciences,1292
+2017,Non-Elsevier,Philosophy and Religious Studies,343
+2017,Non-Elsevier,Mathematical Sciences,1702
+2019,Non-Elsevier,Mathematical Sciences,1920
+2018,Non-Elsevier,Psychology and Cognitive Sciences,2240
+2016,Elsevier,Medical and Health Sciences,2870
+2016,Elsevier,Information and Computing Sciences,607
+2013,Non-Elsevier,Studies in Human Society,494
+2012,Non-Elsevier,"Commerce, Management, Tourism and Services",378
+2013,Non-Elsevier,"Commerce, Management, Tourism and Services",437
+2016,Non-Elsevier,Mathematical Sciences,1668
 2012,Non-Elsevier,Philosophy and Religious Studies,210
 2013,Non-Elsevier,Philosophy and Religious Studies,217
-2014,Non-Elsevier,Studies in Creative Arts and Writing,29
-2016,Non-Elsevier,"Language, Communication and Culture",348
-2017,Non-Elsevier,Studies in Creative Arts and Writing,48
-2019,Non-Elsevier,Studies in Creative Arts and Writing,61
-2013,Non-Elsevier,Law and Legal Studies,57
-2017,Non-Elsevier,Education,330
-2019,Elsevier,Biological Sciences,1323
-2012,Elsevier,Biological Sciences,1531
-2013,Elsevier,Biological Sciences,1378
-2013,Elsevier,Mathematical Sciences,536
-2019,Non-Elsevier,Psychology and Cognitive Sciences,2231
-2020,Non-Elsevier,Education,474
-2013,Non-Elsevier,Agricultural and Veterinary Sciences,400
+2014,Non-Elsevier,Philosophy and Religious Studies,216
+2015,Non-Elsevier,Philosophy and Religious Studies,226
+2015,Non-Elsevier,Economics,376
+2012,Non-Elsevier,Biological Sciences,4406
+2015,Non-Elsevier,Mathematical Sciences,1627
+2015,Non-Elsevier,Built Environment and Design,83
+2020,Non-Elsevier,Information and Computing Sciences,1900
+2019,Non-Elsevier,Economics,505
+2020,Non-Elsevier,Mathematical Sciences,1901
+2012,Elsevier,Psychology and Cognitive Sciences,635
+2013,Elsevier,Psychology and Cognitive Sciences,625
+2014,Elsevier,Psychology and Cognitive Sciences,712
+2014,Elsevier,Medical and Health Sciences,2598
+2017,Elsevier,Psychology and Cognitive Sciences,725
+2017,Elsevier,Medical and Health Sciences,2687
+2018,Elsevier,Psychology and Cognitive Sciences,700
+2013,Elsevier,"Commerce, Management, Tourism and Services",157
+2016,Elsevier,"Commerce, Management, Tourism and Services",231
+2020,Non-Elsevier,Technology,771
+2020,Non-Elsevier,Chemical Sciences,5600
+2017,Elsevier,"Commerce, Management, Tourism and Services",170
+2014,Non-Elsevier,Economics,341
+2013,Non-Elsevier,Economics,377
+2019,Non-Elsevier,Philosophy and Religious Studies,374
+2020,Non-Elsevier,Philosophy and Religious Studies,384
+2017,Non-Elsevier,Psychology and Cognitive Sciences,2151
+2019,Non-Elsevier,Studies in Human Society,1022
+2017,Non-Elsevier,"Language, Communication and Culture",471
+2018,Non-Elsevier,Environmental Sciences,590
+2016,Non-Elsevier,Philosophy and Religious Studies,276
+2012,Non-Elsevier,Agricultural and Veterinary Sciences,398
 2014,Non-Elsevier,Agricultural and Veterinary Sciences,422
-2017,Non-Elsevier,Agricultural and Veterinary Sciences,501
-2018,Non-Elsevier,Agricultural and Veterinary Sciences,437
-2016,Non-Elsevier,Economics,450
-2017,Non-Elsevier,Mathematical Sciences,1702
+2015,Non-Elsevier,Agricultural and Veterinary Sciences,400
+2014,Non-Elsevier,Environmental Sciences,465
+2014,Non-Elsevier,Psychology and Cognitive Sciences,1811
+2017,Non-Elsevier,History and Archaeology,219
+2015,Non-Elsevier,Environmental Sciences,482
+2015,Non-Elsevier,Studies in Human Society,580
+2013,Non-Elsevier,Technology,688
+2013,Non-Elsevier,Information and Computing Sciences,1044
+2013,Elsevier,Biological Sciences,1378
 2013,Elsevier,Chemical Sciences,1214
-2014,Elsevier,Environmental Sciences,303
-2014,Elsevier,Earth Sciences,494
+2013,Elsevier,Physical Sciences,741
+2014,Elsevier,Economics,299
+2013,Elsevier,Studies in Human Society,109
+2016,Non-Elsevier,"Language, Communication and Culture",349
+2015,Non-Elsevier,"Language, Communication and Culture",307
+2014,Non-Elsevier,History and Archaeology,123
+2013,Non-Elsevier,"Language, Communication and Culture",201
+2020,Non-Elsevier,History and Archaeology,258
 2012,Elsevier,Chemical Sciences,1179
-2012,Elsevier,Technology,97
-2019,Elsevier,Mathematical Sciences,597
-2015,Elsevier,Education,70
-2015,Elsevier,Technology,174
+2012,Elsevier,Earth Sciences,454
+2016,Elsevier,Physical Sciences,685
+2016,Elsevier,Earth Sciences,512
+2017,Elsevier,Chemical Sciences,1322
+2018,Elsevier,Earth Sciences,536
+2018,Elsevier,Physical Sciences,521
+2019,Elsevier,Chemical Sciences,988
+2020,Elsevier,Earth Sciences,420
+2019,Elsevier,"Commerce, Management, Tourism and Services",243
+2012,Elsevier,"Commerce, Management, Tourism and Services",121
+2016,Elsevier,Built Environment and Design,87
+2018,Elsevier,Built Environment and Design,108
+2020,Elsevier,Built Environment and Design,130
+2020,Elsevier,Economics,355
+2014,Elsevier,Built Environment and Design,50
+2017,Elsevier,Built Environment and Design,100
+2012,Elsevier,Information and Computing Sciences,329
+2015,Elsevier,"Commerce, Management, Tourism and Services",196
 2013,Elsevier,Earth Sciences,490
-2013,Elsevier,Environmental Sciences,256
-2016,Elsevier,Environmental Sciences,375
-2014,Elsevier,Law and Legal Studies,12
-2015,Elsevier,Law and Legal Studies,9
-2018,Elsevier,Law and Legal Studies,11
-2015,Elsevier,Mathematical Sciences,628
-2019,Elsevier,Physical Sciences,502
-2020,Elsevier,Technology,197
-2017,Non-Elsevier,"Language, Communication and Culture",470
-2016,Elsevier,Education,62
+2014,Elsevier,Earth Sciences,493
+2017,Elsevier,Earth Sciences,480
+2019,Elsevier,Earth Sciences,445
+2017,Elsevier,Technology,192
+2020,Elsevier,Information and Computing Sciences,551
+2012,Elsevier,Economics,249
+2015,Elsevier,Economics,279
+2017,Elsevier,Economics,330
+2018,Elsevier,Economics,344
+2012,Elsevier,Mathematical Sciences,615
+2012,Elsevier,Biological Sciences,1530
+2018,Elsevier,Biological Sciences,1428
+2017,Elsevier,Studies in Human Society,135
+2015,Elsevier,Psychology and Cognitive Sciences,726
+2015,Elsevier,Chemical Sciences,1341
+2016,Elsevier,Chemical Sciences,1310
+2012,Non-Elsevier,Studies in Human Society,425
+2018,Non-Elsevier,Education,352
+2017,Non-Elsevier,Earth Sciences,1098
+2012,Non-Elsevier,Education,142
+2014,Non-Elsevier,"Commerce, Management, Tourism and Services",417
+2016,Non-Elsevier,"Commerce, Management, Tourism and Services",496
+2014,Non-Elsevier,Studies in Human Society,519
+2012,Non-Elsevier,Built Environment and Design,58
+2012,Non-Elsevier,Mathematical Sciences,1498
+2014,Non-Elsevier,Technology,777
+2015,Non-Elsevier,Technology,892
+2016,Non-Elsevier,Environmental Sciences,558
+2015,Non-Elsevier,"Commerce, Management, Tourism and Services",439
+2020,Non-Elsevier,Built Environment and Design,261
+2019,Non-Elsevier,Psychology and Cognitive Sciences,2231
+2020,Non-Elsevier,Environmental Sciences,787
+2019,Non-Elsevier,Education,448
+2020,Non-Elsevier,Education,474
+2020,Non-Elsevier,Physical Sciences,3873
+2018,Non-Elsevier,History and Archaeology,227
+2019,Non-Elsevier,"Language, Communication and Culture",478
+2020,Non-Elsevier,"Language, Communication and Culture",528
+2016,Non-Elsevier,History and Archaeology,173
+2016,Non-Elsevier,Agricultural and Veterinary Sciences,458
+2020,Non-Elsevier,Law and Legal Studies,108
+2016,Non-Elsevier,Psychology and Cognitive Sciences,1916
+2018,Non-Elsevier,Agricultural and Veterinary Sciences,437
+2019,Non-Elsevier,Agricultural and Veterinary Sciences,476
+2020,Non-Elsevier,Agricultural and Veterinary Sciences,586
+2017,Non-Elsevier,Agricultural and Veterinary Sciences,501
+2019,Non-Elsevier,Technology,646
+2016,Non-Elsevier,Education,277
+2013,Non-Elsevier,Built Environment and Design,57
+2013,Non-Elsevier,Environmental Sciences,448
+2017,Non-Elsevier,Environmental Sciences,601
+2019,Non-Elsevier,Environmental Sciences,655
+2017,Non-Elsevier,Education,330
+2018,Non-Elsevier,Studies in Creative Arts and Writing,63
+2019,Non-Elsevier,Studies in Creative Arts and Writing,61
+2019,Non-Elsevier,Built Environment and Design,177
+2016,Non-Elsevier,Studies in Human Society,751
 2016,Non-Elsevier,Built Environment and Design,80
 2017,Non-Elsevier,Built Environment and Design,120
-2014,Non-Elsevier,"Commerce, Management, Tourism and Services",417
-2012,Non-Elsevier,Education,142
-2015,Non-Elsevier,Environmental Sciences,482
-2019,Non-Elsevier,History and Archaeology,225
-2013,Non-Elsevier,Studies in Human Society,494
-2015,Non-Elsevier,Philosophy and Religious Studies,226
-2020,Non-Elsevier,Environmental Sciences,791
-2020,Non-Elsevier,Philosophy and Religious Studies,386
-2020,Non-Elsevier,History and Archaeology,259
-2013,Elsevier,Studies in Human Society,109
-2017,Non-Elsevier,History and Archaeology,219
-2018,Non-Elsevier,History and Archaeology,227
-2012,Non-Elsevier,"Language, Communication and Culture",159
+2018,Non-Elsevier,Built Environment and Design,182
+2014,Non-Elsevier,Built Environment and Design,72
+2012,Non-Elsevier,Environmental Sciences,379
+2019,Non-Elsevier,"Commerce, Management, Tourism and Services",659
+2012,Non-Elsevier,Technology,704
+2013,Non-Elsevier,Agricultural and Veterinary Sciences,400
 2014,Non-Elsevier,"Language, Communication and Culture",227
-2012,Non-Elsevier,"Commerce, Management, Tourism and Services",378
-2018,Non-Elsevier,Education,352
-2016,Elsevier,Mathematical Sciences,637
-2015,Elsevier,Environmental Sciences,343
-2016,Elsevier,Earth Sciences,512
-2017,Elsevier,Environmental Sciences,347
-2018,Elsevier,Earth Sciences,536
-2018,Elsevier,Environmental Sciences,406
-2019,Elsevier,Earth Sciences,446
-2012,Elsevier,Studies in Human Society,101
-2015,Elsevier,Studies in Human Society,132
-2020,Elsevier,Studies in Human Society,213
-2017,Non-Elsevier,Law and Legal Studies,66
-2018,Elsevier,Physical Sciences,524
-2012,Elsevier,Environmental Sciences,242
+2018,Non-Elsevier,"Language, Communication and Culture",476
+2016,Elsevier,Economics,294
+2016,Elsevier,Psychology and Cognitive Sciences,740
+2013,Elsevier,Information and Computing Sciences,474
 2015,Elsevier,Agricultural and Veterinary Sciences,243
 2016,Elsevier,Agricultural and Veterinary Sciences,231
+2017,Elsevier,Agricultural and Veterinary Sciences,228
+2018,Elsevier,Information and Computing Sciences,557
+2019,Elsevier,Information and Computing Sciences,637
+2015,Elsevier,Studies in Human Society,132
+2017,Elsevier,Physical Sciences,626
+2016,Elsevier,Studies in Human Society,168
+2015,Elsevier,Environmental Sciences,343
+2016,Elsevier,Environmental Sciences,375
+2018,Elsevier,Environmental Sciences,406
+2013,Non-Elsevier,Education,176
+2014,Elsevier,Chemical Sciences,1271
+2013,Elsevier,Environmental Sciences,256
+2014,Elsevier,Environmental Sciences,301
+2017,Non-Elsevier,Physical Sciences,3686
+2016,Non-Elsevier,Technology,799
+2018,Non-Elsevier,Technology,706
+2015,Elsevier,Earth Sciences,549
+2019,Elsevier,Agricultural and Veterinary Sciences,225
 2019,Elsevier,Environmental Sciences,378
 2020,Elsevier,Agricultural and Veterinary Sciences,189
-2018,Elsevier,Agricultural and Veterinary Sciences,205
-2013,Non-Elsevier,Built Environment and Design,57
-2014,Non-Elsevier,History and Archaeology,123
-2013,Non-Elsevier,Education,176
-2017,Elsevier,Technology,192
-2018,Elsevier,Technology,186
-2015,Elsevier,Built Environment and Design,76
-2019,Elsevier,Agricultural and Veterinary Sciences,225
-2014,Non-Elsevier,Education,202
-2016,Non-Elsevier,Philosophy and Religious Studies,276
-2015,Non-Elsevier,History and Archaeology,111
-2016,Non-Elsevier,Studies in Creative Arts and Writing,54
-2015,Non-Elsevier,Education,216
-2020,Elsevier,Built Environment and Design,130
-2017,Elsevier,Mathematical Sciences,641
-2012,Elsevier,Mathematical Sciences,615
-2014,Non-Elsevier,Philosophy and Religious Studies,216
-2017,Elsevier,Agricultural and Veterinary Sciences,230
+2012,Elsevier,Studies in Human Society,101
+2012,Elsevier,Agricultural and Veterinary Sciences,211
+2019,Elsevier,Studies in Human Society,156
+2012,Elsevier,Environmental Sciences,242
 2019,Elsevier,Technology,182
-2020,Non-Elsevier,Law and Legal Studies,108
-2013,Elsevier,Built Environment and Design,45
-2012,Elsevier,"Commerce, Management, Tourism and Services",121
-2016,Elsevier,Studies in Human Society,168
-2016,Non-Elsevier,Law and Legal Studies,90
-2019,Elsevier,Philosophy and Religious Studies,22
-2015,Elsevier,Philosophy and Religious Studies,16
-2017,Elsevier,Philosophy and Religious Studies,15
-2012,Non-Elsevier,Agricultural and Veterinary Sciences,398
-2014,Elsevier,History and Archaeology,40
-2013,Elsevier,Technology,113
-2014,Elsevier,Philosophy and Religious Studies,22
-2018,Elsevier,History and Archaeology,60
-2018,Elsevier,Philosophy and Religious Studies,20
-2020,Elsevier,Philosophy and Religious Studies,13
-2017,Elsevier,History and Archaeology,43
-2020,Elsevier,History and Archaeology,58
-2013,Elsevier,History and Archaeology,44
-2017,Elsevier,Studies in Human Society,135
-2016,Non-Elsevier,History and Archaeology,173
-2012,Non-Elsevier,Built Environment and Design,58
-2015,Non-Elsevier,Built Environment and Design,83
-2014,Non-Elsevier,Built Environment and Design,72
-2019,Non-Elsevier,Built Environment and Design,178
-2016,Elsevier,Built Environment and Design,87
-2020,Non-Elsevier,Built Environment and Design,261
+2013,Non-Elsevier,Law and Legal Studies,57
+2013,Non-Elsevier,History and Archaeology,122
+2017,Non-Elsevier,Law and Legal Studies,66
+2013,Elsevier,Education,50
+2013,Elsevier,Agricultural and Veterinary Sciences,216
+2014,Elsevier,Agricultural and Veterinary Sciences,212
 2014,Elsevier,Technology,119
-2016,Elsevier,Technology,125
-2018,Non-Elsevier,Studies in Creative Arts and Writing,63
+2020,Elsevier,"Language, Communication and Culture",23
+2015,Elsevier,Education,70
+2012,Elsevier,Technology,97
+2015,Elsevier,Technology,174
+2015,Non-Elsevier,History and Archaeology,111
+2012,Non-Elsevier,History and Archaeology,87
 2019,Non-Elsevier,Law and Legal Studies,92
+2018,Elsevier,Studies in Human Society,161
+2018,Elsevier,Technology,186
+2020,Elsevier,Technology,197
+2016,Non-Elsevier,Studies in Creative Arts and Writing,54
+2014,Elsevier,Education,48
+2019,Elsevier,Education,58
+2020,Elsevier,Education,68
+2017,Elsevier,Environmental Sciences,347
+2012,Elsevier,Built Environment and Design,32
+2016,Elsevier,Education,62
+2014,Elsevier,"Commerce, Management, Tourism and Services",191
 2017,Elsevier,Education,46
 2018,Elsevier,Education,81
-2019,Elsevier,Education,58
-2014,Elsevier,Education,48
-2014,Elsevier,Studies in Human Society,125
-2019,Elsevier,Law and Legal Studies,21
-2015,Non-Elsevier,Studies in Creative Arts and Writing,27
+2016,Non-Elsevier,Law and Legal Studies,89
+2019,Elsevier,"Language, Communication and Culture",43
 2012,Elsevier,"Language, Communication and Culture",33
+2012,Elsevier,Education,26
+2020,Elsevier,Law and Legal Studies,10
+2012,Elsevier,Law and Legal Studies,9
+2013,Elsevier,Technology,113
+2016,Elsevier,Technology,125
+2018,Non-Elsevier,Law and Legal Studies,91
+2015,Non-Elsevier,Law and Legal Studies,67
+2013,Elsevier,History and Archaeology,44
+2016,Elsevier,History and Archaeology,40
+2018,Elsevier,History and Archaeology,60
+2020,Elsevier,Philosophy and Religious Studies,13
+2020,Elsevier,History and Archaeology,56
+2015,Elsevier,History and Archaeology,50
+2017,Elsevier,History and Archaeology,43
+2017,Elsevier,Philosophy and Religious Studies,15
+2020,Non-Elsevier,Studies in Creative Arts and Writing,81
+2014,Non-Elsevier,Law and Legal Studies,56
+2019,Elsevier,Built Environment and Design,92
+2012,Non-Elsevier,Law and Legal Studies,57
+2014,Elsevier,Studies in Human Society,125
+2012,Non-Elsevier,Studies in Creative Arts and Writing,29
+2015,Non-Elsevier,Studies in Creative Arts and Writing,27
+2016,Elsevier,"Language, Communication and Culture",39
+2013,Non-Elsevier,Studies in Creative Arts and Writing,24
+2017,Non-Elsevier,Studies in Creative Arts and Writing,48
+2014,Elsevier,"Language, Communication and Culture",39
+2015,Elsevier,"Language, Communication and Culture",40
+2018,Elsevier,"Language, Communication and Culture",24
+2012,Elsevier,History and Archaeology,36
 2012,Elsevier,Philosophy and Religious Studies,18
 2013,Elsevier,Philosophy and Religious Studies,16
 2013,Elsevier,"Language, Communication and Culture",18
-2018,Elsevier,"Language, Communication and Culture",24
-2012,Non-Elsevier,Law and Legal Studies,57
-2012,Elsevier,Built Environment and Design,32
-2019,Elsevier,"Language, Communication and Culture",43
-2016,Elsevier,History and Archaeology,40
-2013,Non-Elsevier,Studies in Creative Arts and Writing,24
-2013,Elsevier,Law and Legal Studies,9
-2017,Elsevier,"Language, Communication and Culture",29
-2013,Elsevier,Education,50
-2020,Elsevier,"Language, Communication and Culture",23
+2014,Elsevier,Philosophy and Religious Studies,22
+2019,Elsevier,Philosophy and Religious Studies,22
+2013,Elsevier,Built Environment and Design,45
+2015,Elsevier,Built Environment and Design,75
+2015,Elsevier,Law and Legal Studies,9
 2016,Elsevier,Law and Legal Studies,13
-2020,Elsevier,Law and Legal Studies,10
+2018,Elsevier,Law and Legal Studies,11
 2019,Elsevier,History and Archaeology,34
-2015,Elsevier,History and Archaeology,50
+2014,Elsevier,History and Archaeology,40
+2017,Elsevier,"Language, Communication and Culture",29
+2015,Elsevier,Philosophy and Religious Studies,16
+2013,Elsevier,Studies in Creative Arts and Writing,1
+2013,Elsevier,Law and Legal Studies,9
+2019,Elsevier,Law and Legal Studies,21
 2018,Elsevier,Studies in Creative Arts and Writing,4
+2019,Elsevier,Studies in Creative Arts and Writing,5
 2016,Elsevier,Philosophy and Religious Studies,10
-2012,Elsevier,Education,26
-2014,Elsevier,Studies in Creative Arts and Writing,2
+2018,Elsevier,Philosophy and Religious Studies,20
+2014,Non-Elsevier,Studies in Creative Arts and Writing,29
+2014,Elsevier,Law and Legal Studies,12
+2017,Elsevier,Law and Legal Studies,5
+2015,Elsevier,Studies in Creative Arts and Writing,4
 2016,Elsevier,Studies in Creative Arts and Writing,4
 2020,Elsevier,Studies in Creative Arts and Writing,4
-2012,Non-Elsevier,Studies in Creative Arts and Writing,29
-2012,Elsevier,Law and Legal Studies,9
-2019,Elsevier,Studies in Creative Arts and Writing,5
-2015,Elsevier,Studies in Creative Arts and Writing,4
-2017,Elsevier,Law and Legal Studies,5
+2014,Elsevier,Studies in Creative Arts and Writing,2
 2012,Elsevier,Studies in Creative Arts and Writing,2
-2013,Elsevier,Studies in Creative Arts and Writing,1

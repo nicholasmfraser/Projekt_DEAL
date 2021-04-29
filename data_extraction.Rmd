@@ -1,7 +1,3 @@
----
-title: "Working title...."
----
-
 # Load and configure libraries
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
@@ -36,6 +32,7 @@ dimensions_categories <- read_csv("data/dimensions/dimensions_fields_of_research
 # GRID identifiers for DEAL institutions
 deal_grid <- read_csv("data/deal/deal_grid_mapping.csv") %>%
   filter(!is.na(grid)) %>%
+  distinct(grid) %>%
   pull(grid)
 
 # Simple helper for parsing character fields that may be NULL 
@@ -123,6 +120,8 @@ get_dimensions_data <- function(year, grid) {
               "open_access_categories_v2")
   
   # Set maximum number of results to return per query
+  # Maximum is 1000, but sometimes leads to errors when the returned data is too
+  # large. 200 seems to work well
   n_per_query <- 200
 
   # Build the initial query string
@@ -140,6 +139,9 @@ get_dimensions_data <- function(year, grid) {
     
     # Extract relevant publication data
     publications <- data$publications
+    
+    # Add a sleep after each query (don't hit the server too hard)
+    Sys.sleep(1)
   
     # If more results are expected than returned in the initial query, iterate
     # over the full results set
@@ -149,7 +151,7 @@ get_dimensions_data <- function(year, grid) {
       iterations <- floor(n_results / n_per_query)
       
       for(i in 1:iterations) {
-        # Add a sleep before each query (don't hit the server too hard)
+        
         Sys.sleep(1)
         
         # Build iteration query string (add "skip" parameter to initial query string)
@@ -163,7 +165,7 @@ get_dimensions_data <- function(year, grid) {
       }
     }
     
-    # Parse elements to individual data frames. Use parallel processing with
+    # Parse elements to individual data frames. Can use parallel processing with
     # furrr to speed up this step
     items <- map_dfr(publications, parse_items)
     categories <- map_dfr(publications, parse_categories)
@@ -204,14 +206,12 @@ get_dimensions_data <- function(year, grid) {
 base_dir <- "data/dimensions/raw/"
 
 # Define years of analysis
-years <- 2013:2013
+years <- 2012:2020
 
 # Loop over years and GRID identifiers and extract publication information
 for (year in years) {
-  for (grid in deal_grid[30:388]) {
-    if(!file.exists(str_c("data/dimensions/raw/items/items_", grid, "_", year, ".csv"))) {
-      get_dimensions_data(year, grid)
-    }
+  for (grid in deal_grid) {
+    get_dimensions_data(year, grid)
   }
 }
 
