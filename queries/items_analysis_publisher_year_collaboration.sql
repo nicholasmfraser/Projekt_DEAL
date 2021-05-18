@@ -3,7 +3,8 @@ SELECT
 FROM (
   SELECT DISTINCT
     article_doi, article_pubyear, publisher,
-    CASE WHEN SUM(non_deal_author) = 0 AND SUM(non_de_author) = 0 THEN 'deal-collaboration'
+    CASE WHEN MAX(author_position) = 1 THEN 'single-author'
+         WHEN SUM(non_deal_author) = 0 AND SUM(non_de_author) = 0 THEN 'deal-collaboration'
          WHEN SUM(non_deal_author) >= 1 AND SUM(non_de_author) = 0 THEN 'national-collaboration'
          WHEN SUM(non_de_author) >= 1 THEN 'international-collaboration' END AS collaboration_status
   FROM (
@@ -26,3 +27,4 @@ FROM (
     article_doi, article_pubyear, publisher)
 GROUP BY
   article_pubyear, publisher, collaboration_status
+

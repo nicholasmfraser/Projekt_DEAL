@@ -50,10 +50,12 @@ factorise_cancellation_year <- function(data) {
 
 factorise_collaboration_status <- function(data) {
   dplyr::mutate(data, collaboration_status = factor(collaboration_status,
-                                                    levels = c("deal-collaboration",
+                                                    levels = c("single-author",
+                                                               "deal-collaboration",
                                                                "national-collaboration",
                                                                "international-collaboration"),
-                                                    labels = c("DEAL collaboration",
+                                                    labels = c("Single author",
+                                                               "DEAL collaboration",
                                                                "National collaboration",
                                                                "International collaboration")))
 }
