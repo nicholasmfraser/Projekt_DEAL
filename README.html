@@ -370,10 +370,10 @@ pre code {
 <h3>Overview</h3>
 <p>This repository contains the underlying code and data for the study:</p>
 <p>Fraser, N., Hobert, A., Jahn, N., Mayr, P., and Peters, I. (2021). No Deal: Investigating the Influence of Restricted Access to Elsevier Journals on German Researchers’ Publishing and Citing Behaviours. [<strong>To do:</strong> Insert link to preprint].</p>
-<p>The code and data contained in this repository is also archived via Zenodo: [<strong>To do:</strong> Insert link to Zenodo].</p>
+<p>The code and data contained in this repository is also archived via Zenodo: <a href="https://doi.org/10.5281/zenodo.4771576" class="uri">https://doi.org/10.5281/zenodo.4771576</a></p>
 <p>An overview of the most important files and directories is provided below:</p>
 <ul>
-<li><a href="data_extraction.Rmd"><code>data_extraction.Rmd</code></a> documents the main processes for extracting article metadata from Dimensions. Note that using the Dimensions API requires an API key. Data from Dimensions were uploaded to Google BigQuery and matched to records from Crossref and Unpaywall. Documentation of the processing and storage of Crossref and Unpaywall datasets is contained in <a href="https://arxiv.org/abs/2102.04789">Jahn et al.(2021)</a> and <a href="https://edoc.hu-berlin.de/handle/18452/23336">Hobert et al. (2021)</a>.</li>
+<li><a href="data_extraction.Rmd"><code>data_extraction.Rmd</code></a> documents the main processes for extracting article metadata from Dimensions. Note that using the Dimensions API requires an API key. Data from Dimensions were uploaded to Google BigQuery and matched to records from Crossref and Unpaywall. Documentation of the processing and storage of Crossref and Unpaywall datasets is contained in <a href="https://arxiv.org/abs/2102.04789">Jahn et al. (2021)</a> and <a href="https://edoc.hu-berlin.de/handle/18452/23336">Hobert et al. (2021)</a>.</li>
 <li><a href="analysis.Rmd"><code>analysis.Rmd</code></a> contains the entire manuscript written in Rmarkdown format, including all code used for analyses and visualisation. <a href="helpers.R"><code>helpers.R</code></a> contains some additional functions that are imported into <a href="analysis.Rmd"><code>analysis.Rmd</code></a>. The final copiled manuscript is contained in <a href="analysis.pdf"><code>analysis.pdf</code></a></li>
 <li><a href="figures"><code>figures/</code></a> contains all figures (in .png format) generated from <a href="analysis.Rmd"><code>analysis.Rmd</code></a>. Figures are divided into two directories:
 <ul>
@@ -383,16 +383,12 @@ pre code {
 <li><a href="queries"><code>queries/</code></a> contains all the SQL queries used for transforming and extracting data from Google BigQuery. R packages <code>DBI</code> and <code>bigrquery</code> were used to interface directly with BigQuery from <a href="analysis.Rmd"><code>analysis.Rmd</code></a>.</li>
 <li><a href="data"><code>data/</code></a> contains all input and aggregated output data used throughout the analysis. As Dimensions is a proprietary data source, raw article metadata is not included. A description of the data in each sub-directory is as follows:
 <ul>
-<li><a href="data/analysis"><code>analysis/</code></a> contains all aggregated datasets generated and used for analysis in the context of the study. Note that each dataset corresponds to (and has the same name as) a query contained in the <a href="queries"><code>queries/</code></a> directory. Datasets with the prefix <code>items_</code> refer to datasets used for analysis of publishing behaviour, and those with the prefix <code>references</code> to datasets used for analysis of citing behaviour.</li>
+<li><a href="data/analysis"><code>analysis/</code></a> contains all aggregated datasets generated and used for analysis in the context of the study. Note that each dataset corresponds to (and has the same name as) a query contained in the <a href="queries"><code>queries/</code></a> directory. Datasets with the prefix <code>items</code> refer to datasets used for analysis of publishing behaviour, and those with the prefix <code>references</code> to datasets used for analysis of citing behaviour.</li>
 <li><a href="data/deal"><code>deal/</code></a> contains a single file, <a href="data/deal/deal_grid_mapping.csv"><code>deal_grid_mapping.csv</code></a>, that documents the mapping of DEAL institution information from public webpages to their <a href="https://www.grid.ac/">GRID</a> identifiers, which were used for retrieving metadata from Dimensions.</li>
 <li><a href="data/dimensions"><code>dimensions/</code></a> contains some basic information relevant for the parsing and analysis of Dimensions data, namely a list of Dimensions Fields of Research categories (<a href="data/dimensions/dimensions_fields_of_research.csv"><code>dimensions_fields_of_research.csv</code></a>) and a dataset of annual global research output (i.e. number of articles published per year - <a href="data/dimensions/dimensions_items_per_year.csv"><code>dimensions_items_per_year.csv</code></a>).</li>
-<li><a href="data/scihub"><code>scihub/</code></a> contains logs of SciHub downloads from Germany in 2017 (in .tab format). These logs are a subset of the existing dataset of <a href="http://doi.org/10.5281/zenodo.1286284">Strecker, (2018)</a>.</li>
+<li><a href="data/scihub"><code>scihub/</code></a> contains logs of SciHub downloads from Germany in 2017 (in .tab format). These logs are a subset of the existing dataset of <a href="http://doi.org/10.5281/zenodo.1286284">Strecker (2018)</a>.</li>
 </ul></li>
 </ul>
-</div>
-<div id="license" class="section level3">
-<h3>License</h3>
-<p>Source Code: MIT (Nicholas Fraser, 2021)</p>
 </div>
 <div id="contact" class="section level3">
 <h3>Contact</h3>
