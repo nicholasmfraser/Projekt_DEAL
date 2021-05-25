@@ -239,5 +239,3 @@ aggregate_data("authors_institutions", "cicccl")
 aggregate_data("references", "cccc")
 
 ```
-
-# Upload to bigquery
