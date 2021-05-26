@@ -4,7 +4,7 @@
 
 This repository contains the underlying code and data for the study:
 
-Fraser, N., Hobert, A., Jahn, N., Mayr, P., and Peters, I. (2021). No Deal: Investigating the Influence of Restricted Access to Elsevier Journals on German Researchers’ Publishing and Citing Behaviours. [**To do:** Insert link to preprint].
+Fraser, N., Hobert, A., Jahn, N., Mayr, P., and Peters, I. (2021). No Deal: Investigating the Influence of Restricted Access to Elsevier Journals on German Researchers’ Publishing and Citing Behaviours. *arXiv:2105.12078 [cs]*. https://arxiv.org/abs/2105.12078
 
 The code and data contained in this repository is also archived via Zenodo: https://doi.org/10.5281/zenodo.4771576
 
