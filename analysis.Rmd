@@ -282,11 +282,13 @@ BBCCDD
 EEEEEE
 "
 
-plot_a + plot_b + plot_c + plot_d + plot_e +
+plot_items_overview <- plot_a + plot_b + plot_c + plot_d + plot_e +
   plot_layout(design = layout, 
               heights = c(2, 1, 1)) +
-  plot_annotation(tag_levels = "A") +
+  plot_annotation(tag_levels = "A")
+plot_items_overview
   ggsave(filename = "figures/main/items-overview.png",
+         plot = plot_items_overview,
          height = 12,
          width = 12)
   
@@ -402,10 +404,12 @@ BC
 DD
 "
 
-plot_a + plot_b + plot_c + plot_d +
+plot_items_publisher_year <- plot_a + plot_b + plot_c + plot_d +
   plot_layout(design = layout, heights = c(3, 1, 6)) +
-  plot_annotation(tag_levels = "A") +
+  plot_annotation(tag_levels = "A")
+plot_items_publisher_year
   ggsave(filename = "figures/main/items-publisher-year.png",
+         plot = plot_items_publisher_year,
          height = 12,
          width = 9)
  
@@ -459,9 +463,11 @@ plot_b <- items_publisher_year_cancellation %>%
         legend.position = "none",
         plot.margin = margin(t = 0))
 
-wrap_plots(plot_a, plot_b, ncol = 1, heights = c(3, 1)) +
-  plot_annotation(tag_levels = "A")  +
+plot_items_publisher_year_cancellation <- wrap_plots(plot_a, plot_b, ncol = 1, heights = c(3, 1)) +
+  plot_annotation(tag_levels = "A")
+plot_items_publisher_year_cancellation
   ggsave(filename = "figures/main/items-publisher-year-cancellation.png",
+         plot = plot_items_publisher_year_cancellation,
          height = 6,
          width = 9)
  
@@ -545,11 +551,13 @@ plot_b <- plot_prop(categories[1:5])
 plot_c <- plot_abs(categories[6:10])
 plot_d <- plot_prop(categories[6:10])
 
-wrap_plots(plot_a, plot_b, plot_c, plot_d, 
+plot_items_publisher_year_category <- wrap_plots(plot_a, plot_b, plot_c, plot_d, 
            ncol = 1, 
            heights = c(3, 1, 3, 1)) +
-  plot_annotation(tag_levels = "A") +
+  plot_annotation(tag_levels = "A")
+plot_items_publisher_year_category
   ggsave(filename = "figures/main/items-publisher-year-category.png",
+         plot = plot_items_publisher_year_category,
          height = 12,
          width = 12)
 
@@ -584,10 +592,11 @@ FFFFFF
 GGGG##
 HHHH##"
 
-plot_a + plot_b + plot_c + plot_d + plot_e + plot_f + plot_g + plot_h +
+plot_items_publisher_year_category_supplement <- plot_a + plot_b + plot_c + plot_d + plot_e + plot_f + plot_g + plot_h +
   plot_layout(design = layout, 
-              heights = c(3, 1, 3, 1, 3, 1, 3, 1)) +
+              heights = c(3, 1, 3, 1, 3, 1, 3, 1))
   ggsave(filename = "figures/supplement/items-publisher-year-category-supplement.png",
+         plot = plot_items_publisher_year_category_supplement,
          height = 20,
          width = 15)
 
@@ -641,9 +650,11 @@ plot_b <- items_publisher_year_collaboration %>%
         legend.position = "none",
         plot.margin = margin(t = 0))
 
-wrap_plots(plot_a, plot_b, ncol = 1, heights = c(3, 1)) +
-  plot_annotation(tag_levels = "A") +
+plot_items_publisher_year_collaboration <- wrap_plots(plot_a, plot_b, ncol = 1, heights = c(3, 1)) +
+  plot_annotation(tag_levels = "A")
+plot_items_publisher_year_collaboration
   ggsave(filename = "figures/main/items-publisher-year-collaboration.png",
+         plot = plot_items_publisher_year_collaboration,
          height = 6,
          width = 12)
 
@@ -700,9 +711,11 @@ plot_b <- items_publisher_year_oa %>%
         legend.position = "none",
         plot.margin = margin(t = 0))
 
-wrap_plots(plot_a, plot_b, ncol = 1, heights = c(3, 1)) +
-  plot_annotation(tag_levels = "A") +
+plot_items_publisher_year_oa <- wrap_plots(plot_a, plot_b, ncol = 1, heights = c(3, 1)) +
+  plot_annotation(tag_levels = "A")
+plot_items_publisher_year_oa
   ggsave(filename = "figures/main/items-publisher-year-oa.png",
+         plot = plot_items_publisher_year_oa,
          height = 6,
          width = 12)
 
@@ -733,7 +746,7 @@ mean_references_cityear <- bq_dataset("references_analysis_publisher_year_cityea
   summarise(mean_refs = mean(mean_refs)) %>%
   ungroup()
 
-bq_dataset("references_analysis_publisher_year_cityear") %>%
+plot_references_pulisher_year_cityear <- bq_dataset("references_analysis_publisher_year_cityear") %>%
   filter(citation_year <= 5) %>%
   factorise_publisher() %>%
   inner_join(bq_dataset("items_analysis_publisher_year") %>%
@@ -752,8 +765,10 @@ bq_dataset("references_analysis_publisher_year_cityear") %>%
   scale_color_manual("", values = c("#B3B3B3", "#56B4E9")) +
   scale_fill_manual("", values = c("#B3B3B3", "#56B4E9")) +
   scale_y_continuous(labels = scales::comma) +
-  labs(x = "Citing Year", y = "Mean citations per article") +
+  labs(x = "Citing Year", y = "Mean citations per article")
+plot_references_pulisher_year_cityear
   ggsave(filename = "figures/main/references-publisher-year-cityear.png",
+         plot = plot_references_pulisher_year_cityear,
          height = 4,
          width = 6)
 
@@ -866,12 +881,14 @@ CDD
 EE#
 "
 
-plot_a + plot_b + plot_c + plot_d + plot_e +
+plot_references_publisher_year <- plot_a + plot_b + plot_c + plot_d + plot_e +
   plot_layout(design = layout, 
               heights = c(2, 2, 1, 6),
               widths = c(6, 2, 1)) +
-  plot_annotation(tag_levels = "A") +
+  plot_annotation(tag_levels = "A")
+plot_references_publisher_year
   ggsave(filename = "figures/main/references-publisher-year.png",
+         plot = plot_references_publisher_year,
          height = 12,
          width = 10)
 
@@ -946,9 +963,11 @@ plot_c <- references_publisher_year_cancellation %>%
         plot.margin = margin(t = 0)) +
   facet_wrap(. ~ cancellation_year, nrow = 1)
 
-wrap_plots(plot_a, plot_b, plot_c, heights = c(2, 2, 1)) +
-  plot_annotation(tag_levels = "A") +
+plot_references_publisher_year_cancellation <- wrap_plots(plot_a, plot_b, plot_c, heights = c(2, 2, 1)) +
+  plot_annotation(tag_levels = "A")
+plot_references_publisher_year_cancellation
   ggsave(filename = "figures/main/references-publisher-year-cancellation.png",
+         plot = plot_references_publisher_year_cancellation,
          height = 6,
          width = 10)
 
@@ -1055,11 +1074,13 @@ plot_d <- plot_cov(categories[6:10])
 plot_e <- plot_abs(categories[6:10])
 plot_f <- plot_prop(categories[6:10])
 
-wrap_plots(plot_a, plot_b, plot_c, plot_d, plot_e, plot_f,
+plot_references_publisher_year_category <- wrap_plots(plot_a, plot_b, plot_c, plot_d, plot_e, plot_f,
            ncol = 1, 
            heights = c(2, 2, 1, 2, 2, 1)) +
-  plot_annotation(tag_levels = "A") +
+  plot_annotation(tag_levels = "A")
+plot_references_publisher_year_category
   ggsave(filename = "figures/main/references-publisher-year-category.png",
+         plot = plot_references_publisher_year_category,
          height = 12,
          width = 12)
 
@@ -1097,10 +1118,11 @@ JJJJ##
 KKKK##
 LLLL##"
 
-plot_a + plot_b + plot_c + plot_d + plot_e + plot_f + plot_g + plot_h + plot_i + plot_j + plot_k + plot_l +
+plot_references_publisher_year_category_supplement <- plot_a + plot_b + plot_c + plot_d + plot_e + plot_f + plot_g + plot_h + plot_i + plot_j + plot_k + plot_l +
   plot_layout(design = layout, 
-           heights = c(2, 2, 1, 2, 2, 1, 2, 2, 1, 2, 2, 1)) +
+           heights = c(2, 2, 1, 2, 2, 1, 2, 2, 1, 2, 2, 1))
   ggsave(filename = "figures/supplement/references-publisher-year-category-supplement.png",
+         plot = plot_references_publisher_year_category_supplement,
          height = 20,
          width = 15)
 
@@ -1179,9 +1201,11 @@ plot_c <- references_publisher_year_collaboration %>%
         plot.margin = margin(t = 0)) +
   facet_wrap(. ~ collaboration_status, nrow = 1)
 
-wrap_plots(plot_a, plot_b, plot_c, heights = c(2, 2, 1)) +
-  plot_annotation(tag_levels = "A") +
+plot_references_publisher_year_collaboration <- wrap_plots(plot_a, plot_b, plot_c, heights = c(2, 2, 1)) +
+  plot_annotation(tag_levels = "A")
+plot_references_publisher_year_collaboration
   ggsave(filename = "figures/main/references-publisher-year-collaboration.png",
+         plot = plot_references_publisher_year_collaboration,
          height = 6,
          width = 12)
 
@@ -1256,9 +1280,11 @@ plot_c <- references_publisher_year_oa %>%
         plot.margin = margin(t = 0)) +
   facet_wrap(. ~ oa_status, nrow = 1)
 
-wrap_plots(plot_a, plot_b, plot_c, heights = c(2, 2, 1)) +
-  plot_annotation(tag_levels = "A") +
+plot_references_publisher_year_oa <- wrap_plots(plot_a, plot_b, plot_c, heights = c(2, 2, 1)) +
+  plot_annotation(tag_levels = "A")
+plot_references_publisher_year_oa
   ggsave(filename = "figures/main/references-publisher-year-oa.png",
+         plot = plot_references_publisher_year_oa,
          height = 6,
          width = 12)
 
@@ -1303,7 +1329,7 @@ scihub_data <- list.files("data/scihub", pattern = "*.tab") %>%
            T ~ "Non-Elsevier"
          ))
 
-scihub_data %>%
+plot_scihub_germany <- scihub_data %>%
   factorise_publisher() %>%
   group_by(date, publisher) %>%
   summarize(n_downloads = n()) %>%
@@ -1317,8 +1343,10 @@ scihub_data %>%
              color = "#B3B3B3", fill = "#B3B3B3", alpha = 0.6, shape = 21, size = 3) +
   scale_x_date(date_breaks = "1 month") +
   scale_y_continuous(limits = c(0, NA)) +
-  labs(x = "Date", y = str_wrap("Proportion of daily Sci-Hub downloads for Elsevier articles (%)", 30)) +
+  labs(x = "Date", y = str_wrap("Proportion of daily Sci-Hub downloads for Elsevier articles (%)", 30))
+plot_scihub_germany
   ggsave(filename = "figures/main/scihub-germany.png",
+         plot = plot_scihub_germany,
          height = 6,
          width = 9)
   
