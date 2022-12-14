@@ -40,12 +40,25 @@ CREATE TABLE projekt_deal.deal_items_analysis AS (
             )
         WHERE
             n_refs > 1
-        )
+        ),
+    not_acs AS(
+        SELECT
+            t1.article_doi
+        FROM
+            projekt_deal.deal_items t1
+        INNER JOIN
+            projekt_deal.cr_jan21 t2
+        ON
+            t1.article_doi = t2.doi
+        WHERE NOT
+            t2.member = '316'
+    )
     SELECT
         *
     FROM 
         projekt_deal.deal_items t1
     WHERE
         t1.article_doi IN (SELECT article_doi FROM deal_first_last_authors) AND 
-        t1.article_doi IN (SELECT article_doi FROM deal_multi_references)
+        t1.article_doi IN (SELECT article_doi FROM deal_multi_references) AND
+        t1.article_doi IN (SELECT article_doi FROM not_acs)
     )
