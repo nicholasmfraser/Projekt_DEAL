@@ -487,7 +487,7 @@ A complicating factor in our dataset is that we have included articles covering 
 
 Our analysis covers a longer time period than that of [Haucap et al. (2021)](https://www.cesifo.org/en/publikationen/2021/working-paper/impact-german-deal-competition-academic-publishing-market), and we assess effects covering the entire time period in which negotiations with Elsevier began in 2016, the time at which access was restricted in July 2018, and two subsequent publication years thereafter until the end of 2020. We therefore feel justified in including a broader range of disciplines in our approach with longer publishing timelines than Chemistry. Nonetheless, we have also analysed changes at the level of individual disciplines (i.e. Dimensions Fields of Research). A visualisation of yearly developments of publication volumes, Elsevier\'s market shares and YOY market share changes for all 22 disciplines can be found in the (updated) supplementary material archived on [Zenodo](https://doi.org/10.5281/zenodo.4771576). Since the discipline-specific analysis did not show any clear patterns, we do not include the corresponding figures here.
 
-```{r items-publisher-year-category, fig.cap = "Changes in publishing behaviour of DEAL researchers, 2012-2020, dependent on research discipline (top-10 by publishing volume are shown). (A and C) Total number of articles published by DEAL researchers in Elsevier and non-Elsevier journals for individual disciplines. (B and D) Year-on-year (YOY) change in Elsevier's market share of articles published by DEAL researchers.", fig.height = 12, fig.width = 12, fig.align = 'center'}
+```{r items-publisher-year-category, fig.cap = "Changes in publishing behaviour of DEAL researchers, 2012-2020, dependent on research discipline. (A and C) Total number of articles published by DEAL researchers in Elsevier and non-Elsevier journals for individual disciplines. (B and D) Year-on-year (YOY) change in Elsevier's market share of articles published by DEAL researchers.", fig.align = 'center'}
 
 items_publisher_year_category <- bq_dataset("items_analysis_publisher_year_category") %>%
   group_by(article_pubyear, category_name) %>%
@@ -598,7 +598,8 @@ HHHH##"
 
 plot_items_publisher_year_category_supplement <- plot_a + plot_b + plot_c + plot_d + plot_e + plot_f + plot_g + plot_h +
   plot_layout(design = layout, 
-              heights = c(3, 1, 3, 1, 3, 1, 3, 1))
+              heights = c(3, 1, 3, 1, 3, 1, 3, 1)) +
+  plot_annotation(tag_levels = "A", caption = stringr::str_wrap("Changes in publishing behaviour of DEAL researchers, 2012-2020, dependent on research discipline. (A, C, E and G) Total number of articles published by DEAL researchers in Elsevier and non-Elsevier journals for individual disciplines. (B, D, F and H) Year-on-year (YOY) change in Elsevier's market share of articles published by DEAL researchers.", 165), theme = theme(plot.caption = element_text(hjust = 0, size = 14)))
   ggsave(filename = "figures/supplement/items-publisher-year-category-supplement.png",
          plot = plot_items_publisher_year_category_supplement,
          height = 20,
@@ -728,6 +729,145 @@ plot_items_publisher_year_oa
 OA publishing patterns of DEAL institutions shown in Figure \@ref(fig:items-publisher-year-oa) broadly agree with the previous findings of [Hobert et al. (2021)](https://doi.org/10.1007/s11192-021-04002-0) which focused on a larger number of German universities and non-university research institutions. We find that the total proportion of OA articles (including all OA categories analysed) published by DEAL researchers grew  from `r 100 - items_publisher_year_oa %>% filter(article_pubyear == 2012) %>% group_by(oa_status) %>% summarise(n_items = sum(n_items)) %>% ungroup() %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(oa_status == "closed") %>% pull(prop_items) %>% round(1)`% in 2012 to `r 100 - items_publisher_year_oa %>% filter(article_pubyear == 2020) %>% group_by(oa_status) %>% summarise(n_items = sum(n_items)) %>% ungroup() %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(oa_status == "closed") %>% pull(prop_items) %>% round(1)`% in 2020, compared to a growth in OA articles of 27\% in 2010 to 52\% in 2018 reported by [Hobert et al. (2021)](https://doi.org/10.1007/s11192-021-04002-0). The strong growth of OA at DEAL institutions is driven largely by the growth of Gold OA from 2012 (`r items_publisher_year_oa %>% filter(article_pubyear == 2012 & oa_status == "gold") %>% tally(n_items) %>% pull(n)` articles) to 2020 (`r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "gold") %>% tally(n_items) %>% pull(n)` articles), and of Hybrid OA in particular from 2018 (`r items_publisher_year_oa %>% filter(article_pubyear == 2018 & oa_status == "hybrid") %>% tally(n_items) %>% pull(n)` articles) to 2020 (`r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "hybrid") %>% tally(n_items) %>% pull(n)` articles). The strong increase in Gold OA can be attributed mainly to the growth of MDPI and Frontiers as well as a larger number of smaller OA publishers in recent years, whereas the increase in Hybrid OA is driven almost exclusively by  climbing numbers of publications with Springer Nature and Wiley^[Figures displaying number of articles published per year and OA category and by publisher (top-10 publishers by total publication volume in the respective OA category shown) can be found in the supplementary material on [Zenodo](https://doi.org/10.5281/zenodo.4771576).] where agreements were obtained (see also [Haucap et al., 2021](https://www.cesifo.org/en/publikationen/2021/working-paper/impact-german-deal-competition-academic-publishing-market)). 
 
 With respect to publishing patterns in Elsevier journals, the growth of OA has been relatively moderate compared to the overall picture in Germany: from 2012 to 2020 the total proportion of DEAL articles published in Elsevier journals that were made OA increased only from `r 100 - items_publisher_year_oa %>% filter(article_pubyear == 2012, publisher == "Elsevier") %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(oa_status == "closed") %>% pull(prop_items) %>% round(1)`% to `r 100 - items_publisher_year_oa %>% filter(article_pubyear == 2020, publisher == "Elsevier") %>% mutate(prop_items = n_items * 100 / sum(n_items)) %>% filter(oa_status == "closed") %>% pull(prop_items) %>% round(1)`%. Regarding individual OA categories, we observe the largest changes occurring from around 2014 onwards in Elsevier journals: the number of Gold articles increased from `r items_publisher_year_oa %>% filter(article_pubyear == 2014 & oa_status == "gold" & publisher == "Elsevier") %>% pull(n_items)` articles in 2014 to `r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "gold" & publisher == "Elsevier") %>% pull(n_items)` articles in 2020, and the number of Hybrid  articles increased from `r items_publisher_year_oa %>% filter(article_pubyear == 2014 & oa_status == "hybrid" & publisher == "Elsevier") %>% pull(n_items)` articles in 2014 to `r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "hybrid" & publisher == "Elsevier") %>% pull(n_items)` articles in 2020. In terms of market share, the most prominent feature is that of YOY losses for Elsevier in the Hybrid OA market share of >5% in consecutive years in 2019 and 2020, however, this appears to be driven more by the surge of Hybrid OA publishing in other venues rather than a reduction in the volume of Hybrid OA published by Elsevier (which is also reflected in the large gain of market share (+`r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "closed" & publisher == "Elsevier") %>% pull(prop_items_yoy) %>% round(1)`%) for Elsevier of closed articles in 2020). Another interesting feature is the growth of Green OA in Elsevier journals in 2020 (+`r items_publisher_year_oa %>% filter(article_pubyear == 2020 & oa_status == "green" & publisher == "Elsevier") %>% pull(prop_items_yoy) %>% round(1)`% market share), suggesting an increasing proportion of researchers publishing in Elsevier journals are depositing their work to OA repositories in comparison to across all publishers as a whole. Bronze OA will not be discussed separately here, since the decision for Bronze OA is made on the side of the publisher, not the author, and hence it is not influenced by changes in author's publishing choices.
+
+
+```{r check-gold-hybrid-increase, fig.show='hide'}
+
+# Define the palette for the following plot
+palette <- c("#56B4E9",
+colorspace::qualitative_hcl(n = 11, palette = "Dark3"),
+"#B3B3B3")
+
+# Data are imported into our local workspace from BigQuery using the helper
+# function 'bq_dataset()' - see 'helpers.R' for an explanation
+
+items_gold_publisher_year <- bq_dataset("items_gold_publisher_year")
+
+# Get the top-n publishers by publication volume between 2012 and 2020
+# items_gold_publisher_year %>%
+#   group_by(member, publisher) %>% 
+#   summarise(n_total=sum(n_items)) %>%
+#   arrange(desc(n_total))
+
+plot_a <- items_gold_publisher_year %>%
+  ungroup() %>%  
+  filter(!is.na(member)) %>%
+  mutate(member = recode_factor(member,
+                                `297` = "Springer",
+                                `1968` = "MDPI",
+                                `78` = "Elsevier",
+                                `1965` = "Frontiers",
+                                `340` = "PLoS", 
+                                `3145` = "Copernicus", 
+                                `266` = "IOP", 
+                                `311` = "Wiley", 
+                                `98` = "Hindawi", 
+                                `250` = "EDP",
+                                .default = "Other")) %>%
+  group_by(member, article_pubyear) %>% 
+  summarise(n_items= sum(n_items)) %>% 
+  ungroup() %>%
+  ggplot() + 
+    geom_col(aes(x=article_pubyear, y=n_items, fill=member),
+             color = "white",
+             size = 0.25,
+             position = position_stack(reverse = TRUE)) + 
+    geom_text_repel(data = . %>%
+                      filter(article_pubyear == 2020) %>%
+                      mutate(n_items = cumsum(n_items),
+                             pos = n_items - ((n_items - lag(n_items, default = 0)) / 2)),
+                    aes(x = 2020.5, y = pos, label = member, color = member),
+                    xlim = c(-Inf, Inf),
+                    ylim = c(-Inf, Inf),
+                    hjust = "left",
+                    direction = "y",
+                    nudge_x = 1,
+                    min.segment.length = 0,
+                    size = 4,
+                    arrow = arrow(length = unit(0.01, "npc"), type = "closed")) +
+    scale_x_continuous(breaks = 2012:2020, expand = expansion(add = c(0, 6))) +
+    scale_y_continuous(labels = scales::comma) +
+    scale_fill_manual(values = palette) +
+    scale_color_manual(values = palette) +
+    coord_cartesian(clip = "off") +
+    labs(x = "Publication year", y = "Articles published") +
+    theme(legend.position = "none")
+
+# Check Hybrid
+
+items_hybrid_publisher_year <- bq_dataset("items_hybrid_publisher_year")
+
+# Get the top-n publishers by publication volume between 2012 and 2020
+# items_hybrid_publisher_year %>% 
+#   group_by(member, publisher) %>%
+#   summarise(n_total=sum(n_items)) %>%
+#   arrange(desc(n_total))
+
+plot_b <- items_hybrid_publisher_year %>%
+  ungroup() %>%  
+  filter(!is.na(member)) %>% 
+  mutate(member = recode_factor(member, 
+                                `311` = "Wiley", 
+                                `297` = "Springer",
+                                `78` = "Elsevier",
+                                `292` = "Royal Society of Chemistry (RCS)",
+                                `16` = "American Physical Society (APS)",
+                                `286` = "Oxford University Press (OUP)",
+                                `301` = "Informa",
+                                `266` = "IOP",
+                                `13` = "American Geophysical Union (AGU)",
+                                `179` = "SAGE",
+                                .default = "Other")) %>% 
+  group_by(member, article_pubyear) %>%
+  summarise(n_items= sum(n_items)) %>% 
+  ungroup() %>%
+  ggplot() + 
+    geom_col(aes(x=article_pubyear, y=n_items, fill=member),
+             color = "white", 
+             size = 0.25, 
+             position = position_stack(reverse = TRUE)) +
+    geom_text_repel(data = . %>%
+                      filter(article_pubyear == 2020) %>%
+                      mutate(n_items = cumsum(n_items),
+                             pos = n_items - ((n_items - lag(n_items, default = 0)) / 2)),
+                    aes(x = 2020.5, y = pos, label = member, color = member),
+                    xlim = c(-Inf, Inf),
+                    ylim = c(-Inf, Inf),
+                    hjust = "left",
+                    direction = "y",
+                    nudge_x = 1,
+                    min.segment.length = 0,
+                    size = 4,
+                    arrow = arrow(length = unit(0.01, "npc"), type = "closed")) +
+    scale_x_continuous(breaks = 2012:2020, expand = expansion(add = c(0, 6))) +
+    scale_y_continuous(labels = scales::comma, expand = expansion(add = c(-10, 3000))) +
+    scale_fill_manual(values = palette) +
+    scale_color_manual(values = palette) +
+    coord_cartesian(clip = "off") +
+    labs(x = "Publication year", y = "Articles published") +
+    theme(legend.position = "none")
+
+
+
+# Plots are arranged with the 'patchwork' library
+# See https://github.com/thomasp85/patchwork
+# Here we leave a "blank" panel in the upper row to allow overflow of labels
+layout <- "
+AAA###
+BBB###
+"
+
+plot_check_gold_hybrid_increase <- plot_a + plot_b +
+  plot_layout(design = layout, 
+              heights = c(1, 1)) +
+  plot_annotation(tag_levels = "A", caption = "Changes in Gold and Hybrid OA publishing behaviour of DEAL researchers, 2012-2020.\n (A) Number of Gold OA articles published by DEAL researchers per year and by publisher (top-10 publishers by total Gold OA publication volume shown).\n (B) Number of Hybrid OA articles published by DEAL researchers per year and by publisher (top-10 publishers by total Hybrid OA publication volume shown).", theme = theme(plot.caption = element_text(hjust = 0)))
+
+  ggsave(filename = "figures/supplement/check-gold-hybrid-increase.png",
+         plot = plot_check_gold_hybrid_increase,
+         height = 12,
+         width = 12)
+  
+```
 
 ### Citing behaviour of DEAL researchers
 
@@ -1124,7 +1264,9 @@ LLLL##"
 
 plot_references_publisher_year_category_supplement <- plot_a + plot_b + plot_c + plot_d + plot_e + plot_f + plot_g + plot_h + plot_i + plot_j + plot_k + plot_l +
   plot_layout(design = layout, 
-           heights = c(2, 2, 1, 2, 2, 1, 2, 2, 1, 2, 2, 1))
+           heights = c(2, 2, 1, 2, 2, 1, 2, 2, 1, 2, 2, 1)) + 
+  plot_annotation(tag_levels = "A", caption = stringr::str_wrap("Citing behaviour of DEAL researchers, 2012-2020, dependent on research discipline. All data is based on citations from articles published by DEAL researchers to articles with a citation age of 2 years or less. (A, D, G and J) Proportion of articles published by DEAL researchers that cite at least one single Elsevier article. (B, E, H and K) Total number of citations from articles published DEAL researchers to articles published in Elsevier versus non-Elsevier journals. (C, F, I and L) Year-on-year (YOY) change in Elsevier's market share of citations from articles published by DEAL researchers.", 165), theme = theme(plot.caption = element_text(hjust = 0, size = 14)))
+
   ggsave(filename = "figures/supplement/references-publisher-year-category-supplement.png",
          plot = plot_references_publisher_year_category_supplement,
          height = 20,
