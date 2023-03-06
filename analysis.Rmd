@@ -35,13 +35,17 @@ The authors declare no competing interests. During the initial preparation and s
 
 #### Acknowledgments {-}
 
+We are grateful to Dimensions (https://www.dimensions.ai/) for providing API access through their scientometric research access program. We thank B. Mittermaier and the second anonymous reviewer for their thorough and helpful reviews.
+
+#### Funding information {-}
+
 This work was supported by the German Federal Ministry of Education and Research within the
-funding stream "Quantitative research on the science sector", projects OASE (grant numbers 01PU17005A and 01PU17005B) and OAUNI (grant numbers 01PU17023A and 01PU17023B). We acknowledge support by the Open Access Publication Funds of Göttingen University. We are grateful to Dimensions (https://www.dimensions.ai/) for providing API access through their scientometric research access program. We thank B. Mittermaier and the second anonymous reviewer for their thorough and helpful reviews.
+funding stream "Quantitative research on the science sector", projects OASE (grant numbers 01PU17005A and 01PU17005B) and OAUNI (grant numbers 01PU17023A and 01PU17023B). We acknowledge support by the Open Access Publication Funds of Göttingen University.
 
 #### Data and code availability {-}
 
 <!-- Only the aggregated datasets and code will be shared (i.e. raw datasets not shared) due to licensing agreements with Dimensions -->
-Aggregated datasets presented in this manuscript, as well as all code used for the data extraction, analysis, and manuscript preparation are available on GitHub (https://github.com/nicholasmfraser/Projekt_DEAL) and archived on Zenodo (https://doi.org/10.5281/zenodo.4771575).
+Aggregated datasets presented in this manuscript, as well as all code used for the data extraction, analysis, and manuscript preparation are available on GitHub (https://github.com/nicholasmfraser/Projekt_DEAL) and archived on Zenodo ([Fraser et al., 2021](https://doi.org/10.5281/zenodo.7439093)).
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 
